@@ -11,7 +11,7 @@ Vue.use(ElementUI);
 
 //引入公共样式*/
 import './assets/css/reset.less'
-import './assets/css/global.css'
+import './assets/css/global.less'
 import 'element-ui/lib/theme-chalk/index.css';
 
 

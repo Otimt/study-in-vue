@@ -17,9 +17,10 @@ export default new Router({
             path: '/',
             redirect: '/main-menu/'
         },{
-            path: '/study/:chapter/:section',
+            path: '/study/:activeChapter/:activeSection',
             name: '学习页',
-            component: Study
+            component: Study,
+            props: true,
         },
     ]
 })

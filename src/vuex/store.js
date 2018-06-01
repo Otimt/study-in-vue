@@ -112,10 +112,18 @@ const store = new Vuex.Store({
             }
         ],
 
-        text:{},
-        video:{},
-        audio:{},
-        work:{},
+        text:{
+            
+        },
+        video:{
+
+        },
+        audio:{
+
+        },
+        work:{
+
+        },
     },
     mutations: {
         setActiveChapter (state,num) {
