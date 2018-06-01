@@ -31,15 +31,13 @@
             <el-menu :default-active="activeSection.toString()" class="h60-besides">
                 <el-scrollbar class="h">
                     <router-link :to="'/study/'+activeChapter+'/'+index" v-for="(section,  index) in sectionList">
-                    <el-menu-item class="hideoverflow"  :index="index.toString()">
-
-                        <el-row :title="section.title">
-                            <el-col :span="3" class="ac"><i class="el-icon-menu"></i></el-col>
-                            <el-col :span="16" class="al ellipsis">{{section.title}}</el-col>
-                            <el-col :span="5" class="ac">{{section.progress}}</el-col>
-                        </el-row>
-
-                    </el-menu-item>
+                        <el-menu-item class="hideoverflow"  :index="index.toString()">
+                            <el-row :title="section.title">
+                                <el-col :span="3" class="ac"><i class="el-icon-menu"></i></el-col>
+                                <el-col :span="16" class="al ellipsis">{{section.title}}</el-col>
+                                <el-col :span="5" class="ac">{{section.progress}}</el-col>
+                            </el-row>
+                        </el-menu-item>
                     </router-link>
                 </el-scrollbar>
             </el-menu>
@@ -49,15 +47,27 @@
                 <div class="left">{{sectionList[activeSection].title}}</div>
                 <div class="right">进度：{{sectionList[activeSection].progress}}</div>
             </el-header>
-            <div class="h60-besides">
-                <el-scrollbar class="h">
-                    <div class="pl20 pr20 pt20 pb20">
-                        <ul>
+            <el-scrollbar class="b-b-gray" style="flex:1">
+                <div class="pl20 pr20 pt20 pb20">
+                    <ul>
 
-                        </ul>
-                    </div>
-                </el-scrollbar>
-            </div>
+                    </ul>
+                </div>
+            </el-scrollbar>
+            <el-footer class="lh60">
+                <el-row>
+                    <el-col :span="12" class="al">
+                        <router-link :to="'/study/'+activeChapter+'/'+(Number(activeSection)-1)">
+                            <el-button type="primary" v-if="activeSection>0">上一节</el-button>
+                        </router-link>&nbsp;
+                    </el-col>
+                    <el-col :span="12" class="ar">
+                        &nbsp;<router-link :to="'/study/'+activeChapter+'/'+(Number(activeSection)+1)">
+                        <el-button type="primary" v-if="activeSection<sectionList.length-1">下一节</el-button>
+                        </router-link>
+                    </el-col>
+                </el-row>
+            </el-footer>
         </el-container>
     </el-container>
 </template>
