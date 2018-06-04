@@ -37,7 +37,7 @@
         </el-aside>
         <el-container>
             <el-header class="lh60 b-b-gray">
-                <div class="left">{{chapterList[activeChapter].title}}</div>
+                <div class="left f14">{{chapterList[activeChapter].title}}</div>
                 <div class="right">进度：{{chapterList[activeChapter].progress}}</div>
             </el-header>
             <div class="h60-besides">

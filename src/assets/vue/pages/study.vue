@@ -71,7 +71,7 @@
         </el-aside>
         <el-container>
             <el-header class="lh60 b-b-gray">
-                <div class="left">{{sectionList[activeSection].title}}</div>
+                <div class="left f14">{{sectionList[activeSection].title}}</div>
                 <div class="right">进度：{{sectionList[activeSection].progress}}</div>
             </el-header>
             <el-scrollbar class="b-b-gray" style="flex:1">
