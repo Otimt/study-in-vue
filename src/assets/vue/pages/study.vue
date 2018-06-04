@@ -1,21 +1,48 @@
 <script>
+    import ComponentText from "./../components/study/intro.vue";
+    import ComponentVideo from "./../components/study/video.vue";
+    import ComponentAudio from "./../components/study/audio.vue";
+    import ComponentWork from "./../components/study/homework.vue";
     export default {
         data: function () {
             return this.$store.state.chapterList[this.activeChapter]
         },
         created(){
             this.$store.commit("setActiveChapter",this.activeChapter);
-//            this.activeSection = 1;
-            console.log(this.activeSection)
-//            console.log(this.$section)
+            this.type = this.sectionList[this.activeSection].type;
             console.log(this.$store.state)
             console.log(this.$store.state.activeChapter)
         },
+//        beforeMount(){
+//            console.log("beforeMount"+this.activeSection)
+//            this.type = this.sectionList[this.activeSection].type;
+//            console.log(this.type)
+//        },
+//        mounted(){
+//            console.log("mounted计算type中"+this.activeSection)
+//            this.type = this.sectionList[this.activeSection].type;
+//            console.log(this.type)
+//        },
+//        beforeUpdate(){
+//            console.log("beforeUpdate计算type中"+this.activeSection)
+//            this.type = this.sectionList[this.activeSection].type;
+//            console.log(this.type);
+//        },
+//        updated(){
+//            console.log("updated计算type中"+this.activeSection)
+//            this.type = this.sectionList[this.activeSection].type;
+//            console.log(this.type);
+//        },
         props: ['activeSection','activeChapter'],
         methods: {
 
         },
-        components: {}
+        components: {
+            'component-text': ComponentText,
+            'component-video': ComponentVideo,
+            'component-audio': ComponentAudio,
+            'component-work': ComponentWork,
+        }
     }
 </script>
 <style>
@@ -50,7 +77,10 @@
             <el-scrollbar class="b-b-gray" style="flex:1">
                 <div class="pl20 pr20 pt20 pb20">
                     <ul>
-
+                        <component-text v-if="sectionList[this.activeSection].type==='text'" ></component-text>
+                        <component-video v-else-if="sectionList[this.activeSection].type==='video'" ></component-video>
+                        <component-audio v-else-if="sectionList[this.activeSection].type==='audio'" ></component-audio>
+                        <component-work v-else-if="sectionList[this.activeSection].type==='work'" ></component-work>
                     </ul>
                 </div>
             </el-scrollbar>
