@@ -13,7 +13,7 @@
 
                 //动态加载数据
                 title:"欢迎来到课工场",
-                audioUrl:"/iframe/mp3/adiao.mp3",//视频地址
+                audioUrl:"../iframe/mp3/adiao.mp3",//视频地址
                 time2pdf:[
                     0,30,60,90,120,150,180,210,240,270,300
                 ],
@@ -108,7 +108,7 @@
     <div class="w h">
         <div>{{title}}</div>
         <div class="course-pdf">
-            <iframe @load="setPdfFrameDoc" id="pdfFrame" src="/iframe/pdf/web/viewer.html" class="w h" frameborder="0"></iframe>
+            <iframe @load="setPdfFrameDoc" id="pdfFrame" src="../iframe/pdf/web/viewer.html" class="w h" frameborder="0"></iframe>
             <div class="speed-box white ar pr5"><span @click="speedDown" class="cur-p">«</span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p">»</span></div>
         </div>
         <audio id="course-audio" :src="audioUrl" class="w700" controls></audio>
