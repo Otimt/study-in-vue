@@ -64933,7 +64933,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.course-video{\n    position:relative;\n    width:640px;\n    height:480px;\n    background:#000;\n}\n.speed-box{\n    position: absolute;\n    top:0;\n    right:0;\n    width:90px;\n    height:20px;\n}\n", ""]);
+exports.push([module.i, "\n.w700{width:700px;\n}\n.course-pdf{\n    position:relative;\n    width:700px;\n    height:360px;\n    background:#000;\n}\n.speed-box{\n    position: absolute;\n    top:0;\n    right:0;\n    width:90px;\n    height:20px;\n}\n", ""]);
 
 // exports
 
@@ -64953,25 +64953,84 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data() {
         return {
-            title: "这是一个PPT",
-            videoUrl: "http://download.kgc.cn/kgc/homepage/gengkekao.mp4", //视频地址
+            //固定参数
             playbackSpeedIndex: 2, //倍速
-            speedList: [0.5, 0.75, 1, 1.5, 2]
+            speedList: [0.5, 0.75, 1, 1.5, 2],
+            pdfInterval: null,
+            pdfFrameDoc: null,
+            pdfCurrent: 1,
+            pdfTotal: 0,
+            mp3: null,
+
+            //动态加载数据
+            title: "欢迎来到课工场",
+            audioUrl: "../iframe/mp3/adiao.mp3", //视频地址
+            time2pdf: [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300]
+
         };
     },
-    created() {},
+    mounted() {
+        localStorage.setItem("pdfjs.history", ""); //清除 pdf 播放记录，自动回到第一页
+        this.mp3 = document.getElementById("course-audio");
+        this.pdfInterval = setInterval(function () {
+            if (this.pdfTotal == 0) {
+                this.pdfTotal = this.getPdfTotal();
+                console.log("正在加载pdf总数");
+            } else {
+                var time2pdf = this.time2pdf;
+                for (var i = 0, il = time2pdf.length; i < il; i++) {
+                    if (this.mp3.currentTime >= time2pdf[i] && i + 1 < time2pdf.length && this.mp3.currentTime < time2pdf[i + 1]) {
+                        let page = i + 1;
+                        console.log("去第" + page + "页");
+                        if (this.pdfCurrent !== page) {
+                            console.log("真去第" + page + "页");
+                            this.pdfGoto(page);
+                        }
+                        break;
+                    }
+                }
+            }
+        }.bind(this), 1000);
+    },
+    beforeDestroy() {
+        clearInterval(this.pdfInterval);
+    },
     methods: {
+        setPdfFrameDoc() {
+            this.pdfFrameDoc = document.getElementById("pdfFrame").contentWindow.document;
+        },
+        getPdfTotal() {
+            let numPagesDom = this.pdfFrameDoc && this.pdfFrameDoc.getElementById("numPages");
+            if (!numPagesDom) {
+                return 0;
+            } else {
+                let total = this.pdfFrameDoc.getElementById("numPages").innerHTML;
+                console.log("total" + total);
+                return Number(total.match(/\d+/)[0]);
+            }
+        },
+        pdfGoto(num) {
+            let input = this.pdfFrameDoc.getElementById("pageNumber");
+            this.pdfCurrent = input.value = num;
+            input.trigger("change");
+        },
+        pdfPrev() {
+            this.pdfFrameDoc.getElementById('previous').trigger("click");
+        },
+        pdfNext() {
+            this.pdfFrameDoc.getElementById('next').trigger("click");
+        },
         speedUp() {
             if (this.playbackSpeedIndex < this.speedList.length - 1) {
                 this.playbackSpeedIndex++;
-                var myVid = document.getElementById("course-video");
+                var myVid = document.getElementById("course-audio");
                 myVid.playbackRate = this.speedList[this.playbackSpeedIndex];
             }
         },
         speedDown() {
             if (this.playbackSpeedIndex > 0) {
                 this.playbackSpeedIndex--;
-                var myVid = document.getElementById("course-video");
+                var myVid = document.getElementById("course-audio");
                 myVid.playbackRate = this.speedList[this.playbackSpeedIndex];
             }
         }
@@ -64991,20 +65050,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "w h"
   }, [_c('div', [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c('div', {
-    staticClass: "course-video"
-  }, [_c('video', {
+    staticClass: "course-pdf"
+  }, [_c('iframe', {
     staticClass: "w h",
     attrs: {
-      "id": "course-video",
-      "src": _vm.videoUrl,
-      "controls": ""
+      "id": "pdfFrame",
+      "src": "../iframe/pdf/web/viewer.html",
+      "frameborder": "0"
+    },
+    on: {
+      "load": _vm.setPdfFrameDoc
     }
   }), _vm._v(" "), _c('div', {
-    attrs: {
-      "id": "ppt"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "speed-box white ar pr5 hide"
+    staticClass: "speed-box white ar pr5"
   }, [_c('span', {
     staticClass: "cur-p",
     on: {
@@ -65015,7 +65073,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.speedUp
     }
-  }, [_vm._v("»")])])])])
+  }, [_vm._v("»")])])]), _vm._v(" "), _c('audio', {
+    staticClass: "w700",
+    attrs: {
+      "id": "course-audio",
+      "src": _vm.audioUrl,
+      "controls": ""
+    }
+  })])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -65119,7 +65184,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -65139,6 +65204,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data() {
         return {
+            fileList: [
+                //                    {
+                //                        name: 'food.jpeg',
+                //                        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+                //                    }, {
+                //                        name: 'food2.jpeg',
+                //                        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+                //                    }
+            ],
             directions: "<p class='t2em'>富文本</p><p class='t2em'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>",
             status: "not_uploaded", //not_uploaded | uploaded | passed | failed
             score: ""
@@ -65163,6 +65237,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 default:
                     return "未上传作业。";
             }
+        },
+        //element组件抄过来 http://element-cn.eleme.io/#/zh-CN/component/upload
+        handleRemove(file, fileList) {
+            console.log(file, fileList);
+        },
+        handlePreview(file) {
+            console.log(file);
+        },
+        handleExceed(files, fileList) {
+            this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+        },
+        beforeRemove(file, fileList) {
+            return this.$confirm(`确定移除 ${file.name}？`);
         }
     }
 });
@@ -65185,15 +65272,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mt20"
   }, [_vm._v("状态：" + _vm._s(_vm.statusText()))]), _vm._v(" "), _c('div', {
     staticClass: "mt20 ac"
-  }, [(_vm.status === 'not_uploaded') ? _c('el-button', {
+  }, [_c('el-upload', {
+    staticClass: "upload-demo",
     attrs: {
+      "action": "https://jsonplaceholder.typicode.com/posts/",
+      "on-preview": _vm.handlePreview,
+      "on-remove": _vm.handleRemove,
+      "before-remove": _vm.beforeRemove,
+      "limit": 1,
+      "on-exceed": _vm.handleExceed,
+      "file-list": _vm.fileList
+    }
+  }, [_c('el-button', {
+    attrs: {
+      "size": "small",
       "type": "primary"
     }
-  }, [_vm._v("上传作业")]) : (_vm.status === 'not_pass' || _vm.status === 'uploaded') ? _c('el-button', {
+  }, [(_vm.status === 'not_uploaded') ? [_vm._v("上传作业")] : (_vm.status === 'not_pass' || _vm.status === 'uploaded') ? [_vm._v("再次上传")] : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "el-upload__tip",
     attrs: {
-      "type": "primary"
-    }
-  }, [_vm._v("再次上传")]) : _vm._e()], 1)])
+      "slot": "tip"
+    },
+    slot: "tip"
+  }, [_vm._v("上传文件不能超过500kb")])], 1)], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
