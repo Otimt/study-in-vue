@@ -22,15 +22,6 @@
 
 /******/
 (function (modules) { // webpackBootstrap
-    HTMLElement.prototype.trigger = function (type, data) {
-        var event = document.createEvent('HTMLEvents');
-        event.initEvent(type, true, true);
-        event.data = data || {};
-        event.eventName = type;
-        event.target = this;
-        this.dispatchEvent(event);
-        return this;
-    };
     /******/ 	// The module cache
     /******/
     var installedModules = {};

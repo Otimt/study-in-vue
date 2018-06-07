@@ -7,7 +7,6 @@
                 speedList:[0.5,0.75,1,1.5,2],
                 pdfInterval:null,
                 pdfFrameDoc:null,
-                pdfCurrent:1,
                 pdfTotal:0,
                 mp3:null,
 
@@ -28,12 +27,13 @@
                     this.pdfTotal = this.getPdfTotal();
                     console.log("正在加载pdf总数");
                 }else{
-                    var time2pdf = this.time2pdf;
+                    var time2pdf = this.time2pdf,
+                        pdfCurrent = this.getPdfPage();
                     for(var i=0,il=time2pdf.length;i<il;i++){
                         if(this.mp3.currentTime >= time2pdf[i] &&  (i+1)<time2pdf.length && this.mp3.currentTime < time2pdf[i+1]){
                             let page = i+1;
                             console.log("去第"+page+"页");
-                            if(this.pdfCurrent !== page){
+                            if(pdfCurrent !== page){
                                 console.log("真去第"+page+"页");
                                 this.pdfGoto(page);
                             }
@@ -48,28 +48,33 @@
         },
         methods: {
             setPdfFrameDoc(){
-                this.pdfFrameDoc = document.getElementById("pdfFrame").contentWindow.document;
+                this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
+                this.pdfFrameDoc = this.pdfFrameWin.document;
             },
             getPdfTotal(){
-                let numPagesDom = this.pdfFrameDoc && this.pdfFrameDoc.getElementById("numPages");
+                console.log("this.pdfFrameWin"+this.pdfFrameWin)
+                console.log("this.pdfFrameWin.PDFViewerApplication"+this.pdfFrameWin.PDFViewerApplication)
+                let numPagesDom = this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication;
                 if(!numPagesDom){
                     return 0;
                 }else{
-                    let total = this.pdfFrameDoc.getElementById("numPages").innerHTML;
-                    console.log("total"+total);
-                    return Number(total.match(/\d+/)[0])
+                    return this.pdfFrameWin.PDFViewerApplication.pagesCount;
                 }
             },
+            getPdfPage(){
+                return this.pdfFrameWin.PDFViewerApplication.page;
+            },
             pdfGoto(num){
-                let input = this.pdfFrameDoc.getElementById("pageNumber");
-                this.pdfCurrent = input.value=num;
-                input.trigger("change");
+                this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch('pagenumberchanged', {
+                    source: self,
+                    value: num
+                });
             },
             pdfPrev(){
-                this.pdfFrameDoc.getElementById('previous').trigger("click");
+                this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("previouspage")
             },
             pdfNext(){
-                this.pdfFrameDoc.getElementById('next').trigger("click");
+                this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("nextpage")
             },
             speedUp(){
                 if(this.playbackSpeedIndex<(this.speedList.length-1)){
