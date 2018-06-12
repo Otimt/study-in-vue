@@ -175,8 +175,8 @@
                     width="25"
                 >
                 </el-switch>
-                <span v-if="autoSync">pdf正在同步</span>
-                <span v-else="!autoSync">pdf已停止同步</span>
+                <span v-if="autoSync">pdf自动同步</span>
+                <span v-else="!autoSync">pdf手动同步</span>
             </span>
             <span v-if="pdfTotal>0 && !autoSync">
                 <span @click="pdfPrev" class="cur-p el-icon-d-arrow-left"></span>
