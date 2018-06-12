@@ -2,15 +2,20 @@
     export default {
         data(){
             return {
-                //固定参数
-                playbackSpeedIndex:2,//倍速
+                //固定参数===================================================
+                //倍速
+                playbackSpeedIndex:2,
                 speedList:[0.5,0.75,1,1.5,2],
-                pdfInterval:null,
-                pdfFrameDoc:null,
-                pdfTotal:0,
-                mp3:null,
 
-                //动态加载数据
+                pdfFrameDoc:null,
+                mp3Dom:null,
+                pdfPage:1,//pdf当前页
+                pdfTotal:0,//pdf总页数，不为0，表示pdf已初始化完毕
+
+                pdfInterval:null,
+                autoSync:true,//自动同步
+
+                //动态加载数据===============================================
                 title:"欢迎来到课工场",
                 audioUrl:"../iframe/mp3/adiao.mp3",//视频地址
                 time2pdf:[
@@ -21,32 +26,58 @@
         },
         mounted () {
             localStorage.setItem("pdfjs.history","");//清除 pdf 播放记录，自动回到第一页
-            this.mp3 = document.getElementById("course-audio");
-            this.pdfInterval = setInterval(function(){
-                if(this.pdfTotal == 0){
-                    this.pdfTotal = this.getPdfTotal();
-                    console.log("正在加载pdf总数");
-                }else{
-                    var time2pdf = this.time2pdf,
-                        pdfCurrent = this.getPdfPage();
-                    for(var i=0,il=time2pdf.length;i<il;i++){
-                        if(this.mp3.currentTime >= time2pdf[i] &&  (i+1)<time2pdf.length && this.mp3.currentTime < time2pdf[i+1]){
-                            let page = i+1;
-                            console.log("去第"+page+"页");
-                            if(pdfCurrent !== page){
-                                console.log("真去第"+page+"页");
-                                this.pdfGoto(page);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }.bind(this),1000)
+            this.mp3Dom = document.getElementById("course-audio");
+            this.startSync();
         },
         beforeDestroy(){
-            clearInterval(this.pdfInterval);
+            this.stopSync();
         },
         methods: {
+            switchSync(){
+                if(this.autoSync){
+                    this.startSync();
+                }else{
+                    this.stopSync();
+                }
+            },
+            //开始同步
+            startSync(){
+//                this.autoSync = true;
+                this.pdfInterval = setInterval(function(){
+                    if(this.pdfTotal == 0){
+                        this.pdfTotal = this.getPdfTotal();
+                        console.log("正在加载pdf总数");
+                        if(this.pdfTotal != 0){
+                            console.log("pdf总数首次加载出来"+this.pdfTotal);
+                            this.initPdfCtrl();
+                        }
+                    }else{
+                        var time2pdf = this.time2pdf,
+                            pdfCurrent = this.getPdfPage();
+                        for(var i=0,il=time2pdf.length;i<il;i++){
+                            if((i+1)==time2pdf.length || (this.mp3Dom.currentTime >= time2pdf[i]  && this.mp3Dom.currentTime < time2pdf[i+1])){
+                                let page = i+1;
+                                console.log("去第"+page+"页");
+                                if(pdfCurrent !== page){
+                                    console.log("真去第"+page+"页");
+                                    this.pdfGoto(page);
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }.bind(this),1000)
+            },
+            //停止同步
+            stopSync(){
+//                this.autoSync = false;
+                clearInterval(this.pdfInterval);
+            },
+            //初始化pdf控制面板
+            initPdfCtrl(){
+
+            },
+            //pdf.js API
             setPdfFrameDoc(){
                 this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
                 this.pdfFrameDoc = this.pdfFrameWin.document;
@@ -65,31 +96,40 @@
                 return this.pdfFrameWin.PDFViewerApplication.page;
             },
             pdfGoto(num){
+                this.pdfPage = num;
                 this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch('pagenumberchanged', {
                     source: self,
                     value: num
                 });
             },
             pdfPrev(){
-                this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("previouspage")
+                if(this.pdfPage > 1) {
+                    this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("previouspage")
+                    this.pdfPage--;
+                }
             },
             pdfNext(){
-                this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("nextpage")
+                if(this.pdfPage < this.pdfTotal){
+                    this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("nextpage")
+                    this.pdfPage++;
+                }
             },
+            //音频控制
             speedUp(){
                 if(this.playbackSpeedIndex<(this.speedList.length-1)){
                     this.playbackSpeedIndex++;
-                    var myVid=document.getElementById("course-audio");
-                    myVid.playbackRate=this.speedList[this.playbackSpeedIndex];
+                    this.mp3Dom.playbackRate=this.speedList[this.playbackSpeedIndex];
                 }
             },
             speedDown(){
                 if(this.playbackSpeedIndex>0){
                     this.playbackSpeedIndex--;
-                    var myVid=document.getElementById("course-audio");
-                    myVid.playbackRate=this.speedList[this.playbackSpeedIndex];
+                    this.mp3Dom.playbackRate=this.speedList[this.playbackSpeedIndex];
                 }
             },
+            jumpCurPage(){
+                this.mp3Dom.currentTime = this.time2pdf[this.pdfPage-1]
+            }
         }
     }
 </script>
@@ -101,12 +141,20 @@
         height:360px;
         background:#000;
     }
-    .speed-box{
-        position: absolute;
-        top:0;
-        right:0;
-        width:90px;
+    .ctrl-box{
+        width:700px;
         height:20px;
+         line-height:20px;
+        background:#474747;
+    }
+    .ctrl-box .el-switch,.ctrl-box .el-switch__core{
+        height:14px;
+    }
+    .ctrl-box .el-switch__core:after{
+        width:10px;height:10px;
+    }
+    .ctrl-box .el-switch.is-checked .el-switch__core::after{
+        margin-left:-11px;
     }
 </style>
 <template>
@@ -114,7 +162,30 @@
         <div>{{title}}</div>
         <div class="course-pdf">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" src="../iframe/pdf/web/viewer.html" class="w h" frameborder="0"></iframe>
-            <div class="speed-box white ar pr5"><span @click="speedDown" class="cur-p">«</span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p">»</span></div>
+        </div>
+        <div class="ctrl-box white al">
+            <span v-if="!pdfTotal">pdf加载中...</span>
+            <span v-if="pdfTotal>0" class="ml5">
+                <span>{{pdfPage}}/{{pdfTotal}}</span>
+                <el-switch
+                    @change="switchSync"
+                    v-model="autoSync"
+                    active-color="#13ce66"
+                    inactive-color="#ff4949"
+                    width="25"
+                >
+                </el-switch>
+                <span v-if="autoSync">pdf正在同步</span>
+                <span v-else="!autoSync">pdf已停止同步</span>
+            </span>
+            <span v-if="pdfTotal>0 && !autoSync">
+                <span @click="pdfPrev" class="cur-p el-icon-d-arrow-left"></span>
+                <span @click="jumpCurPage" class="cur-p el-icon-caret-right"></span>
+                <span @click="pdfNext" class="cur-p el-icon-d-arrow-right"></span>
+            </span>
+            <span class="right mr5">
+                <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
+            </span>
         </div>
         <audio id="course-audio" :src="audioUrl" class="w700" controls></audio>
     </div>
