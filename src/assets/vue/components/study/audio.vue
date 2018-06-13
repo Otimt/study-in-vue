@@ -179,9 +179,9 @@
                 <span v-else="!autoSync">pdf手动同步</span>
             </span>
             <span v-if="pdfTotal>0 && !autoSync">
-                <span @click="pdfPrev" class="cur-p el-icon-d-arrow-left"></span>
+                <span @click="pdfPrev" :class="'cur-p el-icon-d-arrow-left '+ (pdfPage<=1?'gray':'')"></span>
                 <span @click="jumpCurPage" class="cur-p el-icon-caret-right"></span>
-                <span @click="pdfNext" class="cur-p el-icon-d-arrow-right"></span>
+                <span @click="pdfNext" :class="'cur-p el-icon-d-arrow-right '+(pdfPage==pdfTotal?'gray':'')"></span>
             </span>
             <span class="right mr5">
                 <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
