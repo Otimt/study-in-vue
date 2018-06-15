@@ -7765,6 +7765,12 @@
                 });
                 anchor.onclick = function () {
                     linkService.page = id;
+                    PDFViewerApplication.pdfSidebar.toggle();
+                    var topDoc = window.top.document,
+                        event = topDoc.createEvent('HTMLEvents');
+                    // initEvent接受3个参数：// 事件类型，是否冒泡，是否阻止浏览器的默认行为
+                    event.initEvent("pageChanged", true, true);
+                    topDoc.dispatchEvent(event);
                     return false;
                 };
                 this.anchor = anchor;

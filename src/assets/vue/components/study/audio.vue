@@ -7,6 +7,7 @@
                 playbackSpeedIndex:2,
                 speedList:[0.5,0.75,1,1.5,2],
 
+                pdfFrameWin:null,
                 pdfFrameDoc:null,
                 mp3Dom:null,
                 pdfPage:1,//pdf当前页
@@ -31,6 +32,7 @@
         },
         beforeDestroy(){
             this.stopSync();
+            document.removeEventListener("pageChanged");
         },
         methods: {
             switchSync(){
@@ -49,7 +51,6 @@
                         console.log("正在加载pdf总数");
                         if(this.pdfTotal != 0){
                             console.log("pdf总数首次加载出来"+this.pdfTotal);
-                            this.initPdfCtrl();
                         }
                     }else{
                         var time2pdf = this.time2pdf,
@@ -73,14 +74,13 @@
 //                this.autoSync = false;
                 clearInterval(this.pdfInterval);
             },
-            //初始化pdf控制面板
-            initPdfCtrl(){
-
-            },
             //pdf.js API
             setPdfFrameDoc(){
                 this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
                 this.pdfFrameDoc = this.pdfFrameWin.document;
+                document.addEventListener("pageChanged",()=>{
+                    this.pdfPage = this.getPdfPage();
+                })
             },
             getPdfTotal(){
                 console.log("this.pdfFrameWin"+this.pdfFrameWin)
@@ -114,6 +114,10 @@
                     this.pdfPage++;
                 }
             },
+            pdfSidebarToggle(){
+                this.pdfFrameWin.PDFViewerApplication.pdfSidebar.toggle();
+            },
+
             //音频控制
             speedUp(){
                 if(this.playbackSpeedIndex<(this.speedList.length-1)){
@@ -172,7 +176,7 @@
                     v-model="autoSync"
                     active-color="#13ce66"
                     inactive-color="#ff4949"
-                    width="25"
+                    :width="25"
                 >
                 </el-switch>
                 <span v-if="autoSync">pdf自动同步</span>
@@ -182,6 +186,7 @@
                 <span @click="pdfPrev" :class="'cur-p el-icon-d-arrow-left '+ (pdfPage<=1?'gray':'')"></span>
                 <span @click="jumpCurPage" class="cur-p el-icon-caret-right"></span>
                 <span @click="pdfNext" :class="'cur-p el-icon-d-arrow-right '+(pdfPage==pdfTotal?'gray':'')"></span>
+                <span @click="pdfSidebarToggle" class="cur-p">大纲 </span>
             </span>
             <span class="right mr5">
                 <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
