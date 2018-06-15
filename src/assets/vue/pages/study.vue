@@ -8,7 +8,7 @@
             return this.$store.state.chapterList[this.activeChapter]
         },
         created(){
-            this.$store.commit("setActiveChapter",this.activeChapter);
+            this.$store.commit("SET_ACTIVE_CHAPTER",this.activeChapter);
             this.type = this.sectionList[this.activeSection].type;
             console.log(this.$store.state)
             console.log(this.$store.state.activeChapter)

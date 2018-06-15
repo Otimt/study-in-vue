@@ -8,7 +8,7 @@
         methods: {
             handleSelect(key, keyPath) {
                 console.log(key, keyPath);
-                this.$store.commit("setActiveChapter",key);
+                this.$store.commit("SET_ACTIVE_CHAPTER",key);
             }
         }
     }
@@ -17,7 +17,8 @@
 
 </style>
 <template>
-    <el-container class="pos-abs l0 r0 t0 b0 bg-white">
+    <el-container v-loading="!chapterList" class="pos-abs l0 r0 t0 b0 bg-white">
+        <template v-if="chapterList">
         <el-aside>
             <div class="pl20 pr30 pt10 bs-b black b-b-gray b-r-gray h60">
                 <div class="al f16">{{courseTitle}}</div>
@@ -54,6 +55,7 @@
                 </el-scrollbar>
             </div>
         </el-container>
+        </template>
     </el-container>
 </template>
 
