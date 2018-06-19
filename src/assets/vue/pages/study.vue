@@ -3,45 +3,46 @@
     import ComponentVideo from "./../components/study/video.vue";
     import ComponentAudio from "./../components/study/audio.vue";
     import ComponentWork from "./../components/study/homework.vue";
+    import ComponentPdf from "./../components/study/pdf.vue";
+
     export default {
         data: function () {
-            return this.$store.state.chapterList[this.activeChapter]
+            return {
+                title:"",
+                progress:"",
+                sectionList:null,
+                activeChapter:this.$route.params.activeChapter,
+                activeSection:this.$route.params.activeSection,
+                type:'',
+            }
         },
         created(){
-            this.$store.commit("SET_ACTIVE_CHAPTER",this.activeChapter);
-            this.type = this.sectionList[this.activeSection].type;
-            console.log(this.$store.state)
-            console.log(this.$store.state.activeChapter)
+            this.resetData();
         },
-//        beforeMount(){
-//            console.log("beforeMount"+this.activeSection)
-//            this.type = this.sectionList[this.activeSection].type;
-//            console.log(this.type)
-//        },
-//        mounted(){
-//            console.log("mounted计算type中"+this.activeSection)
-//            this.type = this.sectionList[this.activeSection].type;
-//            console.log(this.type)
-//        },
-//        beforeUpdate(){
-//            console.log("beforeUpdate计算type中"+this.activeSection)
-//            this.type = this.sectionList[this.activeSection].type;
-//            console.log(this.type);
-//        },
-//        updated(){
-//            console.log("updated计算type中"+this.activeSection)
-//            this.type = this.sectionList[this.activeSection].type;
-//            console.log(this.type);
-//        },
-        props: ['activeSection','activeChapter'],
+        watch:{
+            '$store.state.chapterList':'resetData',
+            '$route':'resetData',
+        },
         methods: {
-
+            resetData(){
+                if(this.$store.state.chapterList){
+                    this.activeChapter = this.$route.params.activeChapter;
+                    this.activeSection = this.$route.params.activeSection;
+                    var activeChapterObj = this.$store.state.chapterList[this.activeChapter];
+                    this.title = activeChapterObj.title;
+                    this.progress = activeChapterObj.progress;
+                    this.sectionList = activeChapterObj.sectionList;
+                    this.$store.commit("SET_ACTIVE_CHAPTER",this.activeChapter);
+                    this.type = this.sectionList[this.activeSection].type;
+                }
+            }
         },
         components: {
             'component-text': ComponentText,
             'component-video': ComponentVideo,
             'component-audio': ComponentAudio,
             'component-work': ComponentWork,
+            'component-pdf': ComponentPdf,
         }
     }
 </script>
@@ -49,7 +50,7 @@
 
 </style>
 <template>
-    <el-container class="pos-abs l0 r0 t0 b0 bg-white">
+    <el-container v-loading="!$store.state.chapterList" class="pos-abs l0 r0 t0 b0 bg-white">
         <el-aside>
             <div class="lh60 pl20 pr30 bs-b black b-b-gray b-r-gray h60">
                 <router-link class="f18" to="/"><</router-link>
@@ -71,16 +72,17 @@
         </el-aside>
         <el-container>
             <el-header class="lh60 b-b-gray">
-                <div class="left f14">{{sectionList[activeSection].title}}</div>
-                <div class="right">进度：{{sectionList[activeSection].progress}}</div>
+                <div class="left f14">{{sectionList && sectionList[activeSection].title}}</div>
+                <div class="right">进度：{{sectionList && sectionList[activeSection].progress}}</div>
             </el-header>
             <el-scrollbar class="b-b-gray" style="flex:1">
                 <div class="pl20 pr20 pt20 pb20">
                     <ul>
-                        <component-text v-if="sectionList[this.activeSection].type==='text'" ></component-text>
-                        <component-video v-else-if="sectionList[this.activeSection].type==='video'" ></component-video>
-                        <component-audio v-else-if="sectionList[this.activeSection].type==='audio'" ></component-audio>
-                        <component-work v-else-if="sectionList[this.activeSection].type==='work'" ></component-work>
+                        <component-text v-if="type==='text'" ></component-text>
+                        <component-video v-else-if="type==='video'" ></component-video>
+                        <component-audio v-else-if="type==='audio'" ></component-audio>
+                        <component-work v-else-if="type==='work'" ></component-work>
+                        <component-pdf v-else-if="type==='pdf'" ></component-pdf>
                     </ul>
                 </div>
             </el-scrollbar>
@@ -93,7 +95,7 @@
                     </el-col>
                     <el-col :span="12" class="ar">
                         &nbsp;<router-link :to="'/study/'+activeChapter+'/'+(Number(activeSection)+1)">
-                        <el-button type="primary" v-if="activeSection<sectionList.length-1">下一节</el-button>
+                        <el-button type="primary" v-if="sectionList && activeSection<sectionList.length-1">下一节</el-button>
                         </router-link>
                     </el-col>
                 </el-row>
