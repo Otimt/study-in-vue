@@ -32,7 +32,7 @@
         },
         beforeDestroy(){
             this.stopSync();
-            document.removeEventListener("pageChanged");
+            document.removeEventListener("pageChanged",this.pageChangedHandle);
         },
         methods: {
             switchSync(){
@@ -78,9 +78,11 @@
             setPdfFrameDoc(){
                 this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
                 this.pdfFrameDoc = this.pdfFrameWin.document;
-                document.addEventListener("pageChanged",()=>{
-                    this.pdfPage = this.getPdfPage();
-                })
+                document.addEventListener("pageChanged",this.pageChangedHandle)
+            },
+            //pdf目录点击了，通知本组件切换pdf页数
+            pageChangedHandle(){
+                this.pdfPage = this.getPdfPage();
             },
             getPdfTotal(){
                 console.log("this.pdfFrameWin"+this.pdfFrameWin)
