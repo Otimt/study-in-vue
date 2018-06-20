@@ -1,5 +1,6 @@
 <script>
     export default {
+        props: ['activeSectionObj'],
         data(){
             return {
                 fileList: [
@@ -11,7 +12,6 @@
 //                        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
 //                    }
                 ],
-                directions:"<p class='t2em'>富文本</p><p class='t2em'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet. Proin gravida dolor sit amet lacus accumsan et viverra justo commodo. Proin sodales pulvinar tempor. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam fermentum, nulla luctus pharetra vulputate, felis tellus mollis orci, sed rhoncus sapien nunc eget.</p>",
                 status:"not_uploaded",//not_uploaded | uploaded | passed | failed
                 score:"",
             };
@@ -56,15 +56,20 @@
     }
 </script>
 <style>
-
+    .course-pdf{
+        position:relative;
+        width:700px;
+        height:360px;
+        background:#000;
+    }
 </style>
 <template>
     <div>
         <div>作业说明</div>
-        <div v-html="directions"></div>
-
-        <div class="mt20">状态：{{ statusText() }}</div>
-        <div class="mt20 ac">
+        <div class="course-pdf">
+            <iframe  id="pdfFrame" :src="'../iframe/pdf/web/viewer-pdf.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
+        </div>
+        <div class="mt20 al">
             <!--multiple-->
             <el-upload
                     class="upload-demo"

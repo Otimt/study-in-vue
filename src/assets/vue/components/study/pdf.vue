@@ -17,21 +17,6 @@
         height:360px;
         background:#000;
     }
-    .ctrl-box{
-        width:700px;
-        height:20px;
-         line-height:20px;
-        background:#474747;
-    }
-    .ctrl-box .el-switch,.ctrl-box .el-switch__core{
-        height:14px;
-    }
-    .ctrl-box .el-switch__core:after{
-        width:10px;height:10px;
-    }
-    .ctrl-box .el-switch.is-checked .el-switch__core::after{
-        margin-left:-11px;
-    }
 </style>
 <template>
     <div class="w h">

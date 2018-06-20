@@ -9,8 +9,11 @@
 					"title":"课程概述",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c01/s01/1-1.mp3",
-					"pdf":"../data/c01/s01/1-1.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/1-1.mp3",
+					"pdf":"../../../data/1-1.pdf"
 				}
 			]
 		},{
@@ -25,28 +28,35 @@
 					"title":"1.内容简介",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c02/s02/2-2.mp3",
-					"pdf":"../data/c02/s02/2-2.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/2-2.mp3",
+					"pdf":"../../../data/2-2.pdf"
 				},{
 					"title":"2.预习资料",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c02/s04/2-3.pdf"
+					"pdf":"../../../data/2-3.pdf"
 				},{
 					"title":"3.数据分析过程概述",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c02/s04/2-4.mp3",
-					"pdf":"../data/c02/s04/2-4.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/2-4.mp3",
+					"pdf":"../../../data/2-4.pdf"
 				},{
 					"title":"4.小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c02/s04/2-5.pdf"
+					"pdf":"../../../data/2-5.pdf"
 				},{
 					"title":"5.作业：动手操作 ",
 					"progress":"100%",
-					"type":"work"
+					"type":"work",
+					"pdf":"../../../data/2-6.pdf"
 				}
 			]
 		},{
@@ -62,19 +72,25 @@
 					"title":"1.内容简介",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c03/s02/3-2.mp3",
-					"pdf":"../data/c03/s02/3-2.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/3-2.mp3",
+					"pdf":"../../../data/3-2.pdf"
 				},{
 					"title":"2.预习资料",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c03/s02/3-3.pdf"
+					"pdf":"../../../data/3-3.pdf"
 				},{
 					"title":"3.Python概述",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c03/s04/3-4.mp3",
-					"pdf":"../data/c03/s04/3-4.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/3-4.mp3",
+					"pdf":"../../../data/3-4.pdf"
 				},{
 					"title":"4.Python环境搭建",
 					"progress":"100%",
@@ -84,11 +100,12 @@
 					"title":"5.小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c03/s06/3-6.pdf"
+					"pdf":"../../../data/3-6.pdf"
 				},{
 					"title":"6.作业：动手操作",
 					"progress":"100%",
-					"type":"work"
+					"type":"work",
+					"pdf":"../../../data/3-7.pdf"
 				}
 			]
 		},{
@@ -107,13 +124,16 @@
 					"title":"1.内容简介",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c04/s03/4-3.mp3",
-					"pdf":"../data/c04/s03/4-3.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/4-3.mp3",
+					"pdf":"../../../data/4-3.pdf"
 				},{
 					"title":"2.预习资料",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c04/s04/4-4.pdf"
+					"pdf":"../../../data/4-4.pdf"
 				},{
 					"title":"3.数据集介绍",
 					"progress":"100%",
@@ -133,11 +153,12 @@
 					"title":"6.小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c04/s08/4-8.pdf"
+					"pdf":"../../../data/4-8.pdf"
 				},{
 					"title":"7.作业：动手操作",
 					"progress":"100%",
-					"type":"work"
+					"type":"work",
+					"pdf":"../../../data/4-9.pdf"
 				}
 			]
 		},{
@@ -156,13 +177,16 @@
 					"title":"1.内容简介",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c05/s03/5-3.mp3",
-					"pdf":"../data/c05/s03/5-3.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/5-3.mp3",
+					"pdf":"../../../data/5-3.pdf"
 				},{
 					"title":"2.预习资料",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c05/s04/5-4.pdf"
+					"pdf":"../../../data/5-4.pdf"
 				},{
 					"title":"3.数据评估",
 					"progress":"100%",
@@ -177,11 +201,12 @@
 					"title":"5.小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c05/s07/5-7.pdf"
+					"pdf":"../../../data/5-7.pdf"
 				},{
 					"title":"6.作业：动手操作 ",
 					"progress":"100%",
-					"type":"work"
+					"type":"work",
+					"pdf":"../../../data/5-8.pdf"
 				}
 			]
 		},{
@@ -197,13 +222,16 @@
 					"title":"1.内容简介",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c06/s02/6-2.mp3",
-					"pdf":"../data/c06/s02/6-2.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/6-2.mp3",
+					"pdf":"../../../data/6-2.pdf"
 				},{
 					"title":"2.预习资料",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c06/s03/6-3.pdf"
+					"pdf":"../../../data/6-3.pdf"
 				},{
 					"title":"3.问题一",
 					"progress":"100%",
@@ -228,11 +256,12 @@
 					"title":"7.小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c06/s08/6-8.pdf"
+					"pdf":"../../../data/6-8.pdf"
 				},{
 					"title":"8.作业：动手操作 ",
 					"progress":"100%",
-					"type":"work"
+					"type":"work",
+					"pdf":"../../../data/6-9.pdf"
 				}
 			]
 		},{
@@ -247,13 +276,16 @@
 					"title":"1.内容简介",
 					"progress":"100%",
 					"type":"audio",
-					"mp3":"../data/c07/s02/7-2.mp3",
-					"pdf":"../data/c07/s02/7-2.pdf"
+					"time2pdf":[
+						0,30,60,90,120,150,180,210,240,270,300
+					],
+					"mp3":"../data/7-2.mp3",
+					"pdf":"../../../data/7-2.pdf"
 				},{
 					"title":"2.预习资料",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c07/s03/7-3.pdf"
+					"pdf":"../../../data/7-3.pdf"
 				},{
 					"title":"3.数据可视化",
 					"progress":"100%",
@@ -268,11 +300,12 @@
 					"title":"5.小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../data/c07/s06/7-6.pdf"
+					"pdf":"../../../data/7-6.pdf"
 				},{
 					"title":"6.作业：动手操作",
 					"progress":"100%",
-					"type":"work"
+					"type":"work",
+					"pdf":"../../../data/7-7.pdf"
 				}
 			]
 		}
