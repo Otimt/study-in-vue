@@ -242,7 +242,9 @@
 					"title":"4.问题二",
 					"progress":"100%",
 					"type":"video",
+					"lrc":"../data/2-4.lrc",
 					"mp4":"../data/6-5.mp4"
+
 				},{
 					"title":"5.问题三",
 					"progress":"100%",

@@ -167,6 +167,7 @@
             <span v-if="!pdfTotal">pdf加载中...</span>
             <span v-if="pdfTotal>0" class="ml5">
                 <span class="mr5">{{pdfPage}}/{{pdfTotal}}</span>
+                <template v-if="activeSectionObj.lrc">
                 <el-switch
                         v-model="lrcVisible"
                         active-color="#13ce66"
@@ -174,6 +175,7 @@
                         :width="25"
                 ></el-switch>
                 <span class="mr5">字幕</span>
+                </template>
                 <el-switch
                         v-model="autoSync"
                         active-color="#13ce66"
