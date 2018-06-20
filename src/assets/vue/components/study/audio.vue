@@ -76,6 +76,8 @@
             setPdfFrameDoc(){
                 this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
                 this.pdfFrameDoc = this.pdfFrameWin.document;
+                this.pdfTotal = this.getPdfTotal();
+                this.pdfPage = this.getPdfPage();
                 document.addEventListener("pageChanged",this.pageChangedHandle)
             },
             //pdf目录点击了，通知本组件切换pdf页数
@@ -83,8 +85,6 @@
                 this.pdfPage = this.getPdfPage();
             },
             getPdfTotal(){
-                console.log("this.pdfFrameWin"+this.pdfFrameWin)
-                console.log("this.pdfFrameWin.PDFViewerApplication"+this.pdfFrameWin.PDFViewerApplication)
                 let numPagesDom = this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication;
                 if(!numPagesDom){
                     return 0;
