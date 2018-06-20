@@ -1,6 +1,10 @@
 <script>
+    import ComponentLrc from  "./../part/lrc.vue"
     export default {
         props: ['activeSectionObj'],
+        components: {
+            'lrc': ComponentLrc
+        },
         data(){
             return {
                 //固定参数===================================================
@@ -16,9 +20,9 @@
 
                 pdfInterval:null,
                 autoSync:true,//自动同步
+                lrcVisible:true,
 
-                //动态加载数据===============================================
-
+                time:0,
 
             };
         },
@@ -33,15 +37,10 @@
         },
         methods: {
             switchSync(){
-                if(this.autoSync){
-                    this.startSync();
-                }else{
-                    this.stopSync();
-                }
+                this.autoSync = !this.autoSync;
             },
             //开始同步
             startSync(){
-//                this.autoSync = true;
                 this.pdfInterval = setInterval(function(){
                     if(this.pdfTotal == 0){
                         this.pdfTotal = this.getPdfTotal();
@@ -49,7 +48,7 @@
                         if(this.pdfTotal != 0){
                             console.log("pdf总数首次加载出来"+this.pdfTotal);
                         }
-                    }else{
+                    }else if(this.autoSync){
                         var time2pdf = this.activeSectionObj.time2pdf,
                             pdfCurrent = this.getPdfPage();
                         for(var i=0,il=time2pdf.length;i<il;i++){
@@ -64,11 +63,13 @@
                             }
                         }
                     }
-                }.bind(this),1000)
+                    if(this.mp3Dom){
+                        this.time = this.mp3Dom.currentTime;
+                    }
+                }.bind(this),500)
             },
             //停止同步
             stopSync(){
-//                this.autoSync = false;
                 clearInterval(this.pdfInterval);
             },
             //pdf.js API
@@ -132,7 +133,7 @@
             },
             jumpCurPage(){
                 this.mp3Dom.currentTime = this.activeSectionObj.time2pdf[this.pdfPage-1]
-            }
+            },
         }
     }
 </script>
@@ -146,8 +147,8 @@
     }
     .ctrl-box{
         width:700px;
-        height:20px;
-         line-height:20px;
+        height:28px;
+         line-height:28px;
         background:#474747;
     }
     .ctrl-box .el-switch,.ctrl-box .el-switch__core{
@@ -162,21 +163,23 @@
 </style>
 <template>
     <div class="w h">
-        <div class="course-pdf">
-            <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
-        </div>
         <div class="ctrl-box white al">
             <span v-if="!pdfTotal">pdf加载中...</span>
             <span v-if="pdfTotal>0" class="ml5">
-                <span>{{pdfPage}}/{{pdfTotal}}</span>
+                <span class="mr5">{{pdfPage}}/{{pdfTotal}}</span>
                 <el-switch
-                    @change="switchSync"
-                    v-model="autoSync"
-                    active-color="#13ce66"
-                    inactive-color="#ff4949"
-                    :width="25"
-                >
-                </el-switch>
+                        v-model="lrcVisible"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949"
+                        :width="25"
+                ></el-switch>
+                <span class="mr5">字幕</span>
+                <el-switch
+                        v-model="autoSync"
+                        active-color="#13ce66"
+                        inactive-color="#ff4949"
+                        :width="25"
+                ></el-switch>
                 <span v-if="autoSync">pdf自动同步</span>
                 <span v-else="!autoSync">pdf手动同步</span>
             </span>
@@ -189,6 +192,10 @@
             <span class="right mr5">
                 <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
             </span>
+        </div>
+        <div class="course-pdf">
+            <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
+            <lrc v-if="mp3Dom && activeSectionObj.lrc" v-show="lrcVisible" :time="time" :lrc="activeSectionObj.lrc" style="bottom:0;"></lrc>
         </div>
         <audio id="course-audio" :src="activeSectionObj.mp3" class="w700" controls></audio>
     </div>
