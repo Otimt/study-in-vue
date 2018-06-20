@@ -139,10 +139,9 @@
 </script>
 <style>
     .w700{width:700px;}
+    .h360{height:360px;}
     .course-pdf{
         position:relative;
-        width:700px;
-        height:360px;
         background:#000;
     }
     .ctrl-box{
@@ -195,7 +194,7 @@
                 <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
             </span>
         </div>
-        <div class="course-pdf">
+        <div class="course-pdf w700 h360">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
             <lrc v-if="mp3Dom && activeSectionObj.lrc" v-show="lrcVisible" :time="time" :lrc="activeSectionObj.lrc" style="bottom:0;"></lrc>
         </div>

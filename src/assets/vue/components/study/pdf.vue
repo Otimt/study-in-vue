@@ -10,17 +10,17 @@
     }
 </script>
 <style>
-    .w700{width:700px;}
+    .el-scrollbar__view{
+        height:calc(100% - 40px);
+    }
     .course-pdf{
         position:relative;
-        width:700px;
-        height:360px;
         background:#000;
     }
 </style>
 <template>
     <div class="w h">
-        <div class="course-pdf">
+        <div class="course-pdf w h">
             <iframe  id="pdfFrame" :src="'../iframe/pdf/web/viewer-pdf.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
         </div>
     </div>

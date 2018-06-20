@@ -76,14 +76,12 @@
                 <div class="right">进度：{{sectionList && sectionList[activeSection].progress}}</div>
             </el-header>
             <el-scrollbar class="b-b-gray" style="flex:1">
-                <div class="pl20 pr20 pt20 pb20">
-                    <ul>
-                        <component-text v-if="activeSectionObj.type==='text'" :activeSectionObj="activeSectionObj"></component-text>
-                        <component-video v-else-if="activeSectionObj.type==='video'"  :activeSectionObj="activeSectionObj"></component-video>
-                        <component-audio v-else-if="activeSectionObj.type==='audio'"  :activeSectionObj="activeSectionObj"></component-audio>
-                        <component-work v-else-if="activeSectionObj.type==='work'"  :activeSectionObj="activeSectionObj"></component-work>
-                        <component-pdf v-else-if="activeSectionObj.type==='pdf'"  :activeSectionObj="activeSectionObj"></component-pdf>
-                    </ul>
+                <div class="pl20 pr20 pt20 pb20 h">
+                    <component-text v-if="activeSectionObj.type==='text'" :activeSectionObj="activeSectionObj"></component-text>
+                    <component-video v-else-if="activeSectionObj.type==='video'"  :activeSectionObj="activeSectionObj"></component-video>
+                    <component-audio v-else-if="activeSectionObj.type==='audio'"  :activeSectionObj="activeSectionObj"></component-audio>
+                    <component-work v-else-if="activeSectionObj.type==='work'"  :activeSectionObj="activeSectionObj"></component-work>
+                    <component-pdf v-else-if="activeSectionObj.type==='pdf'"  :activeSectionObj="activeSectionObj"></component-pdf>
                 </div>
             </el-scrollbar>
             <el-footer class="lh60">

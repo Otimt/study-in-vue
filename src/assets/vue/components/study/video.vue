@@ -42,10 +42,11 @@
     }
 </script>
 <style>
+    .el-scrollbar__view{
+        height:calc(100% - 40px);
+    }
     .course-video{
         position:relative;
-        width:640px;
-        height:480px;
         background:#000;
     }
     .speed-box{
@@ -74,7 +75,7 @@
 </style>
 <template>
     <div class="w h">
-        <div class="course-video">
+        <div class="course-video w h">
             <video id="course-video" :src="activeSectionObj.mp4" class="w h" controls></video>
             <div class="lrc-ctrl">
                 <template v-if="activeSectionObj.lrc">
