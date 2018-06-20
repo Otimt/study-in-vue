@@ -13,7 +13,7 @@
                 sectionList:null,
                 activeChapter:this.$route.params.activeChapter,
                 activeSection:this.$route.params.activeSection,
-                type:'',
+                activeSectionObj:{type:""},
             }
         },
         created(){

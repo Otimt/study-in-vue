@@ -3795,6 +3795,12 @@
             }
         }
 
+        //获取url中的参数
+        function getQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
         var OptionKind = {
             VIEWER: 'viewer',
             API: 'api',
@@ -3806,8 +3812,7 @@
                 kind: OptionKind.VIEWER
             },
             defaultUrl: {
-                value: 'compressed.tracemonkey-pldi-09.pdf',
-                // value:'http://assets.kgc.dev.cn/pdf/compressed.tracemonkey-pldi-09.pdf',
+                value: getQueryString("pdf"),
                 kind: OptionKind.VIEWER
             },
             defaultZoomValue: {

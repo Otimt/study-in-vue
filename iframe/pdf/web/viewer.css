@@ -609,7 +609,7 @@ html[dir='rtl'] #sidebarContent {
 }
 
 #viewerContainer {
-  overflow: hidden;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
   position: absolute;
   top:0;
@@ -621,6 +621,11 @@ html[dir='rtl'] #sidebarContent {
   transition-duration: 200ms;
   transition-timing-function: ease;
 }
+#viewerContainer.hide-overflow{
+  overflow: hidden;
+}
+
+
 html[dir='ltr'] #viewerContainer {
   box-shadow: inset 1px 0 0 hsla(0,0%,100%,.05);
 }
@@ -644,13 +649,16 @@ html[dir='rtl'] #outerContainer.sidebarOpen #viewerContainer {
   right: var(--sidebar-width);
 }
 
+.dis-none{
+	display:none;
+}
+
 .toolbar {
   position: relative;
   left: 0;
   right: 0;
   z-index: 9999;
   cursor: default;
-  display:none;
 }
 
 #toolbarContainer {

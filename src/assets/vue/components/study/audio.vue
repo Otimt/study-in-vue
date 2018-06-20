@@ -1,5 +1,6 @@
 <script>
     export default {
+        props: ['activeSectionObj'],
         data(){
             return {
                 //固定参数===================================================
@@ -17,11 +18,7 @@
                 autoSync:true,//自动同步
 
                 //动态加载数据===============================================
-                title:"欢迎来到课工场",
-                audioUrl:"../iframe/mp3/adiao.mp3",//视频地址
-                time2pdf:[
-                    0,30,60,90,120,150,180,210,240,270,300
-                ],
+
 
             };
         },
@@ -53,7 +50,7 @@
                             console.log("pdf总数首次加载出来"+this.pdfTotal);
                         }
                     }else{
-                        var time2pdf = this.time2pdf,
+                        var time2pdf = this.activeSectionObj.time2pdf,
                             pdfCurrent = this.getPdfPage();
                         for(var i=0,il=time2pdf.length;i<il;i++){
                             if((i+1)==time2pdf.length || (this.mp3Dom.currentTime >= time2pdf[i]  && this.mp3Dom.currentTime < time2pdf[i+1])){
@@ -134,7 +131,7 @@
                 }
             },
             jumpCurPage(){
-                this.mp3Dom.currentTime = this.time2pdf[this.pdfPage-1]
+                this.mp3Dom.currentTime = this.activeSectionObj.time2pdf[this.pdfPage-1]
             }
         }
     }
@@ -165,9 +162,8 @@
 </style>
 <template>
     <div class="w h">
-        <div>{{title}}</div>
         <div class="course-pdf">
-            <iframe @load="setPdfFrameDoc" id="pdfFrame" src="../iframe/pdf/web/viewer.html" class="w h" frameborder="0"></iframe>
+            <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
         </div>
         <div class="ctrl-box white al">
             <span v-if="!pdfTotal">pdf加载中...</span>
@@ -194,6 +190,6 @@
                 <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
             </span>
         </div>
-        <audio id="course-audio" :src="audioUrl" class="w700" controls></audio>
+        <audio id="course-audio" :src="activeSectionObj.mp3" class="w700" controls></audio>
     </div>
 </template>
