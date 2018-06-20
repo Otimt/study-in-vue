@@ -33,7 +33,7 @@
                     this.progress = activeChapterObj.progress;
                     this.sectionList = activeChapterObj.sectionList;
                     this.$store.commit("SET_ACTIVE_CHAPTER",this.activeChapter);
-                    this.type = this.sectionList[this.activeSection].type;
+                    this.activeSectionObj = this.sectionList[this.activeSection];
                 }
             }
         },
@@ -78,11 +78,11 @@
             <el-scrollbar class="b-b-gray" style="flex:1">
                 <div class="pl20 pr20 pt20 pb20">
                     <ul>
-                        <component-text v-if="type==='text'" ></component-text>
-                        <component-video v-else-if="type==='video'" ></component-video>
-                        <component-audio v-else-if="type==='audio'" ></component-audio>
-                        <component-work v-else-if="type==='work'" ></component-work>
-                        <component-pdf v-else-if="type==='pdf'" ></component-pdf>
+                        <component-text v-if="activeSectionObj.type==='text'" :activeSectionObj="activeSectionObj"></component-text>
+                        <component-video v-else-if="activeSectionObj.type==='video'"  :activeSectionObj="activeSectionObj"></component-video>
+                        <component-audio v-else-if="activeSectionObj.type==='audio'"  :activeSectionObj="activeSectionObj"></component-audio>
+                        <component-work v-else-if="activeSectionObj.type==='work'"  :activeSectionObj="activeSectionObj"></component-work>
+                        <component-pdf v-else-if="activeSectionObj.type==='pdf'"  :activeSectionObj="activeSectionObj"></component-pdf>
                     </ul>
                 </div>
             </el-scrollbar>

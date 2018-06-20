@@ -1,9 +1,8 @@
 <script>
     export default {
+        props: ['activeSectionObj'],
         data(){
             return {
-                title:"欢迎来到课工场",
-                videoUrl:"http://download.kgc.cn/kgc/homepage/gengkekao.mp4",//视频地址
                 playbackSpeedIndex:2,//倍速
                 speedList:[0.5,0.75,1,1.5,2]
             };
@@ -45,9 +44,8 @@
 </style>
 <template>
     <div class="w h">
-        <div>{{title}}</div>
         <div class="course-video">
-            <video id="course-video" :src="videoUrl" class="w h" controls></video>
+            <video id="course-video" :src="activeSectionObj.mp4" class="w h" controls></video>
             <div class="speed-box white ar pr5"><span @click="speedDown" class="cur-p">«</span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p">»</span></div>
         </div>
     </div>
