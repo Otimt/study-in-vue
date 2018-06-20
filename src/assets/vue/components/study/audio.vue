@@ -138,17 +138,18 @@
     }
 </script>
 <style>
-    .w700{width:700px;}
-    .h360{height:360px;}
+    .el-scrollbar__view{
+        height:calc(100% - 40px);
+    }
+    .audio-pdf-h{height:calc(100% - 70px);}
     .course-pdf{
         position:relative;
         background:#000;
     }
     .ctrl-box{
-        width:700px;
         height:28px;
          line-height:28px;
-        background:#474747;
+        background:#3e3e3e;
     }
     .ctrl-box .el-switch,.ctrl-box .el-switch__core{
         height:14px;
@@ -162,7 +163,7 @@
 </style>
 <template>
     <div class="w h">
-        <div class="ctrl-box white al">
+        <div class="ctrl-box w white al">
             <span v-if="!pdfTotal">pdf加载中...</span>
             <span v-if="pdfTotal>0" class="ml5">
                 <span class="mr5">{{pdfPage}}/{{pdfTotal}}</span>
@@ -194,10 +195,10 @@
                 <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
             </span>
         </div>
-        <div class="course-pdf w700 h360">
+        <div class="course-pdf w audio-pdf-h">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
             <lrc v-if="mp3Dom && activeSectionObj.lrc" v-show="lrcVisible" :time="time" :lrc="activeSectionObj.lrc" style="bottom:0;"></lrc>
         </div>
-        <audio id="course-audio" :src="activeSectionObj.mp3" class="w700" controls></audio>
+        <audio id="course-audio" :src="activeSectionObj.mp3" class="w" controls></audio>
     </div>
 </template>
