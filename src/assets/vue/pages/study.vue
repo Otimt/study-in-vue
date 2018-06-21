@@ -53,7 +53,7 @@
     <el-container v-loading="!$store.state.chapterList" class="pos-abs l0 r0 t0 b0 bg-white">
         <el-aside>
             <div class="lh60 pl20 pr30 bs-b black b-b-gray b-r-gray h60">
-                <router-link class="f18" to="/"><</router-link>
+                <router-link class="f18" to="/main-menu"><</router-link>
                 <span class="al f16">{{title}}</span>
             </div>
             <el-menu :default-active="activeSection.toString()" class="h60-besides">
