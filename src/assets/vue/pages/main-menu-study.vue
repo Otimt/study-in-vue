@@ -4,6 +4,8 @@
     import ComponentAudio from "./../components/study/audio.vue";
     import ComponentWork from "./../components/study/homework.vue";
     import ComponentPdf from "./../components/study/pdf.vue";
+    import ComponentResource from "./../components/study/resource.vue";
+
 
     export default {
         data: function () {
@@ -45,6 +47,7 @@
             'component-audio': ComponentAudio,
             'component-work': ComponentWork,
             'component-pdf': ComponentPdf,
+            'component-resource': ComponentResource,
         }
     }
 </script>
@@ -59,7 +62,7 @@
                 <div class="al f16">{{$store.state.courseTitle}}</div>
                 <div class="al f12">课程大纲</div>
             </div>
-            <el-menu unique-opened="true" :default-active="activeChapter+'-'+activeSection" class="h60-besides">
+            <el-menu :unique-opened="true" :default-active="activeChapter+'-'+activeSection" class="h60-besides">
                 <el-scrollbar class="h">
                     <el-submenu  v-for="(chapter,cIndex) in chapterList" :index="String(cIndex)">
                         <template slot="title">
@@ -87,6 +90,8 @@
                     <component-audio v-else-if="activeSectionObj && activeSectionObj.type==='audio'"  :activeSectionObj="activeSectionObj"></component-audio>
                     <component-work v-else-if="activeSectionObj && activeSectionObj.type==='work'"  :activeSectionObj="activeSectionObj"></component-work>
                     <component-pdf v-else-if="activeSectionObj && activeSectionObj.type==='pdf'"  :activeSectionObj="activeSectionObj"></component-pdf>
+                    <component-resource v-else-if="activeSectionObj && activeSectionObj.type==='resource'"  :activeSectionObj="activeSectionObj"></component-resource>
+
                 </div>
             </el-scrollbar>
             <el-footer class="lh60">
