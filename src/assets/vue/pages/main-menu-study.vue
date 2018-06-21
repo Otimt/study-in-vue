@@ -95,8 +95,8 @@
                         </el-scrollbar>
                     </el-menu>
                 </el-tab-pane>
-                <el-tab-pane class="h" v-if="resourceList">
-                    <span slot="label"><i class="el-icon-date"></i> 资料</span>
+                <el-tab-pane class="h" v-if="resourceList && resourceList.length">
+                    <span slot="label" v-if="resourceList && resourceList.length"><i class="el-icon-date"></i> 资料</span>
                     <el-menu>
                         <el-menu-item class="" v-for="(res,index) in resourceList">
                             <a :href="res.url" target="_blank"><i class="el-icon-download mr10"></i><span>{{res.name}}</span></a>
