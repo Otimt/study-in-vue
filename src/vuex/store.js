@@ -12,6 +12,7 @@ const store = new Vuex.Store({
         activeChapter:"0",
         courseTitle:null,
         chapterList:null,
+        resourceList:null,
     },
     mutations: {
         SET_ACTIVE_CHAPTER (state,num) {
@@ -20,6 +21,7 @@ const store = new Vuex.Store({
         SET_COURSE_INFO(state,courseInfo){
             state.chapterList = courseInfo.chapterList;
             state.courseTitle = courseInfo.courseTitle;
+            state.resourceList = courseInfo.resourceList;
         }
     },
     actions:{

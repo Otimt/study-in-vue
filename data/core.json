@@ -1,5 +1,14 @@
 {
 	"courseTitle":"Python数据分析体验课",
+	"resourceList":[
+		{
+			"name":"csv数据",
+			"url":"../data/abc.csv"
+		},{
+			"name":"数据字典",
+			"url":"../data/abc.pdf"
+		}
+	],
 	"chapterList":[
 		{
 			"title":"1.课程概述",
@@ -114,10 +123,6 @@
 			"progress":"100%",
 			"sectionList":[
 				{
-					"title":"00.下载资料",
-					"progress":"100%",
-					"type":"text"
-				},{
 					"title":"0.应用场景（暂时跳过）",
 					"progress":"100%",
 					"type":"text"
@@ -167,10 +172,6 @@
 			"progress":"100%",
 			"sectionList":[
 				{
-					"title":"00.下载资料",
-					"progress":"100%",
-					"type":"text"
-				},{
 					"title":"0.应用场景（暂时跳过）",
 					"progress":"100%",
 					"type":"text"

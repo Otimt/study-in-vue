@@ -12,6 +12,7 @@
             return {
                 courseTitle:null,
                 chapterList:null,
+                resourceList:null,
 //                index:this.$route.params.activeChapter+"-"+this.$route.params.activeSection,
                 activeChapter:this.$route.params.activeChapter,
                 activeSection:this.$route.params.activeSection,
@@ -29,6 +30,7 @@
         methods: {
             resetData(){
                 if(this.$store.state.chapterList){
+                    this.resourceList = this.$store.state.resourceList;
                     this.activeChapter=this.$route.params.activeChapter;
                     this.activeSection=this.$route.params.activeSection;
 //                    this.index=this.activeChapter+"-"+this.activeSection;
@@ -52,6 +54,12 @@
     }
 </script>
 <style>
+
+/*消除边框*/
+/*.el-tabs--border-card{border:none;}*/
+.el-tabs__content{height:calc(100% - 60px);}
+.el-menu{border-right:none;}
+/*目录选中颜色*/
 .selected-menu-item{color:#409eff;}
 .selected-menu-item i{color:#409eff;}
 </style>
@@ -60,23 +68,43 @@
         <el-aside>
             <div class="lh60 pl20 pr30 bs-b black b-b-gray b-r-gray h60">
                 <div class="al f16">{{$store.state.courseTitle}}</div>
-                <div class="al f12">课程大纲</div>
+                <!--<div class="al f12">课程大纲</div>-->
             </div>
-            <el-menu :unique-opened="true" :default-active="activeChapter+'-'+activeSection" class="h60-besides">
-                <el-scrollbar class="h">
-                    <el-submenu  v-for="(chapter,cIndex) in chapterList" :index="String(cIndex)">
-                        <template slot="title">
-                        <div :class="((activeChapter==cIndex)?'selected-menu-item':'')">
-                            <i class="el-icon-location"></i>
-                            <span>{{chapter.title}}</span>
-                        </div>
-                        </template>
-                        <router-link :to="'/main-menu-study/'+cIndex+'/'+sIndex" v-for="(section,sIndex) in chapter.sectionList">
-                            <el-menu-item  :index="cIndex+'-'+sIndex">{{section.title}}</el-menu-item>
-                        </router-link>
-                    </el-submenu>
-                </el-scrollbar>
-            </el-menu>
+            <el-tabs type="card"  class="h60-besides b-r-gray">
+                <el-tab-pane class="h">
+                    <span slot="label"><i class="el-icon-date"></i> 目录</span>
+                    <el-menu class="h" :unique-opened="true" :default-active="activeChapter+'-'+activeSection">
+                        <el-scrollbar class="h">
+                            <el-submenu  v-for="(chapter,cIndex) in chapterList" :index="String(cIndex)">
+                                <template slot="title">
+                                    <div :class="((activeChapter==cIndex)?'selected-menu-item':'')">
+                                        <i class="el-icon-location"></i>
+                                        <span>{{chapter.title}}</span>
+                                    </div>
+                                </template>
+                                <router-link :to="'/main-menu-study/'+cIndex+'/'+sIndex" v-for="(section,sIndex) in chapter.sectionList">
+                                    <el-menu-item  :index="cIndex+'-'+sIndex">
+                                        <el-row :title="section.title">
+                                            <el-col :span="3" class="ac"><i class="el-icon-menu"></i></el-col>
+                                            <el-col :span="16" class="al ellipsis">{{section.title}}</el-col>
+                                            <el-col :span="5" class="ac">{{section.progress}}</el-col>
+                                        </el-row>
+                                    </el-menu-item>
+                                </router-link>
+                            </el-submenu>
+                        </el-scrollbar>
+                    </el-menu>
+                </el-tab-pane>
+                <el-tab-pane class="h" v-if="resourceList">
+                    <span slot="label"><i class="el-icon-date"></i> 资料</span>
+                    <el-menu>
+                        <el-menu-item class="" v-for="(res,index) in resourceList">
+                            <a :href="res.url" target="_blank"><i class="el-icon-download mr10"></i><span>{{res.name}}</span></a>
+                        </el-menu-item>
+                    </el-menu>
+                </el-tab-pane>
+            </el-tabs>
+
         </el-aside>
         <el-container v-if="activeSectionList">
             <el-header class="lh60 b-b-gray">
