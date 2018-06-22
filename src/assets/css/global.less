@@ -69,7 +69,7 @@
 .clearfix:after{clear:both;}
 .clearfix{*zoom:1;}
 
-.hideoverflow{overflow:hidden;}
+.hide-overflow{overflow:hidden;}
 
 /*边距*/
 .mla{margin-left:auto;}
@@ -167,6 +167,18 @@
 .el-scrollbar__wrap{overflow-x:hidden;}
 .h60{height:60px;}
 .lh60{line-height:60px;}
-.h60-besides{height:calc(100% - 60px);overflow:auto;}
+.h60-besides{height:calc(100% - 60px)}
 .b-b-gray{border-bottom:1px solid #e6e6e6;}
 .b-r-gray{border-right:1px solid #e6e6e6;}
+
+//子页面顶部工具条
+.right-tool-bar{
+  height:60px;
+  line-height:60px;
+  background:#1d1f23;
+  padding:0 67px;
+}
+
+.prev-section-btn,.next-section-btn{background:#1d1f23;width:66px;height:60px;position:absolute;z-index:2;text-align:center;line-height:22px;padding-top:9px;box-sizing:border-box;}
+.prev-section-btn{border-right:1px #25282c solid;top:0;left:0;}
+.next-section-btn{border-left:1px #25282c solid;top:0;right:0;}

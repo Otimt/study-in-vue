@@ -59,7 +59,7 @@
             <el-menu :default-active="activeSection.toString()" class="h60-besides">
                 <el-scrollbar class="h">
                     <router-link :to="'/study/'+activeChapter+'/'+index" v-for="(section,  index) in sectionList">
-                        <el-menu-item class="hideoverflow"  :index="index.toString()">
+                        <el-menu-item class="hide-overflow"  :index="index.toString()">
                             <el-row :title="section.title">
                                 <el-col :span="3" class="ac"><i class="el-icon-menu"></i></el-col>
                                 <el-col :span="16" class="al ellipsis">{{section.title}}</el-col>

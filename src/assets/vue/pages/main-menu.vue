@@ -26,7 +26,7 @@
             </div>
             <el-menu :default-active="activeChapter" class="h60-besides" @select="handleSelect">
                 <el-scrollbar class="h">
-                    <el-menu-item class="hideoverflow" v-for="(chapter,  index) in chapterList" :index="index.toString()" >
+                    <el-menu-item class="hide-overflow" v-for="(chapter,  index) in chapterList" :index="index.toString()" >
                         <el-row :title="chapter.title">
                             <el-col :span="3" class="ac"><i class="el-icon-menu"></i></el-col>
                             <el-col :span="16" class="al ellipsis">{{chapter.title}}</el-col>
