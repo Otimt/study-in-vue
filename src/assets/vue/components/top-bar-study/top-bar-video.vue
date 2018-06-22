@@ -13,6 +13,10 @@
                 time:0,
             };
         },
+        watch:{
+            "$route":"restoreSpeed"
+        },
+
         mounted () {
             document.getElementById("course-video").addEventListener("timeupdate",this.setCurrentTime)
         },
@@ -20,6 +24,9 @@
             document.getElementById("course-video").removeEventListener("timeupdate",this.setCurrentTime);
         },
         methods: {
+            restoreSpeed(){
+                this.playbackSpeedIndex = 2;//还原到1倍速
+            },
             setCurrentTime(e){
                 var video = e.target;
                 this.time = video.currentTime;

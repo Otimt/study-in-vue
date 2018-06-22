@@ -78,6 +78,7 @@
                 this.pdfFrameDoc = this.pdfFrameWin.document;
                 this.pdfTotal = this.getPdfTotal();
                 this.pdfPage = this.getPdfPage();
+                this.playbackSpeedIndex = 2;//还原到1倍速
                 document.addEventListener("pageChanged",this.pageChangedHandle)
             },
             //pdf目录点击了，通知本组件切换pdf页数

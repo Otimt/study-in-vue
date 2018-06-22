@@ -14,17 +14,21 @@
             };
         },
         created () {
-            axios.get(this.lrc).then((res)=>{
-                console.log(res);
-                this.txt = res.data;
-                this.analysis();
-                this.setCurrentLrc();
-            })
+            this.loadLrc()
         },
         watch:{
-            "time":"setCurrentLrc"
+            "time":"setCurrentLrc",
+            "lrc":"loadLrc",
         },
         methods: {
+            loadLrc(){
+                axios.get(this.lrc).then((res)=>{
+                    console.log(res);
+                    this.txt = res.data;
+                    this.analysis();
+                    this.setCurrentLrc();
+                })
+            },
             /**
              * 查找标签（包括任何扩展的标签）
              * 此方法能匹配所有格式的标签
@@ -203,7 +207,7 @@
 </script>
 <style>
     .lrc{
-        text-shadow:1px 1px 0 #000;
+        text-shadow:0 0 2px #000;
         width:100%;
         height:20px;
         z-index:4;
