@@ -28,7 +28,7 @@
 			]
 		},{
 			"title":"2.数据分析过程概述",
-			"progress":"100%",
+			"progress":"90%",
 			"sectionList":[
 				{
 					"title":"0.应用场景（暂时跳过）",
@@ -46,7 +46,7 @@
 					"pdf":"../../../data/2-2.pdf"
 				},{
 					"title":"2.预习资料",
-					"progress":"100%",
+					"progress":"80%",
 					"type":"pdf",
 					"pdf":"../../../data/2-3.pdf"
 				},{

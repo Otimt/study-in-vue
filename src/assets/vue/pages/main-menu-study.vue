@@ -65,6 +65,7 @@
 .el-tabs__nav-wrap::after{background:#1e2124;}
 .el-tabs__content{height:calc(100% - 60px);}
 /*目录选中颜色*/
+.el-menu{border:none;}
 .el-menu-item{color:#999;}
 .selected-menu-item{color:#fff;}
 .selected-menu-item i{color:#fff;}
@@ -85,14 +86,24 @@
                             <el-submenu  v-for="(chapter,cIndex) in chapterList" :index="String(cIndex)">
                                 <template slot="title">
                                     <div :class="((activeChapter==cIndex)?'selected-menu-item':'')">
-                                        <!--<i class="el-icon-location"></i>-->
-                                        <span>{{chapter.title}}</span>
+                                        <el-row :title="chapter.title">
+                                            <el-col :span="19" class="al">
+                                                {{chapter.title}}
+                                            </el-col>
+                                            <el-col :span="3" class="ac">
+                                                <i v-if="chapter.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
+                                                <i v-else class="dis-b">{{chapter.progress}}</i>
+                                            </el-col>
+                                        </el-row>
                                     </div>
                                 </template>
                                 <router-link :to="'/main-menu-study/'+cIndex+'/'+sIndex" v-for="(section,sIndex) in chapter.sectionList">
                                     <el-menu-item  :index="cIndex+'-'+sIndex" >
                                         <el-row :title="section.title">
-                                            <el-col :span="3" class="ac"><i class="el-icon-menu"></i></el-col>
+                                            <el-col :span="3" class="ac">
+                                                <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
+                                                <i v-else class="dis-b f24">○</i>
+                                            </el-col>
                                             <el-col :span="16" class="al ellipsis">{{section.title}}</el-col>
                                             <el-col :span="5" class="ac">{{section.progress}}</el-col>
                                         </el-row>
