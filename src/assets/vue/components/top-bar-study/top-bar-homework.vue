@@ -56,21 +56,15 @@
     }
 </script>
 <style>
-    .course-pdf{
-        position:relative;
-        width:700px;
-        height:360px;
-        background:#000;
-    }
+    .upload-bg{background:#1a1c1f;}
 </style>
 <template>
-    <div>
-        <div class="right-tool-bar"></div>
-        <div>作业说明</div>
-        <div class="course-pdf">
-            <iframe  id="pdfFrame" :src="'../iframe/pdf/web/viewer-pdf.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
+    <div class="w h pos-rel">
+        <div class="h60-besides w">
+            <div class="right-tool-bar"></div>
+            <iframe  id="pdfFrame" :src="'../iframe/pdf/web/viewer-pdf.html?pdf='+activeSectionObj.pdf" class="w h60-besides" frameborder="0"></iframe>
         </div>
-        <div class="mt20 al">
+        <div class="pos-abs b0 l0 ac w upload-bg lh60">
             <!--multiple-->
             <el-upload
                     class="upload-demo"
@@ -81,14 +75,12 @@
                     :limit="1"
                     :on-exceed="handleExceed"
                     :file-list="fileList">
-                <el-button size="small" type="primary">
+                <el-button size="small" type="success">
                     <template v-if="status==='not_uploaded'">上传作业</template>
                     <template v-else-if="status==='not_pass'|| status==='uploaded'">再次上传</template>
                 </el-button>
-                <div slot="tip" class="el-upload__tip">上传文件不能超过500kb</div>
+                <span slot="tip" class="el-upload__tip gray">上传文件不能超过500kb</span>
             </el-upload>
         </div>
-
-
     </div>
 </template>
