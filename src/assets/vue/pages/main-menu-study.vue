@@ -71,7 +71,7 @@
 .selected-menu-item{color:#fff;}
 .selected-menu-item i{color:#fff;}
 /*章目录*/
-
+.el-menu-item, .el-submenu__title{height:45px;line-height:45px;}
 .el-submenu__title{padding:0 10px;}
 .el-submenu__title i,.el-menu-item i{color:#93999f;}
 .el-submenu [class^="el-icon-"]{font-size:12px;width:18px;}
@@ -130,12 +130,12 @@
                     <el-menu background-color="#25282c" active-text-color="#fff" text-color="#93999f">
                         <a class="gray" :href="res.url" target="_blank" v-for="(res,index) in resourceList.list">
                             <el-menu-item class="">
-                                <span class="left">{{res.name}}</span>
+                                <span class="left">{{index+1}}、{{res.name}}</span>
                                 <span class="right"><i class="el-icon-download mr10"></i></span>
                             </el-menu-item>
                         </a>
                         <a class="gray" :href="resourceList.collection" target="_blank">
-                            <el-menu-item class="mt20">
+                            <el-menu-item class="mt20" style="border-top:1px solid #1e1e1e;">
                                 <i class="el-icon-download mr10"></i><span>打包下载</span>
                             </el-menu-item>
                         </a>
