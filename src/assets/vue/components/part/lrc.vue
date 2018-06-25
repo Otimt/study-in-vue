@@ -209,11 +209,14 @@
     .lrc{
         text-shadow:0 0 2px #000;
         width:100%;
-        height:20px;
+        height:35px;
         z-index:4;
         color:#fff;
     }
+    .b-radius-8{border-radius:8px;}
 </style>
 <template>
-    <div class="lrc pos-abs ac f16">{{currentLyrics}}</div>
+    <div class="lrc pos-abs ac f18">
+        <span class="bg-black opacity50 pt5 pb5 pl10 pr10 b-radius-8" v-show="currentLyrics">{{currentLyrics}}</span>
+    </div>
 </template>
