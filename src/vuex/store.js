@@ -9,12 +9,19 @@ Vue.use(Vuex);  //Vue全局使用Vuex
 const store = new Vuex.Store({
     strict: true,
     state: {
-        activeChapter:"0",
-        courseTitle:null,
-        chapterList:null,
-        resourceList:null,
+        activeChapter:"0",//当前章
+        courseTitle:null,//课程标题
+        chapterList:null,//章节列表
+        resourceList:null,//资源列表
+
+        selectedSpeed:2,//已选中的速度，默认2，表示1.0
+        speedList:['0.5','0.75','1.0','1.25','1.5','1.75','2.0'],
     },
     mutations: {
+        SET_SELECTED_SPEED(state,index){
+            state.selectedSpeed = index;
+            console.log("速度"+index)
+        },
         SET_ACTIVE_CHAPTER (state,num) {
             state.activeChapter = num;
         },

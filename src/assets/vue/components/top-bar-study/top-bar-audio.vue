@@ -10,9 +10,6 @@
         data(){
             return {
                 //固定参数===================================================
-                //倍速
-                playbackSpeedIndex:2,
-
                 pdfFrameWin:null,
                 pdfFrameDoc:null,
                 mp3Dom:null,
@@ -28,21 +25,21 @@
             };
         },
         watch:{
-            "$route.params":"restoreSpeed"
         },
         mounted () {
             localStorage.setItem("pdfjs.history","");//清除 pdf 播放记录，自动回到第一页
             this.mp3Dom = document.getElementById("course-audio");
             this.startSync();
+            var selectedSpeed = this.$store.state.selectedSpeed,
+                speedList=this.$store.state.speedList,
+                speed = Number(speedList[selectedSpeed]);
+            this.setSpeed(speed);
         },
         beforeDestroy(){
             this.stopSync();
             document.removeEventListener("pageChanged",this.pageChangedHandle);
         },
         methods: {
-            restoreSpeed(){
-                this.playbackSpeedIndex = 2;//还原到1倍速
-            },
             switchSync(){
                 this.autoSync = !this.autoSync;
             },
@@ -85,7 +82,6 @@
                 this.pdfFrameDoc = this.pdfFrameWin.document;
                 this.pdfTotal = this.getPdfTotal();
                 this.pdfPage = this.getPdfPage();
-                this.playbackSpeedIndex = 2;//还原到1倍速
                 document.addEventListener("pageChanged",this.pageChangedHandle)
             },
             //pdf目录点击了，通知本组件切换pdf页数
@@ -127,8 +123,7 @@
             },
 
             //音频控制
-            setSpeed(speedIndex,speed){
-                this.playbackSpeedIndex = speedIndex;
+            setSpeed(speed){
                 this.mp3Dom.playbackRate=speed;
             },
             jumpCurPage(){
@@ -190,7 +185,7 @@
                         <span @click="pdfNext" :class="'cur-p el-icon-d-arrow-right '+(pdfPage==pdfTotal?'gray':'')"></span>
                         <span @click="pdfSidebarToggle" class="cur-p">大纲 </span>
                     </span>
-                    <speed @speedchanged="setSpeed" :playbackSpeedIndex="playbackSpeedIndex"></speed>
+                    <speed @speedchanged="setSpeed"></speed>
                 </span>
 
 

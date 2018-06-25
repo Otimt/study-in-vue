@@ -1,15 +1,16 @@
 <script>
     export default {
-        props: ['playbackSpeedIndex'],
         data(){
             return {
-                speedList:['0.5','0.75','1.0','1.25','1.5','1.75','2.0'],
+                selectedSpeed:this.$store.state.selectedSpeed,
+                speedList:this.$store.state.speedList,
             }
         },
         methods:{
             setSpeed(index){
-                console.log(index)
-                this.$emit('speedchanged',index,Number(this.speedList[index]));
+                this.selectedSpeed = index;
+                this.$store.commit("SET_SELECTED_SPEED",index);//速度保存到vuex
+                this.$emit('speedchanged',Number(this.speedList[index]));
             }
         }
     }
@@ -43,8 +44,8 @@
 <template>
     <el-popover placement="bottom" width="46" trigger="hover" class="ml10">
         <div @click="setSpeed(index)" class="speed-change-btn white cur-p pl10 f12" v-for="(speed , index) in speedList">
-            {{speed}}×<i class="el-icon-check" style="color:#13ce66;" v-if="playbackSpeedIndex==index"></i>
+            {{speed}}×<i class="el-icon-check" style="color:#13ce66;" v-if="selectedSpeed==index"></i>
         </div>
-        <div slot="reference" class="ac white speed-btn dis-i cur-p">{{speedList[playbackSpeedIndex]}}×</div>
+        <div slot="reference" class="ac white speed-btn dis-i cur-p">{{speedList[selectedSpeed]}}×</div>
     </el-popover>
 </template>

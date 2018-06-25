@@ -9,33 +9,34 @@
         },
         data(){
             return {
-                playbackSpeedIndex:2,//倍速
                 lrcVisible:true,
                 time:0,
             };
         },
         watch:{
-            "$route.params":"restoreSpeed"
         },
 
         mounted () {
-            document.getElementById("course-video").addEventListener("timeupdate",this.setCurrentTime)
+            var myVid=document.getElementById("course-video");
+            myVid.addEventListener("timeupdate",this.setCurrentTime)
+            var selectedSpeed = this.$store.state.selectedSpeed,
+                speedList=this.$store.state.speedList,
+                speed = Number(speedList[selectedSpeed]);
+            myVid.playbackRate=speed;
         },
         beforeDestroy(){
             document.getElementById("course-video").removeEventListener("timeupdate",this.setCurrentTime);
         },
         methods: {
-            restoreSpeed(){
-                this.playbackSpeedIndex = 2;//还原到1倍速
-            },
+
             setCurrentTime(e){
                 var video = e.target;
                 this.time = video.currentTime;
             },
-            setSpeed(speedIndex,speed){
-                this.playbackSpeedIndex = speedIndex;
+            setSpeed(speed){
+                console.log("设置速度---"+speed)
                 var myVid=document.getElementById("course-video");
-                myVid.playbackRate=speed;
+                myVid.playbackRate=Number(speed);
             },
         }
     }
@@ -80,7 +81,7 @@
                     <span class="mr5 white">字幕</span>
                 </template>
             </div>
-            <speed @speedchanged="setSpeed" :playbackSpeedIndex="playbackSpeedIndex"></speed>
+            <speed @speedchanged="setSpeed"></speed>
         </div>
         <div class="course-video w h60-besides hide-overflow">
             <video id="course-video" :src="activeSectionObj.mp4" class="w h" controls></video>
