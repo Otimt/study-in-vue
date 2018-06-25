@@ -1,20 +1,21 @@
 <script>
-    import ComponentLrc from  "../part/lrc.vue"
+    import ComponentLrc from  "../part/lrc.vue";
+    import ComponentSpeed from  "../part/play-speed.vue";
     export default {
         props: ['activeSectionObj'],
         components: {
-            'lrc': ComponentLrc
+            'lrc': ComponentLrc,
+            'speed' : ComponentSpeed
         },
         data(){
             return {
                 playbackSpeedIndex:2,//倍速
-                speedList:[0.5,0.75,1,1.5,2],
                 lrcVisible:true,
                 time:0,
             };
         },
         watch:{
-            "$route":"restoreSpeed"
+            "$route.params":"restoreSpeed"
         },
 
         mounted () {
@@ -31,19 +32,10 @@
                 var video = e.target;
                 this.time = video.currentTime;
             },
-            speedUp(){
-                if(this.playbackSpeedIndex<(this.speedList.length-1)){
-                    this.playbackSpeedIndex++;
-                    var myVid=document.getElementById("course-video");
-                    myVid.playbackRate=this.speedList[this.playbackSpeedIndex];
-                }
-            },
-            speedDown(){
-                if(this.playbackSpeedIndex>0){
-                    this.playbackSpeedIndex--;
-                    var myVid=document.getElementById("course-video");
-                    myVid.playbackRate=this.speedList[this.playbackSpeedIndex];
-                }
+            setSpeed(speedIndex,speed){
+                this.playbackSpeedIndex = speedIndex;
+                var myVid=document.getElementById("course-video");
+                myVid.playbackRate=speed;
             },
         }
     }
@@ -88,7 +80,7 @@
                     <span class="mr5 white">字幕</span>
                 </template>
             </div>
-            <div class="speed-box white ar pr5 left"><span @click="speedDown" class="cur-p">«</span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p">»</span></div>
+            <speed @speedchanged="setSpeed" :playbackSpeedIndex="playbackSpeedIndex"></speed>
         </div>
         <div class="course-video w h60-besides hide-overflow">
             <video id="course-video" :src="activeSectionObj.mp4" class="w h" controls></video>

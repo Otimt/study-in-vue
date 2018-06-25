@@ -1,16 +1,17 @@
 <script>
-    import ComponentLrc from  "../part/lrc.vue"
+    import ComponentLrc from  "../part/lrc.vue";
+    import ComponentSpeed from  "../part/play-speed.vue";
     export default {
         props: ['activeSectionObj'],
         components: {
-            'lrc': ComponentLrc
+            'lrc': ComponentLrc,
+            'speed' : ComponentSpeed
         },
         data(){
             return {
                 //固定参数===================================================
                 //倍速
                 playbackSpeedIndex:2,
-                speedList:[0.5,0.75,1,1.5,2],
 
                 pdfFrameWin:null,
                 pdfFrameDoc:null,
@@ -26,6 +27,9 @@
 
             };
         },
+        watch:{
+            "$route.params":"restoreSpeed"
+        },
         mounted () {
             localStorage.setItem("pdfjs.history","");//清除 pdf 播放记录，自动回到第一页
             this.mp3Dom = document.getElementById("course-audio");
@@ -36,6 +40,9 @@
             document.removeEventListener("pageChanged",this.pageChangedHandle);
         },
         methods: {
+            restoreSpeed(){
+                this.playbackSpeedIndex = 2;//还原到1倍速
+            },
             switchSync(){
                 this.autoSync = !this.autoSync;
             },
@@ -120,17 +127,9 @@
             },
 
             //音频控制
-            speedUp(){
-                if(this.playbackSpeedIndex<(this.speedList.length-1)){
-                    this.playbackSpeedIndex++;
-                    this.mp3Dom.playbackRate=this.speedList[this.playbackSpeedIndex];
-                }
-            },
-            speedDown(){
-                if(this.playbackSpeedIndex>0){
-                    this.playbackSpeedIndex--;
-                    this.mp3Dom.playbackRate=this.speedList[this.playbackSpeedIndex];
-                }
+            setSpeed(speedIndex,speed){
+                this.playbackSpeedIndex = speedIndex;
+                this.mp3Dom.playbackRate=speed;
             },
             jumpCurPage(){
                 this.mp3Dom.currentTime = this.activeSectionObj.time2pdf[this.pdfPage-1]
@@ -191,7 +190,7 @@
                         <span @click="pdfNext" :class="'cur-p el-icon-d-arrow-right '+(pdfPage==pdfTotal?'gray':'')"></span>
                         <span @click="pdfSidebarToggle" class="cur-p">大纲 </span>
                     </span>
-                    <span @click="speedDown" class="cur-p el-icon-d-arrow-left"></span> {{speedList[playbackSpeedIndex]}}×倍速 <span @click="speedUp" class="cur-p el-icon-d-arrow-right"></span>
+                    <speed @speedchanged="setSpeed" :playbackSpeedIndex="playbackSpeedIndex"></speed>
                 </span>
 
 
