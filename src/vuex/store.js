@@ -22,6 +22,7 @@ const store = new Vuex.Store({
             state.chapterList = courseInfo.chapterList;
             state.courseTitle = courseInfo.courseTitle;
             state.resourceList = courseInfo.resourceList;
+            console.log(courseInfo.resourceList.list)
         }
     },
     actions:{

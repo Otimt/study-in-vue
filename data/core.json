@@ -1,17 +1,20 @@
 {
 	"courseTitle":"Python数据分析体验课",
-	"resourceList":[
-		{
-			"name":"csv数据",
-			"url":"http://download.kgc.cn/kgc/python/data.rar"
-		},{
-			"name":"数据字典",
-			"url":"http://download.kgc.cn/kgc/python/label.pdf"
-		}
-	],
+	"resourceList":{
+		"list":[
+			{
+				"name":"数据集",
+				"url":"http://download.kgc.cn/kgc/python/data.rar"
+			},{
+				"name":"列标签说明文档",
+				"url":"http://download.kgc.cn/kgc/python/label.pdf"
+			}
+		],
+		"collection":"http://download.kgc.cn/kgc/python/all.rar"
+	},
 	"chapterList":[
 		{
-			"title":"1.课程概述",
+			"title":"1、课程概述",
 			"progress":"100%",
 			"sectionList":[
 				{
@@ -27,7 +30,7 @@
 				}
 			]
 		},{
-			"title":"2.数据分析过程概述",
+			"title":"2、数据分析过程概述",
 			"progress":"90%",
 			"sectionList":[
 				{
@@ -72,7 +75,7 @@
 				}
 			]
 		},{
-			"title":"3.Python概述及环境搭建",
+			"title":"3、Python概述及环境搭建",
 			"progress":"100%",
 			"sectionList":[
 				{
@@ -123,7 +126,7 @@
 				}
 			]
 		},{
-			"title":"4.案例Part1：确定问题&获取数据",
+			"title":"4、案例Part1：确定问题&获取数据",
 			"progress":"100%",
 			"sectionList":[
 				{
@@ -176,7 +179,7 @@
 				}
 			]
 		},{
-			"title":"5.案例Part2：整理数据",
+			"title":"5、案例Part2：整理数据",
 			"progress":"100%",
 			"sectionList":[
 				{
@@ -224,7 +227,7 @@
 			]
 		},{
 
-			"title":"6.案例Part3：数据探索&得出结论",
+			"title":"6、案例Part3：数据探索&得出结论",
 			"progress":"100%",
 			"sectionList":[
 				{
@@ -284,7 +287,7 @@
 				}
 			]
 		},{
-			"title":"7.案例Part4：展示结果",
+			"title":"7、案例Part4：展示结果",
 			"progress":"100%",
 			"sectionList":[
 				{
