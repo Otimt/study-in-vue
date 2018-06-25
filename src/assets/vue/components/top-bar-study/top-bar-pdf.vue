@@ -21,7 +21,7 @@
 <template>
     <div class="w h">
         <div class="right-tool-bar"></div>
-        <div class="course-pdf w h">
+        <div class="course-pdf w h60-besides">
             <iframe  id="pdfFrame" :src="'../iframe/pdf/web/viewer-pdf.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
         </div>
     </div>

@@ -87,12 +87,12 @@
                                 <template slot="title">
                                     <div :class="((activeChapter==cIndex)?'selected-menu-item':'')">
                                         <el-row :title="chapter.title">
-                                            <el-col :span="19" class="al">
+                                            <el-col :span="20" class="al ellipsis">
                                                 {{chapter.title}}
                                             </el-col>
-                                            <el-col :span="3" class="ac">
+                                            <el-col :span="2" class="ac">
                                                 <i v-if="chapter.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
-                                                <i v-else class="dis-b">{{chapter.progress}}</i>
+                                                <!--<i v-else class="dis-b">{{chapter.progress}}</i>-->
                                             </el-col>
                                         </el-row>
                                     </div>
@@ -104,8 +104,8 @@
                                                 <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
                                                 <i v-else class="dis-b f24">○</i>
                                             </el-col>
-                                            <el-col :span="16" class="al ellipsis">{{section.title}}</el-col>
-                                            <el-col :span="5" class="ac">{{section.progress}}</el-col>
+                                            <el-col :span="18" class="al ellipsis">{{section.title}}</el-col>
+                                            <el-col :span="3" class="ac"><span class="dis-b" v-if="section.progress && section.progress!='100%'">{{section.progress}}</span></el-col>
                                         </el-row>
                                     </el-menu-item>
                                 </router-link>
