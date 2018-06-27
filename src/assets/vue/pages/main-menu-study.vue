@@ -85,6 +85,21 @@
     /*折叠展开按钮*/
     .expand-btn{width:5px;height:30px;background:#ccc;color:#000;position:absolute;right:0;top:50%;margin-top:-15px;line-height:30px;overflow:hidden;}
     .expand-btn.t180{transform:rotate(180deg);}
+    /*子页面顶部工具条*/
+      .right-common-bg{
+          background:#1d1f23;
+      }
+    .right-tool-bar{
+        height:60px;
+        line-height:60px;
+        padding:0 67px;
+        background:#1d1f23;
+    }
+    /*上一节下一节按钮*/
+    .prev-section-btn,.next-section-btn{background:#1d1f23;width:66px;height:60px;position:absolute;z-index:2;text-align:center;line-height:22px;padding-top:9px;box-sizing:border-box;}
+    .prev-section-btn:hover,.next-section-btn:hover{text-shadow:0 0 5px #13ce66;color:#ddd;}
+    .prev-section-btn{border-right:1px #25282c solid;top:0;left:0;}
+    .next-section-btn{border-left:1px #25282c solid;top:0;right:0;}
 </style>
 <template>
     <el-container v-loading="!$store.state.chapterList" class="pos-abs l0 r0 t0 b0 dark-bg">
