@@ -25,19 +25,18 @@
             };
         },
         watch:{
+//            "$route":"setSpeed"
         },
         mounted () {
             localStorage.setItem("pdfjs.history","");//清除 pdf 播放记录，自动回到第一页
             this.mp3Dom = document.getElementById("course-audio");
             this.startSync();
-            var selectedSpeed = this.$store.state.selectedSpeed,
-                speedList=this.$store.state.speedList,
-                speed = Number(speedList[selectedSpeed]);
-            this.setSpeed(speed);
+            this.mp3Dom.addEventListener("loadstart", this.setSpeed)
         },
         beforeDestroy(){
             this.stopSync();
             document.removeEventListener("pageChanged",this.pageChangedHandle);
+            this.mp3Dom.removeEventListener("loadstart", this.setSpeed)
         },
         methods: {
             switchSync(){
@@ -123,8 +122,15 @@
             },
 
             //音频控制
-            setSpeed(speed){
+            setSpeed(){
+                var selectedSpeed = this.$store.state.selectedSpeed,
+                    speedList=this.$store.state.speedList,
+                    speed = Number(speedList[selectedSpeed]);
                 this.mp3Dom.playbackRate=speed;
+                console.log("设置音频速率"+speed)
+                console.log("设置的音频"+this.mp3Dom)
+                console.log("设置的音频速率"+this.mp3Dom.playbackRate)
+
             },
             jumpCurPage(){
                 this.mp3Dom.currentTime = this.activeSectionObj.time2pdf[this.pdfPage-1]

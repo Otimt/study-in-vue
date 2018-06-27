@@ -4,6 +4,7 @@ import Router from 'vue-router'  //引入vue-router
 import MainMenu from './../assets/vue/pages/main-menu.vue';
 import Study from './../assets/vue/pages/study.vue';
 import MainMenuStudy from './../assets/vue/pages/main-menu-study.vue';
+import VVP from './../assets/vue/pages/vvp.vue';
 
 Vue.use(Router);  //Vue全局使用Router
 
@@ -13,8 +14,11 @@ export default new Router({
             path: '/main-menu/',
             name: '目录页',
             component: MainMenu
-        },
-        {
+        },{
+            path: '/vvp/',
+            name: 'vue-video-测试页',
+            component: VVP
+        },        {
             //首页
             path: '/',
             redirect: '/main-menu-study/0/0'

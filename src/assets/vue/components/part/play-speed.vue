@@ -10,7 +10,7 @@
             setSpeed(index){
                 this.selectedSpeed = index;
                 this.$store.commit("SET_SELECTED_SPEED",index);//速度保存到vuex
-                this.$emit('speedchanged',Number(this.speedList[index]));
+                this.$emit('speedchanged');
             }
         }
     }

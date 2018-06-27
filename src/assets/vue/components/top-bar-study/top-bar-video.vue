@@ -14,18 +14,18 @@
             };
         },
         watch:{
+//            "$route":"setSpeed"
         },
 
         mounted () {
             var myVid=document.getElementById("course-video");
-            myVid.addEventListener("timeupdate",this.setCurrentTime)
-            var selectedSpeed = this.$store.state.selectedSpeed,
-                speedList=this.$store.state.speedList,
-                speed = Number(speedList[selectedSpeed]);
-            myVid.playbackRate=speed;
+            myVid.addEventListener("timeupdate",this.setCurrentTime);
+            myVid.addEventListener("loadstart", this.setSpeed);
         },
         beforeDestroy(){
-            document.getElementById("course-video").removeEventListener("timeupdate",this.setCurrentTime);
+            var myVid=document.getElementById("course-video");
+            myVid.removeEventListener("timeupdate",this.setCurrentTime);
+            myVid.removeEventListener("loadstart", this.setSpeed);
         },
         methods: {
 
@@ -33,10 +33,13 @@
                 var video = e.target;
                 this.time = video.currentTime;
             },
-            setSpeed(speed){
-                console.log("设置速度---"+speed)
+            setSpeed(){
+                var selectedSpeed = this.$store.state.selectedSpeed,
+                    speedList=this.$store.state.speedList,
+                    speed = Number(speedList[selectedSpeed]);
                 var myVid=document.getElementById("course-video");
                 myVid.playbackRate=Number(speed);
+                console.log("设置视频速率"+speed)
             },
         }
     }
