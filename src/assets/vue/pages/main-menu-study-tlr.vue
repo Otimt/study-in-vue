@@ -89,10 +89,10 @@
     /*折叠展开按钮*/
     .menu-btn{width:80px;}
     /*上一节下一节按钮*/
-    .prev-section-btn,.next-section-btn{background:#1d1f23;width:60px;height:42px;position:absolute;z-index:2;text-align:center;line-height:12px;box-sizing:border-box;top:50%;right:20px;border-radius:4px;}
-    .prev-section-btn:hover,.next-section-btn:hover{text-shadow:0 0 5px #13ce66;color:#ddd;}
-    .prev-section-btn{margin-top:-52px;padding-top:4px;}
-    .next-section-btn{margin-top:10px;padding-top:10px;}
+    .prev-section-flow-right-btn,.next-section-flow-right-btn{background:#1d1f23;width:60px;height:42px;position:absolute;z-index:2;text-align:center;line-height:12px;box-sizing:border-box;top:50%;right:20px;border-radius:4px;}
+    .prev-section-flow-right-btn:hover,.next-section-flow-right-btn:hover{text-shadow:0 0 5px #13ce66;color:#ddd;}
+    .prev-section-flow-right-btn{margin-top:-52px;padding-top:4px;}
+    .next-section-flow-right-btn{margin-top:10px;padding-top:10px;}
 </style>
 <template>
     <el-container v-loading="!$store.state.chapterList" class="pos-abs l0 r0 t0 b0 dark-bg">
@@ -161,11 +161,11 @@
                 </el-tabs>
             </el-aside>
             <el-container v-if="activeSectionList" class="pos-rel hide-overflow">
-                <router-link class="prev-section-btn white ac" :to="'/main-menu-study/'+activeChapter+'/'+(Number(activeSection)-1)" v-if="activeSection>0">
+                <router-link class="prev-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)-1)" v-if="activeSection>0">
                     <i class="el-icon-arrow-up f16"></i><br />
                     <span class="f12">上一节</span>
                 </router-link>
-                <router-link class="next-section-btn white ac" :to="'/main-menu-study/'+activeChapter+'/'+(Number(activeSection)+1)" v-if="activeSectionList && activeSection<activeSectionList.length-1">
+                <router-link class="next-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)+1)" v-if="activeSectionList && activeSection<activeSectionList.length-1">
                     <span class="f12">下一节</span><br />
                     <i class="el-icon-arrow-down f16"></i>
                 </router-link>
