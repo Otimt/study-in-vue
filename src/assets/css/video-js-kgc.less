@@ -1,0 +1,221 @@
+.vjs-custom-skin {
+    & > .video-js {
+        width: 100%;
+        font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+        .vjs-controls-disabled {
+            .vjs-big-play-button {
+                display: none !important;
+            }
+        }
+        .vjs-control {
+            width: 3em;
+            &.vjs-live-control {
+                width: auto;
+                padding-left: .5em;
+                letter-spacing: .1em;
+            }
+        }
+        .vjs-menu-button-inline {
+            &:before {
+                width: 1.5em;
+            }
+        }
+        //大播放按钮
+        .vjs-big-play-button {
+            top:inherit;
+            bottom:70px;
+            left:16px;
+            background-color: rgba(37, 40, 44, 0.2);
+            font-size: 16px;
+            height: 34px;
+            width:34px;
+            line-height: 2em !important;
+            margin-top: -1em !important;
+            border-radius:5px;
+        }
+        .vjs-loading-spinner {
+            border-color: rgba(37, 40, 44, 0.9);
+        }
+        .vjs-control-bar2 {
+            background-color: #000000;
+        }
+        .vjs-control-bar {
+            display:flex;
+            z-index:5;
+            color: #ffffff;
+            font-size: 14px;
+            .vjs-resolution-button {
+                order: 4;
+                .vjs-menu {
+                }
+                .vjs-resolution-button-label {
+                    display: block;
+                    line-height: 3em;
+                }
+            }
+
+
+            /*排序顺序*/
+            .vjs-play-control {
+                order: 0;
+            }
+            //时间 三连
+            .vjs-time-control {
+                min-width: 1em;
+                padding: 0;
+                margin: 0 .1em;
+                text-align: center;
+                display: block;
+                order: 1;
+            }
+            .vjs-current-time{
+                width:auto;
+            }
+            .vjs-time-divider{
+                color:#999;
+            }
+            .vjs-duration{
+                width:inherit;
+                flex-shrink:1;
+                text-align:left;
+                color:#999;
+            }
+            .vjs-volume-panel{
+                order:6;
+                width:9em;
+                height:3em;
+                .vjs-volume-horizontal{
+                    width:5em;
+                    opacity:1;
+                }
+            }
+
+            //进度条和音量条 圆
+            .vjs-play-progress, .vjs-volume-level {
+                background-color: #13ce66;
+                color:#13ce66;
+                &:before{
+                    top:-3px;
+                    font-size:13px;
+                }
+            }
+            .vjs-playback-rate {
+                order: 5;
+                .vjs-playback-rate-value {
+                    font-size: 1.2em;
+                    line-height: 2.4;
+                }
+            }
+            .vjs-volume-menu-button {
+                order: 3;
+            }
+            .vjs-fullscreen-control {
+                order: 6;
+            }
+        }
+        .vjs-play-progress {
+            &:before {
+                top: -0.3em;
+            }
+        }
+        .vjs-progress-control {
+            .vjs-progress-holder{
+                margin:0 5px;
+                background:none;
+                height:5px;
+            }
+            &.vjs-control {
+                order: 2;
+                width:100%;
+                height:5px;
+                position:absolute;
+                top:-5px;
+                background:-moz-linear-gradient(left,#13ce66,#13ce66 10px,rgba(115, 133, 159, 0.5) 10px,rgba(115, 133, 159, 0.5));
+                background:linear-gradient(left,#13ce66,#13ce66  10px,rgba(115, 133, 159, 0.5) 10px,rgba(115, 133, 159, 0.5) );
+            }
+        }
+        .vjs-menu {
+            li {
+                padding: 0;
+                line-height: 2em;
+                font-size: 1.1em;
+                font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+            }
+        }
+        .vjs-menu-button-popup {
+            .vjs-menu {
+                width: 5em;
+                left: -1em;
+            }
+            &.vjs-volume-menu-button-vertical {
+                .vjs-menu {
+                    left: 0;
+                }
+            }
+        }
+    }
+}
+
+.vjs-custom-skin > .video-js .vjs-menu-button-inline.vjs-slider-active, .vjs-custom-skin > .video-js .vjs-menu-button-inline:focus, .vjs-custom-skin > .video-js .vjs-menu-button-inline:hover, .video-js.vjs-no-flex .vjs-menu-button-inline {
+    width: 10em;
+}
+
+.vjs-menu-button-inline {
+    .vjs-menu {
+        left: 3em;
+    }
+}
+
+.vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button, .video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-button {
+    display: block;
+}
+
+.vjs-custom-skin > .video-js .vjs-load-progress div, .vjs-seeking .vjs-big-play-button, .vjs-waiting .vjs-big-play-button {
+    display: none !important;
+}
+
+.vjs-custom-skin > .video-js .vjs-mouse-display:after, .vjs-custom-skin > .video-js .vjs-play-progress:after {
+    padding: 0 .4em .3em;
+}
+
+.video-js {
+    &.vjs-ended {
+        .vjs-loading-spinner {
+            display: none;
+        }
+        .vjs-big-play-button {
+            display: block !important;
+        }
+    }
+}
+
+.video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-button, .vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button {
+    display: block;
+}
+
+.video-js:hover .vjs-big-play-button, .vjs-custom-skin > .video-js .vjs-big-play-button:focus, .vjs-custom-skin > .video-js .vjs-big-play-button:active {
+    background-color: rgba(37, 40, 44, 0.9);
+}
+
+
+
+.vjs-menu-button-popup {
+    &.vjs-volume-menu-button-vertical {
+        .vjs-menu {
+            left: 0em;
+        }
+    }
+}
+
+.vjs-custom-skin > .video-js .vjs-time-tooltip,
+.vjs-custom-skin > .video-js .vjs-mouse-display:after,
+.vjs-custom-skin > .video-js .vjs-play-progress:after {
+    border-radius: 0;
+    font-size: 1em;
+    padding: 0;
+    width: 3em;
+    height: 1.5em;
+    line-height: 1.5em;
+    top: -3em;
+}
+

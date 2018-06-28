@@ -4,6 +4,8 @@
     import ComponentWork from "../components/top-bar-study-custom/homework.vue";
     import ComponentPdf from "../components/top-bar-study-custom/pdf.vue";
 
+    import 'video.js/dist/video-js.css';
+    import './../../css/video-js-kgc.less';
 
     export default {
         data: function () {
@@ -54,6 +56,31 @@
     }
 </script>
 <style>
+    /*消除边框*/
+    .left-menu .el-aside{border-right:none;}
+    /*目录-资料tab页*/
+    .left-menu .el-tabs__item{color:#93999f;}
+    .left-menu .el-tabs__item:hover,.el-tabs__item.is-active{color:#13ce66;}
+    .left-menu .el-tabs__active-bar{background:#13ce66;}
+    .left-menu .el-tabs__nav{margin-left:95px;}
+    .left-menu .el-tabs__nav-wrap::after{background:#1e2124;}
+    .left-menu .el-tabs__content{height:calc(100% - 60px);}
+
+    /*目录选中颜色*/
+    .left-menu .el-menu{border:none;}
+    .left-menu .selected-menu-item{color:#fff;}
+    .left-menu .selected-menu-item i{color:#fff;}
+    /*章目录*/
+    .left-menu .el-menu-item, .left-menu .el-submenu__title{height:45px;line-height:45px;}
+    .left-menu .el-submenu__title{padding:0 10px;}
+    .left-menu .el-submenu__title i,.el-menu-item i{color:#93999f;}
+    .left-menu .el-submenu [class^="el-icon-"]{font-size:12px;width:18px;}
+    .left-menu .el-submenu .el-menu-item{padding:0 10px;}
+    .left-menu .el-submenu__icon-arrow{left:12px;right:inherit;top:54%;}
+    .left-menu .el-submenu__icon-arrow:before{content:"㊉";font-size:12px;}
+    .left-menu .el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow:before{content:"㊀";color:#13ce66;}
+</style>
+<style scoped>
     .dark-bg{
         background:#25282c;
     }
@@ -61,31 +88,6 @@
         background: #1d1f23;
     }
     .title{color:#93999f;}
-    /*消除边框*/
-    .el-aside{
-        border-right:none;
-    }
-    /*目录-资料tab页*/
-    .el-tabs__item{color:#93999f;}
-    .el-tabs__item:hover,.el-tabs__item.is-active{color:#13ce66;}
-    .el-tabs__active-bar{background:#13ce66;}
-    .el-tabs__nav{margin-left:95px;}
-    .el-tabs__nav-wrap::after{background:#1e2124;}
-    .el-tabs__content{height:calc(100% - 60px);}
-
-    /*目录选中颜色*/
-    .el-menu{border:none;}
-    .selected-menu-item{color:#fff;}
-    .selected-menu-item i{color:#fff;}
-    /*章目录*/
-    .el-menu-item, .el-submenu__title{height:45px;line-height:45px;}
-    .el-submenu__title{padding:0 10px;}
-    .el-submenu__title i,.el-menu-item i{color:#93999f;}
-    .el-submenu [class^="el-icon-"]{font-size:12px;width:18px;}
-    .el-submenu .el-menu-item{padding:0 10px;}
-    .el-submenu__icon-arrow{left:12px;right:inherit;top:54%;}
-    .el-submenu__icon-arrow:before{content:"㊉";font-size:12px;}
-    .el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow:before{content:"㊀";color:#13ce66;}
     /*折叠展开按钮*/
     .menu-btn{width:80px;}
     /*上一节下一节按钮*/
@@ -103,7 +105,7 @@
             <span class="ml15">{{$store.state.courseTitle}}　>　{{activeChapterObj?activeChapterObj.title:""}}　>　{{activeSectionObj?activeSectionObj.title:""}}</span>
         </el-header>
         <el-container class="h60-besides">
-            <el-aside v-show="menuExpand" class="h">
+            <el-aside v-show="menuExpand" class="h left-menu">
                 <el-tabs  class="h" >
                     <el-tab-pane class="h":stretch="true">
                         <span slot="label" class="ac":stretch="true">课程</span>
