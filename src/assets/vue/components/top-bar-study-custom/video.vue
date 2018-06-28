@@ -1,15 +1,14 @@
 <script>
     import ComponentLrc from  "../part/lrc.vue";
-    import ComponentSpeed from  "../part/play-speed.vue";
+//    import ComponentSpeed from  "../part/play-speed.vue";
 
-    import { videojs,videoPlayer } from 'vue-video-player';
+
 
     export default {
         props: ['activeSectionObj'],
         components: {
             'lrc': ComponentLrc,
-            'speed' : ComponentSpeed,
-            'video-player':videoPlayer
+//            'speed' : ComponentSpeed,
         },
         data(){
             return {
@@ -28,14 +27,14 @@
                 var video = e.player_;
                 this.time = video.currentTime();
             },
-            setSpeed(){
-                var selectedSpeed = this.$store.state.selectedSpeed,
-                    speedList=this.$store.state.speedList,
-                    speed = Number(speedList[selectedSpeed]);
-                var myVid=document.getElementById("course-video");
-                myVid.playbackRate=Number(speed);
-                console.log("设置视频速率"+speed)
-            },
+//            setSpeed(){
+//                var selectedSpeed = this.$store.state.selectedSpeed,
+//                    speedList=this.$store.state.speedList,
+//                    speed = Number(speedList[selectedSpeed]);
+//                var myVid=document.getElementById("course-video");
+//                myVid.playbackRate=Number(speed);
+//                console.log("设置视频速率"+speed)
+//            },
         },
         computed: {
             player() {
@@ -71,57 +70,18 @@
     }
 </script>
 <style>
-    .course-video{
-        position:relative;
-        background:#000;
-    }
-    .speed-box{
-        height:60px;
-    }
-    .lrc-ctrl{
-        width:65px;
-        height:60px;
-    }
-    .lrc-ctrl .el-switch,.lrc-ctrl .el-switch__core{
-        height:14px;
-    }
-    .lrc-ctrl .el-switch__core:after{
-        width:10px;height:10px;
-    }
-    .lrc-ctrl .el-switch.is-checked .el-switch__core::after{
-        margin-left:-11px;
-    }
-</style>
-<style>
     /*覆盖*/
     .video-js{height:100%;}
 </style>
 <template>
-    <div class="w h">
-        <!--<div class="right-tool-bar">-->
-            <!--<div class="lrc-ctrl left" v-if="activeSectionObj.lrc">-->
-                <!--<template>-->
-                    <!--<el-switch-->
-                            <!--class="ml5"-->
-                            <!--v-model="lrcVisible"-->
-                            <!--active-color="#13ce66"-->
-                            <!--inactive-color="#ff4949"-->
-                            <!--:width="25"-->
-                    <!--&gt;</el-switch>-->
-                    <!--<span class="mr5 white">字幕</span>-->
-                <!--</template>-->
-            <!--</div>-->
-            <!--<speed @speedchanged="setSpeed"></speed>-->
-        <!--</div>-->
-        <div class="course-video w h hide-overflow">
-            <video-player class="video-player vjs-custom-skin h "
-                          ref="videoPlayer"
-                          :playsinline="true"
-                          :options="playerOptions"
-                          @timeupdate="setCurrentTime($event)"
-            >
-            </video-player>
-            <lrc v-if="lrc" v-show="lrcVisible" :time="time" :lrc="lrc" style="bottom:60px;"></lrc>
-        </div>
+    <div class="w h hide-overflow pos-rel bg-black">
+        <video-player class="video-player vjs-custom-skin h "
+                      ref="videoPlayer"
+                      :playsinline="true"
+                      :options="playerOptions"
+                      @timeupdate="setCurrentTime($event)"
+        >
+        </video-player>
+        <lrc v-if="lrc" v-show="lrcVisible" :time="time" :lrc="lrc" style="bottom:60px;"></lrc>
     </div>
 </template>

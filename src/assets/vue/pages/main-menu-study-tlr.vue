@@ -40,8 +40,6 @@
                     this.activeSectionList = this.activeChapterObj.sectionList;
                     this.activeSectionObj = this.activeSectionList[this.activeSection];
                 }
-                console.log(this.activeSectionList)
-                console.log(this.activeSectionObj)
             },
             triggerExpand(){
                 this.menuExpand = !this.menuExpand;
@@ -56,6 +54,7 @@
     }
 </script>
 <style>
+    .left-menu{transition: width 0.3s;}
     /*消除边框*/
     .left-menu .el-aside{border-right:none;}
     /*目录-资料tab页*/
@@ -105,7 +104,7 @@
             <span class="ml15">{{$store.state.courseTitle}}　>　{{activeChapterObj?activeChapterObj.title:""}}　>　{{activeSectionObj?activeSectionObj.title:""}}</span>
         </el-header>
         <el-container class="h60-besides">
-            <el-aside v-show="menuExpand" class="h left-menu">
+            <el-aside class="h left-menu" :width="menuExpand?'300px':'0'">
                 <el-tabs  class="h" >
                     <el-tab-pane class="h":stretch="true">
                         <span slot="label" class="ac":stretch="true">课程</span>
@@ -148,13 +147,13 @@
                         <span slot="label"class="ac">资料</span>
                         <el-menu background-color="#25282c" active-text-color="#fff" text-color="#93999f">
                             <a class="gray" :href="res.url" target="_blank" v-for="(res,index) in resourceList.list">
-                                <el-menu-item class="">
+                                <el-menu-item class="" :index="'index'+index">
                                     <span class="left">{{index+1}}、{{res.name}}</span>
                                     <span class="right"><i class="el-icon-download mr10"></i></span>
                                 </el-menu-item>
                             </a>
                             <a class="gray" :href="resourceList.collection" target="_blank">
-                                <el-menu-item class="mt20" style="border-top:1px solid #1e1e1e;">
+                                <el-menu-item index="dabaoxiazai" class="mt20" style="border-top:1px solid #1e1e1e;">
                                     <i class="el-icon-download mr10"></i><span>打包下载</span>
                                 </el-menu-item>
                             </a>

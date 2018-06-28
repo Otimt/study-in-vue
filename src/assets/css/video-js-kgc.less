@@ -1,6 +1,7 @@
 .vjs-custom-skin {
     & > .video-js {
         width: 100%;
+        background:none;
         font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
         .vjs-controls-disabled {
             .vjs-big-play-button {
@@ -80,18 +81,10 @@
                 text-align:left;
                 color:#999;
             }
-            .vjs-volume-panel{
-                order:6;
-                width:9em;
-                height:3em;
-                .vjs-volume-horizontal{
-                    width:5em;
-                    opacity:1;
-                }
-            }
 
-            //进度条和音量条 圆
-            .vjs-play-progress, .vjs-volume-level {
+
+            //进度条 圆
+            .vjs-play-progress {
                 background-color: #13ce66;
                 color:#13ce66;
                 &:before{
@@ -99,23 +92,43 @@
                     font-size:13px;
                 }
             }
+
+
+
+            .vjs-volume-panel{
+                order:6;
+                width:106px;
+                height:3em;
+                .vjs-volume-horizontal{
+                    width:5em;
+                    opacity:1;
+                }
+                .vjs-mute-control{
+                    width:27px;
+                    padding:0;
+                }
+                .vjs-volume-menu-button {
+                    order: 3;
+                }
+                .vjs-volume-level{
+                    &:before{
+                        top:-3px;
+                        font-size:13px;
+                    }
+                }
+            }
+
+            //播放速率
             .vjs-playback-rate {
-                order: 5;
+                order: 6;
                 .vjs-playback-rate-value {
                     font-size: 1.2em;
                     line-height: 2.4;
                 }
             }
-            .vjs-volume-menu-button {
-                order: 3;
-            }
+            //全屏按钮
             .vjs-fullscreen-control {
                 order: 6;
-            }
-        }
-        .vjs-play-progress {
-            &:before {
-                top: -0.3em;
             }
         }
         .vjs-progress-control {
@@ -153,6 +166,14 @@
                 }
             }
         }
+        &.vjs-ended {
+            .vjs-loading-spinner {
+                display: none;
+            }
+            .vjs-big-play-button {
+                display: block !important;
+            }
+        }
     }
 }
 
@@ -178,16 +199,6 @@
     padding: 0 .4em .3em;
 }
 
-.video-js {
-    &.vjs-ended {
-        .vjs-loading-spinner {
-            display: none;
-        }
-        .vjs-big-play-button {
-            display: block !important;
-        }
-    }
-}
 
 .video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-button, .vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button {
     display: block;

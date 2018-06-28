@@ -23,7 +23,6 @@
         methods: {
             loadLrc(){
                 axios.get(this.lrc).then((res)=>{
-                    console.log(res);
                     this.txt = res.data;
                     this.analysis();
                     this.setCurrentLrc();
@@ -179,8 +178,6 @@
                         }
                     }
                 }
-                console.log(this.lrcTime)
-                console.log(this.lyric)
             },
             /**
              * 同步显示歌词
