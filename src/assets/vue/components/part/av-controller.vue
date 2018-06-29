@@ -42,10 +42,20 @@
                 volume:100,//音量
                 status:'',//状态
                 canplay:false,
+                autoSync:this.$store.state.selectedPDFModel=='auto',
             }
         },
+        watch:{
+            "autoSync":"setSelectedPDFModel"
+        },
         methods: {
-
+            setSelectedPDFModel(){
+                if(this.autoSync){
+                    this.$store.commit("SET_PDF_MODEL","auto");
+                }else{
+                    this.$store.commit("SET_PDF_MODEL","not");
+                }
+            },
             //设置数据
             setTime(e){
                 var video = e.target;
@@ -146,9 +156,6 @@
             UIVisible(){
                 return this.$store.state.UIVisible;
             },
-            selectedPDFModel(){
-                return this.$store.state.selectedPDFModel;
-            },
         }
     }
 </script>
@@ -166,7 +173,7 @@
     .lh-3em{line-height:3em;}
 
     .lrc-switch-box {
-        width: 80px;
+        width:90px;
         text-align: center;
     }
 </style>
@@ -186,7 +193,7 @@
                    :src="playOption.mp4 || playOption.mp3">
             </video>
             <lrc v-if="playOption.lrc" v-show="lrcVisible"  :time="time" :lrc="playOption.lrc" style="bottom:60px;"></lrc>
-            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay" v-show="selectedPDFModel=='auto'">
+            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay" v-show="autoSync">
                 <button class="vjs-big-play-button" type="button"   v-if="(status=='pause') || (status=='ended') || (status=='durationchange')">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
@@ -231,7 +238,16 @@
                             :width="25"
                     ></el-switch>
                 </div>
-                <pdf-controller v-if="playOption.pdf" class="vjs-control lh-3em"></pdf-controller>
+                <div class="lh-3em lrc-switch-box"  v-if="playOption.pdf">
+                    <span class="dis-i">大纲</span>
+                    <el-switch
+                            v-model="autoSync"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            :width="25"
+                    ></el-switch>
+                </div>
+                <!--<pdf-controller v-if="playOption.pdf" class="vjs-control lh-3em"></pdf-controller>-->
                 <button class="vjs-fullscreen-control vjs-control vjs-button" type="button" title="Fullscreen" aria-disabled="false">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
