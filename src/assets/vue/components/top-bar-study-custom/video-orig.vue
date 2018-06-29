@@ -1,14 +1,12 @@
 <script>
-    import ComponentLrc from  "../part/lrc.vue";
-//    import ComponentSpeed from  "../part/play-speed.vue";
+    import avController from  "../part/av-controller.vue";
 
 
 
     export default {
         props: ['activeSectionObj'],
         components: {
-            'lrc': ComponentLrc,
-//            'speed' : ComponentSpeed,
+            'av-controller': avController,
         },
         data(){
             return {
@@ -27,14 +25,6 @@
                 var video = e.player_;
                 this.time = video.currentTime();
             },
-//            setSpeed(){
-//                var selectedSpeed = this.$store.state.selectedSpeed,
-//                    speedList=this.$store.state.speedList,
-//                    speed = Number(speedList[selectedSpeed]);
-//                var myVid=document.getElementById("course-video");
-//                myVid.playbackRate=Number(speed);
-//                console.log("设置视频速率"+speed)
-//            },
         },
         computed: {
             player() {
@@ -65,7 +55,6 @@
                 }
             },
             lrc(){return this.activeSectionObj.lrc},
-
         }
     }
 </script>
@@ -75,13 +64,12 @@
 </style>
 <template>
     <div class="w h hide-overflow pos-rel bg-black">
-        <video-player class="video-player vjs-custom-skin h "
+        <av-controller class="video-player vjs-custom-skin h"
+                    :activeSectionObj="activeSectionObj"
                       ref="videoPlayer"
-                      :playsinline="true"
-                      :options="playerOptions"
                       @timeupdate="setCurrentTime($event)"
         >
-        </video-player>
-        <lrc v-if="lrc" v-show="lrcVisible" :time="time" :lrc="lrc" style="bottom:60px;"></lrc>
+        </av-controller>
+
     </div>
 </template>

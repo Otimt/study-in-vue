@@ -1,13 +1,11 @@
 <script>
-    import ComponentLrc from  "../part/lrc.vue";
-//    import ComponentSpeed from  "../part/play-speed.vue";
+    import avController from  "../part/av-controller.vue";
 
 
     export default {
         props: ['activeSectionObj'],
         components: {
-            'lrc': ComponentLrc,
-//            'speed' : ComponentSpeed,
+            'av-controller': avController,
         },
         data(){
             return {
@@ -20,9 +18,7 @@
 
                 pdfInterval:null,
                 autoSync:true,//自动同步
-                lrcVisible:true,
 
-                time:0,
 
             };
         },
@@ -30,30 +26,7 @@
             player() {
                 return this.$refs.videoPlayer.player;
             },
-            playerOptions(){
-                return {
-                    playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-                    autoplay: false, //如果true,浏览器准备好时开始回放。
-                    muted: false, // 默认情况下将会消除任何音频。
-                    loop: false, // 导致视频一结束就重新开始。
-                    preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-                    language: 'zh-CN',
-//                    aspectRatio: 'auto', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-                    fluid: false, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-                    sources: [{
-                        type: "audio/mp3",
-                        src: this.activeSectionObj.mp3 //你的m3u8地址（必填）
-                    }],
-//                    poster: "./../../../data/ty.jpg", //你的封面地址
-                    notSupportedMessage: '此视频暂无法播放，请稍后再试', //允许覆盖Video.js无法播放媒体源时显示的默认信息。
-                    controlBar: {
-                        timeDivider: true,
-                        durationDisplay: true,
-                        remainingTimeDisplay: false,
-                        fullscreenToggle: true,  //全屏按钮
-                    }
-                }
-            },
+            mp3(){return this.activeSectionObj.mp3},
             lrc(){return this.activeSectionObj.lrc},
         },
         mounted () {
@@ -203,13 +176,13 @@
                 <!--<span v-if="pdfTotal>0" class="ml5">-->
                     <!--<span class="mr5 ml10">{{pdfPage}}/{{pdfTotal}}</span>-->
                     <!--<template v-if="activeSectionObj.lrc">-->
-                    <!--<el-switch-->
-                            <!--v-model="lrcVisible"-->
-                            <!--active-color="#13ce66"-->
-                            <!--inactive-color="#ff4949"-->
-                            <!--:width="25"-->
-                    <!--&gt;</el-switch>-->
-                    <!--<span class="mr5">字幕</span>-->
+                    <el-switch
+                            v-model="lrcVisible"
+                            active-color="#13ce66"
+                            inactive-color="#ff4949"
+                            :width="25"
+                    ></el-switch>
+                    <span class="mr5">字幕</span>
                     <!--</template>-->
                     <!--<el-switch-->
                             <!--v-model="autoSync"-->
@@ -225,23 +198,16 @@
                         <!--<span @click="pdfNext" :class="'cur-p el-icon-d-arrow-right '+(pdfPage==pdfTotal?'gray':'')"></span>-->
                         <!--<span @click="pdfSidebarToggle" class="cur-p">大纲 </span>-->
                     <!--</span>-->
-                    <!--&lt;!&ndash;<speed @speedchanged="setSpeed"></speed>&ndash;&gt;-->
+                    <!--<speed @speedchanged="setSpeed"></speed>-->
                 <!--</span>-->
             <!--</div>-->
         <!--</div>-->
 
         <div class="course-pdf w h">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
-            <lrc v-if="lrc" v-show="lrcVisible" :time="time" :lrc="lrc" style="bottom:60px;"></lrc>
         </div>
         <!--<audio id="course-audio" :src="activeSectionObj.mp3" class="w" controls></audio>-->
         <!--h60-->
-        <video-player class="audio-player vjs-custom-skin w h pos-abs b0"
-                      ref="videoPlayer"
-                      :playsinline="true"
-                      :options="playerOptions"
-                      @timeupdate="setCurrentTime($event)"
-        >
-        </video-player>
+        <av-controller :activeSectionObj="activeSectionObj"></av-controller>
     </div>
 </template>

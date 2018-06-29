@@ -1,6 +1,6 @@
 <script>
-    import ComponentVideo from "../components/top-bar-study-custom/video.vue";
-    import ComponentAudio from "../components/top-bar-study-custom/audio.vue";
+    import ComponentVideo from "../components/top-bar-study-custom/video-orig.vue";
+    import ComponentAudio from "../components/top-bar-study-custom/audio-orig.vue";
     import ComponentWork from "../components/top-bar-study-custom/homework.vue";
     import ComponentPdf from "../components/top-bar-study-custom/pdf.vue";
 
