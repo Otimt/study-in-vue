@@ -30,8 +30,6 @@
             this.$refs.video.addEventListener("ended",this.setStatus);
             this.$refs.video.addEventListener("canplay",this.setCanPlay);
             this.$refs.video.addEventListener("seeking",this.setCanPlay);
-
-            
         },
         beforeDestroy(){
             this.stopTimeSlider()
@@ -111,6 +109,13 @@
             vPause(){
                 this.$refs.video.pause();
             },
+            switchPlay(){
+                if(this.status == "play"){
+                    this.vPause()
+                }else{
+                    this.vPlay()
+                }
+            },
             vSeek(num){
                 console.log("跳到"+num)
                 this.$refs.video.currentTime = num;
@@ -148,6 +153,7 @@
 </script>
 <style>
     .vjs-control-bar .el-switch,.vjs-control-bar .el-switch__core{
+        margin-top:-2px;
         height:14px;
     }
     .vjs-control-bar .el-switch__core:after{
@@ -179,15 +185,12 @@
                    preload="auto"
                    :src="playOption.mp4 || playOption.mp3">
             </video>
-            <lrc v-if="playOption.lrc" v-show="lrcVisible" :time="time" :lrc="playOption.lrc" style="bottom:60px;"></lrc>
-            <div class="vjs-loading-spinner" dir="ltr">
-                <span class="vjs-control-text">Video Player is loading.</span>
+            <lrc v-if="playOption.lrc" v-show="lrcVisible"  :time="time" :lrc="playOption.lrc" style="bottom:60px;"></lrc>
+            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay">
+                <button class="vjs-big-play-button" type="button"   v-if="(status=='pause') || (status=='ended') || (status=='durationchange')">
+                    <span aria-hidden="true" class="vjs-icon-placeholder"></span>
+                </button>
             </div>
-            <button class="vjs-big-play-button" type="button"  v-on:click="vPlay" v-if="(status=='pause') || (status=='ended') || (status=='durationchange')">
-                <span aria-hidden="true" class="vjs-icon-placeholder"></span>
-            </button>
-
-
             <div class="vjs-control-bar" dir="ltr">
                 <div class="vjs-progress-control vjs-control" v-on:mousedown="sliderDragStart">
                     <el-slider class="w" v-model="time" :format-tooltip="formatTime" :max="duration" @change="vSeek" ></el-slider>

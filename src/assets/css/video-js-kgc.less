@@ -3,11 +3,6 @@
         width: 100%;
         background:none;
         font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
-        .vjs-controls-disabled {
-            .vjs-big-play-button {
-                display: none !important;
-            }
-        }
         .vjs-control {
             width: 3em;
             &.vjs-live-control {
@@ -16,30 +11,28 @@
                 letter-spacing: .1em;
             }
         }
-        .vjs-menu-button-inline {
-            &:before {
-                width: 1.5em;
+        //屏蔽右键，悬浮的都装这里
+        .cover-box{
+            //大播放按钮
+            .vjs-big-play-button {
+                top:initial;
+                bottom:70px;
+                left:16px;
+                background-color: rgba(37, 40, 44, 0.2);
+                font-size: 16px;
+                height: 34px;
+                width:34px;
+                line-height: 2em !important;
+                margin-top: -1em !important;
+                border-radius:5px;
+            }
+            &:hover{
+                .vjs-big-play-button {
+                    background-color: rgba(37, 40, 44, 0.9);
+                }
             }
         }
-        //大播放按钮
-        .vjs-big-play-button {
-            top:inherit;
-            bottom:70px;
-            left:16px;
-            background-color: rgba(37, 40, 44, 0.2);
-            font-size: 16px;
-            height: 34px;
-            width:34px;
-            line-height: 2em !important;
-            margin-top: -1em !important;
-            border-radius:5px;
-        }
-        .vjs-loading-spinner {
-            border-color: rgba(37, 40, 44, 0.9);
-        }
-        .vjs-control-bar2 {
-            background-color: #000000;
-        }
+
         .vjs-control-bar {
             display:flex;
             z-index:5;
@@ -52,6 +45,14 @@
                 .vjs-resolution-button-label {
                     display: block;
                     line-height: 3em;
+                }
+            }
+            .vjs-button{
+                .vjs-icon-placeholder{
+                    &:before{
+                        line-height:47px;
+                        font-size:20px;
+                    }
                 }
             }
 
@@ -83,15 +84,6 @@
             }
 
 
-            //进度条 圆
-            .vjs-play-progress {
-                background-color: #13ce66;
-                color:#13ce66;
-                &:before{
-                    top:-3px;
-                    font-size:13px;
-                }
-            }
 
 
 
@@ -102,19 +94,24 @@
                 .vjs-volume-horizontal{
                     width:5em;
                     opacity:1;
+                    .el-slider__runway{
+                        margin-top:20px;
+                    }
+                    .el-slider__bar{
+                        background-color: #fff;
+                    }
+                    .el-slider__button{
+                        width:14px;height:14px;
+                        border:none;
+                        &:hover,&.hover{
+                            -webkit-transform:scale(1);
+                            transform:scale(1);
+                        }
+                    }
                 }
                 .vjs-mute-control{
                     width:27px;
                     padding:0;
-                }
-                .vjs-volume-menu-button {
-                    order: 3;
-                }
-                .vjs-volume-level{
-                    &:before{
-                        top:-3px;
-                        font-size:13px;
-                    }
                 }
             }
 
@@ -132,13 +129,7 @@
             }
         }
         .vjs-progress-control {
-            .vjs-progress-holder{
-                margin:0 5px;
-                background:none;
-                height:5px;
-            }
             &.vjs-control {
-                order: 2;
                 width:100%;
                 height:5px;
                 position:absolute;
@@ -146,33 +137,25 @@
                 background:-moz-linear-gradient(left,#13ce66,#13ce66 10px,rgba(115, 133, 159, 0.5) 10px,rgba(115, 133, 159, 0.5));
                 background:linear-gradient(left,#13ce66,#13ce66  10px,rgba(115, 133, 159, 0.5) 10px,rgba(115, 133, 159, 0.5) );
             }
-        }
-        .vjs-menu {
-            li {
-                padding: 0;
-                line-height: 2em;
-                font-size: 1.1em;
-                font-family: "PingFang SC", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft YaHei", "微软雅黑", sans-serif;
+            .el-slider__runway{
+                height:5px;
+                background-color:#5c5c5c;
             }
-        }
-        .vjs-menu-button-popup {
-            .vjs-menu {
-                width: 5em;
-                left: -1em;
+            .el-slider__bar{
+                background-color: #13ce66;
+                height:5px;
             }
-            &.vjs-volume-menu-button-vertical {
-                .vjs-menu {
-                    left: 0;
+            .el-slider__button{
+                width:14px;height:14px;
+                border:none;
+                background-color: #13ce66;
+                &:hover,&.hover{
+                    -webkit-transform:scale(1);
+                    transform:scale(1);
                 }
             }
-        }
-        &.vjs-ended {
-            .vjs-loading-spinner {
-                display: none;
-            }
-            .vjs-big-play-button {
-                display: block !important;
-            }
+
+
         }
     }
 }
@@ -187,26 +170,15 @@
     }
 }
 
-.vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button, .video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-button {
-    display: block;
-}
 
-.vjs-custom-skin > .video-js .vjs-load-progress div, .vjs-seeking .vjs-big-play-button, .vjs-waiting .vjs-big-play-button {
-    display: none !important;
-}
 
 .vjs-custom-skin > .video-js .vjs-mouse-display:after, .vjs-custom-skin > .video-js .vjs-play-progress:after {
     padding: 0 .4em .3em;
 }
 
 
-.video-js.vjs-ended .vjs-big-play-button, .video-js.vjs-paused .vjs-big-play-button, .vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button {
-    display: block;
-}
 
-.video-js:hover .vjs-big-play-button, .vjs-custom-skin > .video-js .vjs-big-play-button:focus, .vjs-custom-skin > .video-js .vjs-big-play-button:active {
-    background-color: rgba(37, 40, 44, 0.9);
-}
+
 
 
 
