@@ -12,21 +12,23 @@
                 //固定参数===================================================
                 pdfFrameWin:null,
                 pdfFrameDoc:null,
-                pdfPage:1,//pdf当前页
-                pdfTotal:0,//pdf总页数，不为0，表示pdf已初始化完毕
+//                pdfPage:1,//pdf当前页
+//                pdfTotal:0,//pdf总页数，不为0，表示pdf已初始化完毕
 
-                pdfInterval:null,
-                autoSync:true,//自动同步
 
 
             };
         },
         computed: {
-            player() {
-                return this.$refs.videoPlayer.player;
+            autoSync(){
+                var autoSyncVal = this.$store.state.selectedPDFModel=='auto';
+                if(autoSyncVal){
+                    this.pdfSidebarClose()
+                }else{
+                    this.pdfSidebarOpen()
+                }
+                return autoSyncVal
             },
-            mp3(){return this.activeSectionObj.mp3},
-            lrc(){return this.activeSectionObj.lrc},
         },
         mounted () {
             localStorage.setItem("pdfjs.history","");//清除 pdf 播放记录，自动回到第一页
@@ -35,17 +37,13 @@
         },
         methods: {
             setCurrentTime(time){
-                this.time = time;
-                this.turnPdfByTime()
+                this.autoSync && this.turnPdfByTime(time)
             },
-            switchSync(){
-                this.autoSync = !this.autoSync;
-            },
-            turnPdfByTime(){
+            turnPdfByTime(time){
                 var time2pdf = this.activeSectionObj.time2pdf,
                     pdfCurrent = this.getPdfPage();
                 for(var i=0,il=time2pdf.length;i<il;i++){
-                    if((i+1)==time2pdf.length || (this.time >= time2pdf[i]  && this.time < time2pdf[i+1])){
+                    if((i+1)==time2pdf.length || (time >= time2pdf[i]  && time < time2pdf[i+1])){
                         let page = i+1;
                         console.log("去第"+page+"页");
                         if(pdfCurrent !== page){
@@ -58,15 +56,28 @@
             },
             //pdf.js API
             setPdfFrameDoc(){
+                console.log("初始化1")
                 this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
+                console.log("初始化2")
                 this.pdfFrameDoc = this.pdfFrameWin.document;
-                this.pdfTotal = this.getPdfTotal();
-                this.pdfPage = this.getPdfPage();
+                console.log("初始化3")
+//                this.pdfTotal = this.getPdfTotal();
+                console.log("初始化4")
+//                this.pdfPage = this.getPdfPage();
+                console.log("初始化5")
+//                console.log(this.pdfTotal)
+//                console.log(this.pdfPage)
+                console.log("初始化6")
                 document.addEventListener("pageChanged",this.pageChangedHandle)
             },
             //pdf目录点击了，通知本组件切换pdf页数
             pageChangedHandle(){
                 this.pdfPage = this.getPdfPage();
+                var time2pdf = this.activeSectionObj.time2pdf,
+                    time = time2pdf[this.pdfPage-1];
+                console.log(time);
+                console.log(this.$refs.video);
+                this.$refs.video.vSeek(time);
             },
             getPdfTotal(){
                 let numPagesDom = this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication;
@@ -93,18 +104,26 @@
                 }
             },
             pdfNext(){
-                if(this.pdfPage < this.pdfTotal){
+                if(this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication && this.pdfFrameWin.PDFViewerApplication.eventBus) {
                     this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("nextpage")
-                    this.pdfPage++;
                 }
             },
             pdfSidebarToggle(){
-                this.pdfFrameWin.PDFViewerApplication.pdfSidebar.toggle();
+                if(this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication && this.pdfFrameWin.PDFViewerApplication.pdfSidebar){
+                    this.pdfFrameWin.PDFViewerApplication.pdfSidebar.toggle();
+                }
             },
+            pdfSidebarOpen(){
+                if(this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication && this.pdfFrameWin.PDFViewerApplication.pdfSidebar){
+                    this.pdfFrameWin.PDFViewerApplication.pdfSidebar.open();
+                }
+            },
+            pdfSidebarClose(){
+                if(this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication && this.pdfFrameWin.PDFViewerApplication.pdfSidebar){
+                    this.pdfFrameWin.PDFViewerApplication.pdfSidebar.close();
+                }
+            }
 
-            jumpCurPage(){
-                this.mp3Dom.currentTime = this.activeSectionObj.time2pdf[this.pdfPage-1]
-            },
         }
     }
 </script>
@@ -144,20 +163,6 @@
                     <!--<span class="mr5 ml10">{{pdfPage}}/{{pdfTotal}}</span>-->
                     <!--<template v-if="activeSectionObj.lrc">-->
                     <!--</template>-->
-                    <!--<el-switch-->
-                            <!--v-model="autoSync"-->
-                            <!--active-color="#13ce66"-->
-                            <!--inactive-color="#ff4949"-->
-                            <!--:width="25"-->
-                    <!--&gt;</el-switch>-->
-                    <!--<span v-if="autoSync">pdf自动同步</span>-->
-                    <!--<span v-else="!autoSync">pdf手动同步</span>-->
-                    <!--<span v-if="pdfTotal>0 && !autoSync">-->
-                        <!--<span @click="pdfPrev" :class="'cur-p el-icon-d-arrow-left '+ (pdfPage<=1?'gray':'')"></span>-->
-                        <!--<span @click="jumpCurPage" class="cur-p el-icon-caret-right"></span>-->
-                        <!--<span @click="pdfNext" :class="'cur-p el-icon-d-arrow-right '+(pdfPage==pdfTotal?'gray':'')"></span>-->
-                        <!--<span @click="pdfSidebarToggle" class="cur-p">大纲 </span>-->
-                    <!--</span>-->
                     <!--<speed @speedchanged="setSpeed"></speed>-->
                 <!--</span>-->
             <!--</div>-->
@@ -166,7 +171,6 @@
         <div class="course-pdf w h">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
         </div>
-        <av-controller :activeSectionObj="activeSectionObj" @timeupdate="setCurrentTime" class="pos-abs b0 l0 w h"></av-controller>
-        <pdf-controller></pdf-controller>
+        <av-controller ref="video" :activeSectionObj="activeSectionObj" @timeupdate="setCurrentTime" :class="'pos-abs b0 l0 w '+ (autoSync?'h':'h60')"></av-controller>
     </div>
 </template>

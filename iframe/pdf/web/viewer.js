@@ -7768,9 +7768,12 @@
                 this.l10n.get('thumb_page_title', {page: id}, 'Page {{page}}').then(function (msg) {
                     anchor.title = msg;
                 });
+                anchor.onmouseover = function(){
+                    linkService.page = id;
+                }
                 anchor.onclick = function () {
                     linkService.page = id;
-                    PDFViewerApplication.pdfSidebar.toggle();
+                    //向父窗口发送 跳转事件
                     var topDoc = window.top.document,
                         event = topDoc.createEvent('HTMLEvents');
                     // initEvent接受3个参数：// 事件类型，是否冒泡，是否阻止浏览器的默认行为

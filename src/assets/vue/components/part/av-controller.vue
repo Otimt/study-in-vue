@@ -1,4 +1,4 @@
-<script>
+<script xmlns:v-on="http://www.w3.org/1999/xhtml">
     import ComponentLrc from  "./lrc.vue";
     import ComponentSpeed from  "./play-speed.vue";
     import pdfController from  "./pdf-controller.vue";
@@ -145,7 +145,10 @@
             },
             UIVisible(){
                 return this.$store.state.UIVisible;
-            }
+            },
+            selectedPDFModel(){
+                return this.$store.state.selectedPDFModel;
+            },
         }
     }
 </script>
@@ -183,7 +186,7 @@
                    :src="playOption.mp4 || playOption.mp3">
             </video>
             <lrc v-if="playOption.lrc" v-show="lrcVisible"  :time="time" :lrc="playOption.lrc" style="bottom:60px;"></lrc>
-            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay">
+            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay" v-show="selectedPDFModel=='auto'">
                 <button class="vjs-big-play-button" type="button"   v-if="(status=='pause') || (status=='ended') || (status=='durationchange')">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>

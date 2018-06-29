@@ -28,7 +28,7 @@
             this.resetData();
         },
         mounted () {
-            window.addEventListener("mousemove",this.setUIVisible)
+            document.addEventListener("mousemove",this.setUIVisible)
         },
         watch:{
             '$store.state.chapterList':'resetData',
@@ -57,6 +57,7 @@
                     this.activeChapterObj = this.chapterList[this.activeChapter];
                     this.activeSectionList = this.activeChapterObj.sectionList;
                     this.activeSectionObj = this.activeSectionList[this.activeSection];
+                    this.$store.commit("SET_PDF_MODEL","auto");//还原自动同步
                 }
             },
             triggerExpand(){
