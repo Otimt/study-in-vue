@@ -28,7 +28,8 @@
             this.resetData();
         },
         mounted () {
-            document.addEventListener("mousemove",this.setUIVisible)
+            window.addEventListener("mousemove",this.setUIVisible)
+            window.addEventListener("pdfPageMousemove",this.setUIVisible)
         },
         watch:{
             '$store.state.chapterList':'resetData',

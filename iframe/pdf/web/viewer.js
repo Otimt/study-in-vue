@@ -1390,6 +1390,13 @@
                 _boundEvents.windowAfterPrint = function () {
                     eventBus.dispatch('afterprint');
                 };
+                _boundEvents.sendMousemoveToParentWindow = function(){
+                    var topDoc = window.top.document,
+                        event = topDoc.createEvent('HTMLEvents');
+                    // initEvent接受3个参数：// 事件类型，是否冒泡，是否阻止浏览器的默认行为
+                    event.initEvent("pdfPageMousemove", true, true);
+                    topDoc.dispatchEvent(event);
+                }
                 window.addEventListener('wheel', webViewerWheel);
                 window.addEventListener('click', webViewerClick);
                 window.addEventListener('keydown', webViewerKeyDown);
@@ -1397,6 +1404,7 @@
                 window.addEventListener('hashchange', _boundEvents.windowHashChange);
                 window.addEventListener('beforeprint', _boundEvents.windowBeforePrint);
                 window.addEventListener('afterprint', _boundEvents.windowAfterPrint);
+                window.addEventListener('mousemove', _boundEvents.sendMousemoveToParentWindow);
             },
             unbindEvents: function unbindEvents() {
                 var eventBus = this.eventBus,
