@@ -16,10 +16,6 @@ export default new Router({
             path: '/main-menu/',
             name: '目录页',
             component: MainMenu
-        // },{
-        //     path: '/vvp/',
-        //     name: 'vue-video-测试页',
-        //     component: VVP
         },{
             //默认页重定向
             path: '/',

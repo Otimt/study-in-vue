@@ -1,24 +1,16 @@
 <script>
     import ComponentLrc from  "./lrc.vue";
     import ComponentSpeed from  "./play-speed.vue";
+    import pdfController from  "./pdf-controller.vue";
 
-//    const DEFAULT_EVENTS = [
-//        'loadeddata',
-//        'canplay',
-//        'canplaythrough',
-//        'play',
-//        'pause',
-//        'waiting',
-//        'playing',
-//        'ended',
-//        'error'
-//    ]
 
     export default {
         props: ['activeSectionObj'],
         components: {
             'lrc': ComponentLrc,
             'speed': ComponentSpeed,
+            'pdf-controller':pdfController,
+
         },
         mounted () {
             this.startTimeSlider()
@@ -58,6 +50,7 @@
             setTime(e){
                 var video = e.target;
                 this.time = video.currentTime;
+                this.$emit('timeupdate',this.time);
             },
             setCanPlay(e){
                 this.canplay = e.type;
@@ -65,6 +58,9 @@
             setStatus(e){
                 console.log(e)
                 this.status = e.type;
+            },
+            isPlaying(){
+                return this.status == "play"
             },
             setDuration(e){
                 var video = e.target;
@@ -78,7 +74,6 @@
             startTimeSlider(){
                 this.stopTimeSlider();
                 this.$refs.video.addEventListener("timeupdate",this.setTime);
-//                this.$refs.video.removeEventListener("timeupdate",this.setTime);
             },
             stopTimeSlider(){
                 this.$refs.video.removeEventListener("timeupdate",this.setTime);
@@ -147,6 +142,9 @@
         computed: {
             playOption(){
                 return this.activeSectionObj
+            },
+            UIVisible(){
+                return this.$store.state.UIVisible;
             }
         }
     }
@@ -167,7 +165,6 @@
     .lrc-switch-box {
         width: 80px;
         text-align: center;
-        order:5;
     }
 </style>
 <template>
@@ -191,14 +188,14 @@
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
             </div>
-            <div class="vjs-control-bar" dir="ltr">
+            <div class="vjs-control-bar" dir="ltr" v-show="UIVisible || !isPlaying()">
                 <div class="vjs-progress-control vjs-control" v-on:mousedown="sliderDragStart">
                     <el-slider class="w" v-model="time" :format-tooltip="formatTime" :max="duration" @change="vSeek" ></el-slider>
                 </div>
                 <button class="vjs-play-control vjs-control vjs-button" type="button"  v-on:click="vPlay" v-if="status=='pause' || (status=='durationchange')">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
-                <button class="vjs-play-control vjs-control vjs-button vjs-playing" type="button"  v-on:click="vPause" v-else-if="status=='play'">
+                <button class="vjs-play-control vjs-control vjs-button vjs-playing" type="button"  v-on:click="vPause" v-else-if="isPlaying()">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
                 <button class="vjs-play-control vjs-control vjs-button vjs-ended" type="button"   v-on:click="vPlay" v-else-if="status=='ended'">
@@ -221,6 +218,7 @@
                         <el-slider class="w" v-model="volume" @change="vSetVolume"></el-slider>
                     </div>
                 </div>
+                <speed @speedchanged="vSetSpeed" class="vjs-playback-rate vjs-control lh-3em"></speed>
                 <div class="lh-3em lrc-switch-box">
                     <span class="dis-i">字幕</span>
                     <el-switch
@@ -230,7 +228,7 @@
                             :width="25"
                     ></el-switch>
                 </div>
-                <speed @speedchanged="vSetSpeed" class="vjs-playback-rate vjs-control lh-3em"></speed>
+                <pdf-controller v-if="playOption.pdf" class="vjs-control lh-3em"></pdf-controller>
                 <button class="vjs-fullscreen-control vjs-control vjs-button" type="button" title="Fullscreen" aria-disabled="false">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>

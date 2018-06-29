@@ -14,10 +14,23 @@ const store = new Vuex.Store({
         chapterList:null,//章节列表
         resourceList:null,//资源列表
 
+        //播放倍速
         selectedSpeed:2,//已选中的速度，默认2，表示1.0
         speedList:['0.5','0.75','1.0','1.25','1.5','1.75','2.0'],
+
+        //PDF手动自动
+        selectedPDFModel:"auto",
+
+        //隐藏控制界面
+        UIVisible:false,
     },
     mutations: {
+        SET_UI_VISIBLE(state,val){
+            state.UIVisible = val;
+        },
+        SET_PDF_MODEL(state,model){
+            state.selectedPDFModel = model;
+        },
         SET_SELECTED_SPEED(state,index){
             state.selectedSpeed = index;
             console.log("速度"+index)

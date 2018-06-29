@@ -20,16 +20,34 @@
                 activeSectionObj:null,
 
                 menuExpand:true,//目录展开
+
+                hideUITimeout:null,
             }
         },
         created(){
             this.resetData();
         },
+        mounted () {
+            window.addEventListener("mousemove",this.setUIVisible)
+        },
         watch:{
             '$store.state.chapterList':'resetData',
             '$route':'resetData',
         },
+        computed: {
+            UIVisible(){
+                return this.$store.state.UIVisible;
+            }
+        },
         methods: {
+            //控制界面显示，6秒后隐藏
+            setUIVisible(){
+                this.$store.commit("SET_UI_VISIBLE",true);
+                clearTimeout(this.hideUITimeout);
+                this.hideUITimeout = setTimeout(()=>{
+                    this.$store.commit("SET_UI_VISIBLE",false);
+                },6000)
+            },
             resetData(){
                 if(this.$store.state.chapterList){
                     this.resourceList = this.$store.state.resourceList;
@@ -162,11 +180,11 @@
                 </el-tabs>
             </el-aside>
             <el-container v-if="activeSectionList" class="pos-rel hide-overflow">
-                <router-link class="prev-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)-1)" v-if="activeSection>0">
+                <router-link v-show="UIVisible" class="prev-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)-1)" v-if="activeSection>0">
                     <i class="el-icon-arrow-up f16"></i><br />
                     <span class="f12">上一节</span>
                 </router-link>
-                <router-link class="next-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)+1)" v-if="activeSectionList && activeSection<activeSectionList.length-1">
+                <router-link v-show="UIVisible" class="next-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)+1)" v-if="activeSectionList && activeSection<activeSectionList.length-1">
                     <span class="f12">下一节</span><br />
                     <i class="el-icon-arrow-down f16"></i>
                 </router-link>

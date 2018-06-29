@@ -12,7 +12,6 @@
                 //固定参数===================================================
                 pdfFrameWin:null,
                 pdfFrameDoc:null,
-                mp3Dom:null,
                 pdfPage:1,//pdf当前页
                 pdfTotal:0,//pdf总页数，不为0，表示pdf已初始化完毕
 
@@ -31,52 +30,31 @@
         },
         mounted () {
             localStorage.setItem("pdfjs.history","");//清除 pdf 播放记录，自动回到第一页
-//            this.mp3Dom = document.getElementById("course-audio");
-//            this.startSync();
-//            this.mp3Dom.addEventListener("loadstart", this.setSpeed)
         },
         beforeDestroy(){
-//            this.stopSync();
-//            document.removeEventListener("pageChanged",this.pageChangedHandle);
-//            this.mp3Dom.removeEventListener("loadstart", this.setSpeed)
         },
         methods: {
-            setCurrentTime(e){
-                var video = e.player_;
-                this.time = video.currentTime();
+            setCurrentTime(time){
+                this.time = time;
+                this.turnPdfByTime()
             },
             switchSync(){
                 this.autoSync = !this.autoSync;
             },
-            //开始同步
-            startSync(){
-                this.pdfInterval = setInterval(function(){
-                    if(this.pdfTotal == 0){
-                        this.pdfTotal = this.getPdfTotal();
-                        console.log("正在加载pdf总数");
-                        if(this.pdfTotal != 0){
-                            console.log("pdf总数首次加载出来"+this.pdfTotal);
+            turnPdfByTime(){
+                var time2pdf = this.activeSectionObj.time2pdf,
+                    pdfCurrent = this.getPdfPage();
+                for(var i=0,il=time2pdf.length;i<il;i++){
+                    if((i+1)==time2pdf.length || (this.time >= time2pdf[i]  && this.time < time2pdf[i+1])){
+                        let page = i+1;
+                        console.log("去第"+page+"页");
+                        if(pdfCurrent !== page){
+                            console.log("真去第"+page+"页");
+                            this.pdfGoto(page);
                         }
-                    }else if(this.autoSync){
-                        var time2pdf = this.activeSectionObj.time2pdf,
-                            pdfCurrent = this.getPdfPage();
-                        for(var i=0,il=time2pdf.length;i<il;i++){
-                            if((i+1)==time2pdf.length || (this.mp3Dom.currentTime >= time2pdf[i]  && this.mp3Dom.currentTime < time2pdf[i+1])){
-                                let page = i+1;
-                                console.log("去第"+page+"页");
-                                if(pdfCurrent !== page){
-                                    console.log("真去第"+page+"页");
-                                    this.pdfGoto(page);
-                                }
-                                break;
-                            }
-                        }
+                        break;
                     }
-                }.bind(this),500)
-            },
-            //停止同步
-            stopSync(){
-                clearInterval(this.pdfInterval);
+                }
             },
             //pdf.js API
             setPdfFrameDoc(){
@@ -124,17 +102,6 @@
                 this.pdfFrameWin.PDFViewerApplication.pdfSidebar.toggle();
             },
 
-//            //音频控制
-//            setSpeed(){
-//                var selectedSpeed = this.$store.state.selectedSpeed,
-//                    speedList=this.$store.state.speedList,
-//                    speed = Number(speedList[selectedSpeed]);
-//                this.mp3Dom.playbackRate=speed;
-//                console.log("设置音频速率"+speed)
-//                console.log("设置的音频"+this.mp3Dom)
-//                console.log("设置的音频速率"+this.mp3Dom.playbackRate)
-//
-//            },
             jumpCurPage(){
                 this.mp3Dom.currentTime = this.activeSectionObj.time2pdf[this.pdfPage-1]
             },
@@ -176,13 +143,6 @@
                 <!--<span v-if="pdfTotal>0" class="ml5">-->
                     <!--<span class="mr5 ml10">{{pdfPage}}/{{pdfTotal}}</span>-->
                     <!--<template v-if="activeSectionObj.lrc">-->
-                    <el-switch
-                            v-model="lrcVisible"
-                            active-color="#13ce66"
-                            inactive-color="#ff4949"
-                            :width="25"
-                    ></el-switch>
-                    <span class="mr5">字幕</span>
                     <!--</template>-->
                     <!--<el-switch-->
                             <!--v-model="autoSync"-->
@@ -206,8 +166,7 @@
         <div class="course-pdf w h">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
         </div>
-        <!--<audio id="course-audio" :src="activeSectionObj.mp3" class="w" controls></audio>-->
-        <!--h60-->
-        <av-controller :activeSectionObj="activeSectionObj"></av-controller>
+        <av-controller :activeSectionObj="activeSectionObj" @timeupdate="setCurrentTime" class="pos-abs b0 l0 w h"></av-controller>
+        <pdf-controller></pdf-controller>
     </div>
 </template>
