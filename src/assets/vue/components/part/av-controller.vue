@@ -225,10 +225,10 @@
                     <button class="vjs-mute-control vjs-control vjs-button vjs-vol-3" type="button" title="Mute" aria-disabled="false"><span aria-hidden="true" class="vjs-icon-placeholder"></span>
                     </button>
                     <div class="vjs-volume-control vjs-control vjs-volume-horizontal">
-                        <el-slider class="w" v-model="volume" @change="vSetVolume"></el-slider>
+                        <el-slider class="w" v-model="volume" :format-tooltip="parseInt" @change="vSetVolume"></el-slider>
                     </div>
                 </div>
-                <speed @speedchanged="vSetSpeed" class="vjs-playback-rate vjs-control lh-3em"></speed>
+                <speed @speedchanged="vSetSpeed" class="vjs-playback-rate vjs-control"></speed>
                 <div class="lh-3em lrc-switch-box">
                     <span class="dis-i">字幕</span>
                     <el-switch
