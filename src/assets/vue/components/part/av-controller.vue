@@ -37,6 +37,10 @@
             this.$refs.video.removeEventListener("ended",this.setStatus);
             this.$refs.video.removeEventListener("canplay",this.setCanPlay);
             this.$refs.video.removeEventListener("seeking",this.setCanPlay);
+            //全屏处理
+            if (screenfull.enabled) {
+                screenfull.off('change', this.setFullScreen);
+            }
         },
         data(){
             return {
@@ -46,7 +50,7 @@
                 volume:100,//音量
                 status:'',//状态
                 canplay:false,
-                autoSync:this.$store.state.selectedPDFModel=='auto',
+                autoSync:this.$store.state.selectedPDFModel!='auto',
             }
         },
         watch:{
@@ -61,7 +65,7 @@
                 this.$store.commit("SET_FULL_SCREEN",screenfull.isFullscreen);
             },
             setSelectedPDFModel(){
-                if(this.autoSync){
+                if(!this.autoSync){
                     this.$store.commit("SET_PDF_MODEL","auto");
                 }else{
                     this.$store.commit("SET_PDF_MODEL","not");
@@ -189,7 +193,8 @@
     .lh-3em{line-height:3em;}
 
     .lrc-switch-box {
-        width:100px;
+        width:70px;
+        min-width:70px;
         text-align: center;
     }
     .full-screen .video-js .vjs-fullscreen-control .vjs-icon-placeholder::before{
@@ -212,7 +217,7 @@
                    :src="playOption.mp4 || playOption.mp3">
             </video>
             <lrc v-if="playOption.lrc" v-show="lrcVisible"  :time="time" :lrc="playOption.lrc" style="bottom:60px;"></lrc>
-            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay" v-show="autoSync">
+            <div class="w h t0 b0 l0 r0 pos-abs cover-box" @click="switchPlay" v-show="!autoSync">
                 <button class="vjs-big-play-button" type="button"   v-if="(status=='pause') || (status=='ended') || (status=='durationchange')">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
