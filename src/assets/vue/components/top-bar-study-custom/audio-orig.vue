@@ -56,18 +56,8 @@
             },
             //pdf.js API
             setPdfFrameDoc(){
-                console.log("初始化1")
                 this.pdfFrameWin = document.getElementById("pdfFrame").contentWindow;
-                console.log("初始化2")
                 this.pdfFrameDoc = this.pdfFrameWin.document;
-                console.log("初始化3")
-//                this.pdfTotal = this.getPdfTotal();
-                console.log("初始化4")
-//                this.pdfPage = this.getPdfPage();
-                console.log("初始化5")
-//                console.log(this.pdfTotal)
-//                console.log(this.pdfPage)
-                console.log("初始化6")
                 document.addEventListener("pageChanged",this.pageChangedHandle)
             },
             //pdf目录点击了，通知本组件切换pdf页数

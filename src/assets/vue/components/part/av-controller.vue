@@ -3,6 +3,7 @@
     import ComponentSpeed from  "./play-speed.vue";
     import pdfController from  "./pdf-controller.vue";
 
+    import screenfull from "screenfull";
 
     export default {
         props: ['activeSectionObj'],
@@ -10,7 +11,6 @@
             'lrc': ComponentLrc,
             'speed': ComponentSpeed,
             'pdf-controller':pdfController,
-
         },
         mounted () {
             this.startTimeSlider()
@@ -22,6 +22,10 @@
             this.$refs.video.addEventListener("ended",this.setStatus);
             this.$refs.video.addEventListener("canplay",this.setCanPlay);
             this.$refs.video.addEventListener("seeking",this.setCanPlay);
+            //全屏处理
+            if (screenfull.enabled) {
+                screenfull.on('change', this.setFullScreen);
+            }
         },
         beforeDestroy(){
             this.stopTimeSlider()
@@ -49,6 +53,13 @@
             "autoSync":"setSelectedPDFModel"
         },
         methods: {
+
+            //设置数据
+            //监控页面全屏
+            setFullScreen(){
+                console.log("全屏处理"+screenfull.isFullscreen);
+                this.$store.commit("SET_FULL_SCREEN",screenfull.isFullscreen);
+            },
             setSelectedPDFModel(){
                 if(this.autoSync){
                     this.$store.commit("SET_PDF_MODEL","auto");
@@ -56,7 +67,6 @@
                     this.$store.commit("SET_PDF_MODEL","not");
                 }
             },
-            //设置数据
             setTime(e){
                 var video = e.target;
                 this.time = video.currentTime;
@@ -98,6 +108,9 @@
                 document.removeEventListener("mouseup",this.sliderDragEnd);
             },
             //操作播放器
+            vToggleScreenFull(){
+                screenfull.toggle();
+            },
             vSetVolume(num){
                 this.$refs.video.volume = (num/100)
             },
@@ -156,6 +169,9 @@
             UIVisible(){
                 return this.$store.state.UIVisible;
             },
+            isFullScreen(){
+                return this.$store.state.isFullScreen;
+            },
         }
     }
 </script>
@@ -175,6 +191,9 @@
     .lrc-switch-box {
         width:100px;
         text-align: center;
+    }
+    .full-screen .video-js .vjs-fullscreen-control .vjs-icon-placeholder::before{
+        content: "\F109";
     }
 </style>
 <template>
@@ -248,7 +267,7 @@
                     ></el-switch>
                 </div>
                 <!--<pdf-controller v-if="playOption.pdf" class="vjs-control lh-3em"></pdf-controller>-->
-                <button class="vjs-fullscreen-control vjs-control vjs-button" type="button" title="Fullscreen" aria-disabled="false">
+                <button class="vjs-fullscreen-control vjs-control vjs-button" type="button" @click="vToggleScreenFull">
                     <span aria-hidden="true" class="vjs-icon-placeholder"></span>
                 </button>
             </div>

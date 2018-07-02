@@ -23,8 +23,14 @@ const store = new Vuex.Store({
 
         //隐藏控制界面
         UIVisible:false,
+
+        //是否已全屏
+        isFullScreen:false,
     },
     mutations: {
+        SET_FULL_SCREEN(state,val){
+            state.isFullScreen = val;
+        },
         SET_UI_VISIBLE(state,val){
             state.UIVisible = val;
         },

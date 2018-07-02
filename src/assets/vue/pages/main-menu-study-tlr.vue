@@ -4,6 +4,8 @@
     import ComponentWork from "../components/top-bar-study-custom/homework.vue";
     import ComponentPdf from "../components/top-bar-study-custom/pdf.vue";
 
+
+
     import 'video.js/dist/video-js.css';
     import './../../css/video-js-kgc.less';
 
@@ -28,8 +30,9 @@
             this.resetData();
         },
         mounted () {
-            window.addEventListener("mousemove",this.setUIVisible)
-            window.addEventListener("pdfPageMousemove",this.setUIVisible)
+            //本页面 子页面鼠标移动，显示控制界面
+            window.addEventListener("mousemove",this.setUIVisible);
+            window.addEventListener("pdfPageMousemove",this.setUIVisible);
         },
         watch:{
             '$store.state.chapterList':'resetData',
@@ -38,6 +41,9 @@
         computed: {
             UIVisible(){
                 return this.$store.state.UIVisible;
+            },
+            isFullScreen(){
+                return this.$store.state.isFullScreen;
             }
         },
         methods: {
@@ -100,6 +106,10 @@
     .left-menu .el-submenu.is-opened > .el-submenu__title .el-submenu__icon-arrow:before{content:"㊀";color:#13ce66;}
 </style>
 <style scoped>
+    /*全屏显示样式*/
+    .full-screen{
+        position: absolute;width: 100%;height: 100%;top: 0;z-index: 2;
+    }
     .dark-bg{
         background:#25282c;
     }
@@ -181,7 +191,7 @@
                     </el-tab-pane>
                 </el-tabs>
             </el-aside>
-            <el-container v-if="activeSectionList" class="pos-rel hide-overflow">
+            <el-container v-if="activeSectionList" :class="{'pos-rel':true,'hide-overflow':true,'full-screen':isFullScreen}">
                 <router-link v-show="UIVisible" class="prev-section-flow-right-btn white ac" :to="'/main-menu-study-tlr/'+activeChapter+'/'+(Number(activeSection)-1)" v-if="activeSection>0">
                     <i class="el-icon-arrow-up f16"></i><br />
                     <span class="f12">上一节</span>
