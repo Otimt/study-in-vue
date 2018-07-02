@@ -173,7 +173,7 @@
     .lh-3em{line-height:3em;}
 
     .lrc-switch-box {
-        width:90px;
+        width:100px;
         text-align: center;
     }
 </style>
