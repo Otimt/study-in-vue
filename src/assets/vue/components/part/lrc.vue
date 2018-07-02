@@ -205,9 +205,10 @@
 <style>
     .lrc{
         text-shadow:0 0 2px #000;
-        width:100%;
+        width:calc(100% - 240px);
+        margin-left:120px;
         height:35px;
-        z-index:4;
+        z-index:0;
         color:#fff;
     }
     .b-radius-8{border-radius:8px;}
