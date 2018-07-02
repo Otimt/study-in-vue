@@ -97,7 +97,7 @@
     .left-menu .selected-menu-item i{color:#fff;}
     /*章目录*/
     .left-menu .el-menu-item, .left-menu .el-submenu__title{height:45px;line-height:45px;}
-    .left-menu .el-submenu__title{padding:0 10px;}
+    .left-menu .el-submenu__title{padding:0 10px;overflow:hidden;}
     .left-menu .el-submenu__title i,.el-menu-item i{color:#93999f;}
     .left-menu .el-submenu [class^="el-icon-"]{font-size:12px;width:18px;}
     .left-menu .el-submenu .el-menu-item{padding:0 10px;}
@@ -155,17 +155,14 @@
                                             </el-row>
                                         </div>
                                     </template>
-                                    <router-link :to="'/main-menu-study-tlr/'+cIndex+'/'+sIndex" v-for="(section,sIndex) in chapter.sectionList">
+                                    <router-link class="dis-b" :to="'/main-menu-study-tlr/'+cIndex+'/'+sIndex" v-for="(section,sIndex) in chapter.sectionList">
                                         <el-menu-item  :index="cIndex+'-'+sIndex" >
                                             <el-row :title="section.title">
                                                 <el-col :span="3" class="al">
                                                     <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
                                                     <span v-else class="dis-b f24">○</span>
                                                 </el-col>
-                                                <el-col :span="21" class="al ellipsis">{{section.title}}</el-col>
-                                                <!--<el-col :span="3" class="ac">-->
-                                                <!--<span class="dis-b" v-if="section.progress && section.progress!='100%'">{{section.progress}}</span>-->
-                                                <!--</el-col>-->
+                                                <el-col :span="20" class="al ellipsis">{{section.title}}</el-col>
                                             </el-row>
                                         </el-menu-item>
                                     </router-link>
