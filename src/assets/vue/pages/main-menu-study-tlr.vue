@@ -148,7 +148,7 @@
                                                 <el-col :span="19" class="al ellipsis">
                                                     {{chapter.title}}
                                                 </el-col>
-                                                <el-col :span="3" class="ac">
+                                                <el-col :span="3" class="ar">
                                                     <i v-if="chapter.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
                                                     <i v-else>{{chapter.progress}}</i>
                                                 </el-col>
@@ -168,7 +168,7 @@
                                                     }"></div>
                                                 </el-col>
                                                 <el-col :span="18" class="al ellipsis">{{section.title}}</el-col>
-                                                <el-col :span="3" class="ac">
+                                                <el-col :span="3" class="ar">
                                                     <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
                                                     <span v-else class="dis-b f24">○</span>
                                                 </el-col>
