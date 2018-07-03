@@ -138,7 +138,7 @@
                 <el-tabs  class="h" >
                     <el-tab-pane class="h":stretch="true">
                         <span slot="label" class="ac":stretch="true">课程</span>
-                        <el-menu class="h" :unique-opened="true" :default-active="activeChapter+'-'+activeSection" background-color="#25282c" active-text-color="#fff" text-color="#93999f">
+                        <el-menu class="h" :unique-opened="true" :default-active="activeChapter+'-'+activeSection" background-color="#25282c" active-text-color="#17ad5b" text-color="#93999f">
                             <el-scrollbar class="h">
                                 <el-submenu  v-for="(chapter,cIndex) in chapterList" :index="String(cIndex)">
                                     <template slot="title">
@@ -159,10 +159,19 @@
                                         <el-menu-item  :index="cIndex+'-'+sIndex" >
                                             <el-row :title="section.title">
                                                 <el-col :span="3" class="al">
+                                                    <div class="icon" :class="{
+                                                        'selected':sIndex==activeSection && cIndex==activeChapter,
+                                                        'icon-video':section.type=='video',
+                                                        'icon-audio':section.type=='audio',
+                                                        'icon-pdf':section.type=='pdf' || section.type=='text',
+                                                        'icon-work':section.type=='work',
+                                                    }"></div>
+                                                </el-col>
+                                                <el-col :span="18" class="al ellipsis">{{section.title}}</el-col>
+                                                <el-col :span="3" class="al">
                                                     <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
                                                     <span v-else class="dis-b f24">○</span>
                                                 </el-col>
-                                                <el-col :span="20" class="al ellipsis">{{section.title}}</el-col>
                                             </el-row>
                                         </el-menu-item>
                                     </router-link>
