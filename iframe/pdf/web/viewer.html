@@ -31,14 +31,30 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     <link rel="stylesheet" href="viewer.css">
 
+	<!-- This snippet is used in production (included from viewer.html) -->
+	<link rel="resource" type="application/l10n" href="locale/locale.properties">
+	<style>
+      .dis-none{
+        /*display:none;*/
+      }
 
-<!-- This snippet is used in production (included from viewer.html) -->
-<link rel="resource" type="application/l10n" href="locale/locale.properties">
-<script src="../build/pdf.js"></script>
-
-
+      #mainContainer{
+      }
+      #viewerContainer.hide-overflow{
+        overflow:hidden;
+      }
+      .pdfViewer.scrollHorizontal{
+        display:table;/*横排pdf垂直居中手段*/
+        height:100%;
+      }
+      .pdfViewer.scrollHorizontal .page{
+        display:table-cell;/*横排pdf垂直居中手段*/
+        background: #3d3d3d;/*横排pdf垂直居中后，上下留黑场*/
+        border:none;/*为了横竖排列适应页面，去掉页间分隔*/
+      }
+	</style>
+	<script src="../build/pdf.js"></script>
     <script src="viewer.js?v=6141119"></script>
-
   </head>
 
   <body tabindex="1" class="loadingInProgress">
@@ -382,5 +398,46 @@ See https://github.com/adobe-type-tools/cmap-resources
     </div> <!-- outerContainer -->
     <div id="printContainer"></div>
   </body>
+  <script>
+    (function(){
+      init();
+      function init(){
+        if(!window.PDFViewerApplication || !window.PDFViewerApplication.eventBus){
+          setTimeout(init,200);
+          return;
+        }
+        function setHV(){
+          var winW =  document.documentElement.clientWidth,
+                  winH =  document.documentElement.clientHeight;
+          if(winW/winH > 16/9){
+            //pdf竖向排列
+            console.log("竖")
+            document.getElementById("scrollVertical").click();
+            //设置pdf适合页面
+            window.PDFViewerApplication.eventBus.dispatch('scalechanged', {
+              source: self,
+              value: "page-fit"
+            });
+          }else{
+            //pdf横向排列
+            console.log("横")
+            document.getElementById("scrollHorizontal").click()
+            //设置pdf适合页面
+            window.PDFViewerApplication.eventBus.dispatch('scalechanged', {
+              source: self,
+              value: "page-width"
+            });
+          }
+        }
+        window.addEventListener("resize",setHV);
+        //pdf加载完毕设置横竖排列
+        window.PDFViewerApplication.eventBus.on('pagesloaded', function (evt) {
+          setHV();
+        });
+      }
+
+    })()
+
+  </script>
 </html>
 

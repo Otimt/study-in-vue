@@ -621,9 +621,6 @@ html[dir='rtl'] #sidebarContent {
   transition-duration: 200ms;
   transition-timing-function: ease;
 }
-#viewerContainer.hide-overflow{
-  overflow: hidden;
-}
 
 
 html[dir='ltr'] #viewerContainer {
@@ -647,10 +644,6 @@ html[dir='rtl'] #outerContainer.sidebarOpen #viewerContainer {
   transition-property: right;
   right: 200px;
   right: var(--sidebar-width);
-}
-
-.dis-none{
-	display:none;
 }
 
 .toolbar {
