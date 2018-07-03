@@ -49,7 +49,6 @@
     "screenfull": "^3.3.2",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
-    "vue-video-player": "^5.0.2",
     "vuex": "^3.0.1"
   },
   "displayName": "qqq"

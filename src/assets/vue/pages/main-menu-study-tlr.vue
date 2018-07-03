@@ -6,7 +6,7 @@
 
 
 
-    import 'video.js/dist/video-js.css';
+    import './../../css/video-js.css';
     import './../../css/video-js-kgc.less';
 
     export default {
@@ -168,7 +168,7 @@
                                                     }"></div>
                                                 </el-col>
                                                 <el-col :span="18" class="al ellipsis">{{section.title}}</el-col>
-                                                <el-col :span="3" class="al">
+                                                <el-col :span="3" class="ac">
                                                     <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
                                                     <span v-else class="dis-b f24">○</span>
                                                 </el-col>
