@@ -170,7 +170,7 @@
                                                 <el-col :span="18" class="al ellipsis">{{section.title}}</el-col>
                                                 <el-col :span="3" class="ar">
                                                     <i v-if="section.progress=='100%'" style="color:#15bc60;" class="el-icon-check"></i>
-                                                    <span v-else class="dis-b f24">○</span>
+                                                    <span v-else class="dis-b f24" style="padding-right:6px;">○</span>
                                                 </el-col>
                                             </el-row>
                                         </el-menu-item>
