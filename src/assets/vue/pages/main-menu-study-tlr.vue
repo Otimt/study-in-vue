@@ -33,6 +33,18 @@
             //本页面 子页面鼠标移动，显示控制界面
             window.addEventListener("mousemove",this.setUIVisible);
             window.addEventListener("pdfPageMousemove",this.setUIVisible);
+            //全屏处理
+            if (this.screenfull.enabled) {
+                this.screenfull.on('change', this.setFullScreen);
+            }
+        },
+        beforeDestroy(){
+            window.removeEventListener("mousemove",this.setUIVisible);
+            window.removeEventListener("pdfPageMousemove",this.setUIVisible);
+            //全屏处理
+            if (this.screenfull.enabled) {
+                this.screenfull.off('change', this.setFullScreen);
+            }
         },
         watch:{
             '$store.state.chapterList':'resetData',
@@ -47,6 +59,11 @@
             }
         },
         methods: {
+            //监控页面全屏
+            setFullScreen(){
+                console.log("全屏状态"+this.screenfull.isFullscreen)
+                this.$store.commit("SET_FULL_SCREEN",this.screenfull.isFullscreen);
+            },
             //控制界面显示，6秒后隐藏
             setUIVisible(){
                 this.$store.commit("SET_UI_VISIBLE",true);

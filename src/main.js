@@ -4,8 +4,10 @@ import ElementUI from 'element-ui';
 import store from './vuex/store.js'
 import router from './routes/routes.js'
 
-Vue.use(ElementUI);
+import screenfull from "screenfull";
 
+Vue.use(ElementUI);
+Vue.prototype.screenfull = screenfull;
 
 //引入公共样式*/
 import './assets/css/reset.less'

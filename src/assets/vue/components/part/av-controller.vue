@@ -3,8 +3,6 @@
     import ComponentSpeed from  "./play-speed.vue";
     import pdfController from  "./pdf-controller.vue";
 
-    import screenfull from "screenfull";
-
     export default {
         props: ['activeSectionObj'],
         components: {
@@ -13,7 +11,7 @@
             'pdf-controller':pdfController,
         },
         mounted () {
-            this.startTimeSlider()
+            this.startTimeSlider();
             this.$refs.video.addEventListener("loadstart", this.vSetSpeed);
             this.$refs.video.addEventListener("durationchange",this.setDuration);
             this.$refs.video.addEventListener("volumechange",this.setVolume);
@@ -22,13 +20,9 @@
             this.$refs.video.addEventListener("ended",this.setStatus);
             this.$refs.video.addEventListener("canplay",this.setCanPlay);
             this.$refs.video.addEventListener("seeking",this.setCanPlay);
-            //全屏处理
-            if (screenfull.enabled) {
-                screenfull.on('change', this.setFullScreen);
-            }
         },
         beforeDestroy(){
-            this.stopTimeSlider()
+            this.stopTimeSlider();
             this.$refs.video.removeEventListener("loadstart", this.vSetSpeed);
             this.$refs.video.removeEventListener("durationchange",this.setDuration);
             this.$refs.video.removeEventListener("volumechange",this.setVolume);
@@ -37,10 +31,6 @@
             this.$refs.video.removeEventListener("ended",this.setStatus);
             this.$refs.video.removeEventListener("canplay",this.setCanPlay);
             this.$refs.video.removeEventListener("seeking",this.setCanPlay);
-            //全屏处理
-            if (screenfull.enabled) {
-                screenfull.off('change', this.setFullScreen);
-            }
         },
         data(){
             return {
@@ -59,11 +49,6 @@
         methods: {
 
             //设置数据
-            //监控页面全屏
-            setFullScreen(){
-                console.log("全屏处理"+screenfull.isFullscreen);
-                this.$store.commit("SET_FULL_SCREEN",screenfull.isFullscreen);
-            },
             setSelectedPDFModel(){
                 if(!this.autoSync){
                     this.$store.commit("SET_PDF_MODEL","auto");
@@ -113,7 +98,7 @@
             },
             //操作播放器
             vToggleScreenFull(){
-                screenfull.toggle();
+                this.screenfull.toggle();
             },
             vSetVolume(num){
                 this.$refs.video.volume = (num/100)
