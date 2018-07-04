@@ -47,19 +47,16 @@ See https://github.com/adobe-type-tools/cmap-resources
         display:flex;
         align-items: center;
       }
-      .pdfViewer.scrollHorizontal{
-        /*display:flex;*/
-        /*align-items: center;*/
-        /*height:100%;*/
-      }
       .pdfViewer .page{
         border:none;
-        border-bottom:150px solid transparent;;
+        border-bottom:150px solid transparent;/*竖排pdf，为保持每次显示一页pdf，用margin把其他页pdf向下撑出去*/
       }
       .pdfViewer.scrollHorizontal .page{
-        /*border:none;!*为了横竖排列适应页面，去掉页间分隔*!*/
         border:none;
-        border-right:150px solid transparent;;
+        border-right:150px solid transparent;/*横排pdf，为保持每次显示一页pdf，用margin把其他页pdf向右撑出去*/
+      }
+      html[dir="ltr"] #outerContainer.sidebarOpen #viewerContainer{
+        left:0;/*不管页面宽度，pdf始终占满，使pdf不受大纲的影响*/
       }
 
 	</style>
@@ -92,7 +89,7 @@ See https://github.com/adobe-type-tools/cmap-resources
           <div id="attachmentsView" class="hidden">
           </div>
         </div>
-        <div id="sidebarResizer" class="hidden"></div>
+        <div id="sidebarResizer" class="hidden dis-none"></div>
       </div>  <!-- sidebarContainer -->
 
       <div id="mainContainer">
