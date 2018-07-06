@@ -1,0 +1,345 @@
+{
+	"courseTitle":"Python数据分析体验课",
+	"resourceList":{
+		"list":[
+			{
+				"name":"数据集",
+				"url":"http://download.kgc.cn/kgc/python/data.rar"
+			},{
+				"name":"列标签说明文档",
+				"url":"http://download.kgc.cn/kgc/python/label.pdf"
+			}
+		],
+		"collection":"http://download.kgc.cn/kgc/python/all.rar"
+	},
+	"chapterList":[
+		{
+			"title":"1、课程概述",
+			"progress":"100%",
+			"sectionList":[
+				{
+					"title":"课程概述",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,6,19,29,59
+					],
+					"lrc":"../data/1-1.lrc",
+					"mp3":"../data/1-1.mp3",
+					"pdf":"../../../data/1-1.pdf"
+				},{
+					"title":"m3u8测试",
+					"progress":"60%",
+					"type":"video",
+					"m3u8":"http://admin-flv.bdqn.dev.cn/yk-kgc-gx30101/t3/1101/segments.m3u8",
+					"m3u8-local":"../data/1105/segments.m3u8"
+					
+				}
+			]
+		},{
+			"title":"2、数据分析过程概述",
+			"progress":"90%",
+			"sectionList":[
+				{
+					"title":"应用场景（暂时跳过）",
+					"progress":"100%",
+					"type":"text"
+				},{
+					"title":"2.1 内容简介",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,16,22
+					],
+					"lrc":"../data/2-2.lrc",
+					"mp3":"../data/2-2.mp3",
+					"pdf":"../../../data/2-2.pdf"
+				},{
+					"title":"2.2 预习资料",
+					"progress":"80%",
+					"type":"pdf",
+					"pdf":"../../../data/2-3.pdf"
+				},{
+					"title":"2.3 数据分析过程概述",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,9,46,60,111,151,211,269,297,323,352,280,415,446,457,500
+					],
+					"lrc":"../data/2-4.lrc",
+					"mp3":"../data/2-4.mp3",
+					"pdf":"../../../data/2-4.pdf"
+				},{
+					"title":"2.4 小结：学到了什么",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/2-5.pdf"
+				},{
+					"title":"2.5 作业：动手操作 ",
+					"progress":"100%",
+					"type":"work",
+					"pdf":"../../../data/2-6.pdf"
+				}
+			]
+		},{
+			"title":"3、Python概述及环境搭建",
+			"progress":"100%",
+			"sectionList":[
+				{
+					"title":"应用场景（暂时跳过）",
+					"progress":"100%",
+					"type":"text"
+				},{
+					"title":"3.1 内容简介",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,19,50
+					],
+					"lrc":"../data/3-2.lrc",
+					"mp3":"../data/3-2.mp3",
+					"pdf":"../../../data/3-2.pdf"
+				},{
+					"title":"3.2 预习资料",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/3-3.pdf"
+				},{
+					"title":"3.3 Python概述",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,7,52,77
+					],
+					"lrc":"../data/3-4.lrc",
+					"mp3":"../data/3-4.mp3",
+					"pdf":"../../../data/3-4.pdf"
+				},{
+					"title":"3.4 Python环境搭建",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/3-5.lrc",
+					"mp4":"../data/3-5.mp4"
+				},{
+					"title":"3.5 小结：学到了什么",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/3-6.pdf"
+				},{
+					"title":"3.6 作业：动手操作",
+					"progress":"100%",
+					"type":"work",
+					"pdf":"../../../data/3-7.pdf"
+				}
+			]
+		},{
+			"title":"4、案例Part1：确定问题&获取数据",
+			"progress":"100%",
+			"sectionList":[
+				{
+					"title":"应用场景（暂时跳过）",
+					"progress":"100%",
+					"type":"text"
+				},{
+					"title":"4.1 内容简介",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,20,28
+					],
+					"lrc":"../data/4-3.lrc",
+					"mp3":"../data/4-3.mp3",
+					"pdf":"../../../data/4-3.pdf"
+				},{
+					"title":"4.2 预习资料",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/4-4.pdf"
+				},{
+					"title":"4.3 数据集介绍",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/4-5.lrc",
+					"mp4":"../data/4-5.mp4"
+				},{
+					"title":"4.4 数据导入Python",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/4-6.lrc",
+					"mp4":"../data/4-6.mp4"
+				},{
+					"title":"4.5 观察数据，提出问题",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/4-7.lrc",
+					"mp4":"../data/4-7.mp4"
+				},{
+					"title":"4.6 小结：学到了什么",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/4-8.pdf"
+				},{
+					"title":"4.7 作业：动手操作",
+					"progress":"100%",
+					"type":"work",
+					"pdf":"../../../data/4-9.pdf"
+				}
+			]
+		},{
+			"title":"5、案例Part2：整理数据",
+			"progress":"100%",
+			"sectionList":[
+				{
+					"title":"应用场景（暂时跳过）",
+					"progress":"100%",
+					"type":"text"
+				},{
+					"title":"5.1 内容简介",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,32,57
+					],
+					"lrc":"../data/5-3.lrc",
+					"mp3":"../data/5-3.mp3",
+					"pdf":"../../../data/5-3.pdf"
+				},{
+					"title":"5.2 预习资料",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/5-4.pdf"
+				},{
+					"title":"5.3 数据评估",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/5-5.lrc",
+					"mp4":"../data/5-5.mp4"
+				},{
+					"title":"5.4 数据清洗",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/5-6.lrc",
+					"mp4":"../data/5-6.mp4"
+				},{
+					"title":"5.5 小结：学到了什么",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/5-7.pdf"
+				},{
+					"title":"5.6 作业：动手操作 ",
+					"progress":"100%",
+					"type":"work",
+					"pdf":"../../../data/5-8.pdf"
+				}
+			]
+		},{
+
+			"title":"6、案例Part3：数据探索&得出结论",
+			"progress":"100%",
+			"sectionList":[
+				{
+					"title":"应用场景（暂时跳过）",
+					"progress":"100%",
+					"type":"text"
+				},{
+					"title":"6.1 内容简介",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,17,32,58
+					],
+					"lrc":"../data/6-2.lrc",
+					"mp3":"../data/6-2.mp3",
+					"pdf":"../../../data/6-2.pdf"
+				},{
+					"title":"6.2 预习资料",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/6-3.pdf"
+				},{
+					"title":"6.3 问题一",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/6-4.lrc",
+					"mp4":"../data/6-4.mp4"
+				},{
+					"title":"6.4 问题二",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/6-5.lrc",
+					"mp4":"../data/6-5.mp4"
+
+				},{
+					"title":"6.5 问题三",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/6-6.lrc",
+					"mp4":"../data/6-6.mp4"
+				},{
+					"title":"6.6 问题四",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/6-7.lrc",
+					"mp4":"../data/6-7.mp4"
+				},{
+					"title":"6.7 小结：学到了什么",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/6-8.pdf"
+				},{
+					"title":"6.8 作业：动手操作 ",
+					"progress":"100%",
+					"type":"work",
+					"pdf":"../../../data/6-9.pdf"
+				}
+			]
+		},{
+			"title":"7、案例Part4：展示结果",
+			"progress":"100%",
+			"sectionList":[
+				{
+					"title":"应用场景（暂时跳过）",
+					"progress":"100%",
+					"type":"text"
+				},{
+					"title":"7.1 内容简介",
+					"progress":"100%",
+					"type":"audio",
+					"time2pdf":[
+						0,32,55
+					],
+					"lrc":"../data/7-2.lrc",
+					"mp3":"../data/7-2.mp3",
+					"pdf":"../../../data/7-2.pdf"
+				},{
+					"title":"7.2 预习资料",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/7-3.pdf"
+				},{
+					"title":"7.3 数据可视化",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/7-4.lrc",
+					"mp4":"../data/7-4.mp4"
+				},{
+					"title":"7.4 制作分析报告",
+					"progress":"100%",
+					"type":"video",
+					"lrc":"../data/7-5.lrc",
+					"mp4":"../data/7-5.mp4"
+				},{
+					"title":"7.5 小结：学到了什么",
+					"progress":"100%",
+					"type":"pdf",
+					"pdf":"../../../data/7-6.pdf"
+				},{
+					"title":"7.6 作业：动手操作",
+					"progress":"100%",
+					"type":"work",
+					"pdf":"../../../data/7-7.pdf"
+				}
+			]
+		}
+	]
+}

@@ -1,5 +1,5 @@
 <script>
-    import avController from  "../part/av-controller.vue";
+    import avController from  "../part/av-controller-videojs.vue";
 
 
 
@@ -32,7 +32,7 @@
 </script>
 <style>
     /*覆盖*/
-    .video-js{height:100%;}
+    .video-js{width:100%;height:100%;}
 </style>
 <template>
     <div class="w h hide-overflow pos-rel bg-black">

@@ -53,7 +53,7 @@ const store = new Vuex.Store({
     },
     actions:{
         fetchChapterList(context){
-            axios.get("../data/core.json").then(function(res){
+            axios.get("../data/core-m3u8.json").then(function(res){
                 console.log(res);
                 context.commit("SET_COURSE_INFO",res.data)
             })
