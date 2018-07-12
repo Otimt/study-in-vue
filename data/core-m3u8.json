@@ -73,7 +73,8 @@
 					"title":"2.4 小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../../../data/2-5.pdf"
+					"pdf":"../../../data/2-5.pdf",
+					"needFeedback":true
 				},{
 					"title":"2.5 作业：动手操作 ",
 					"progress":"100%",
@@ -124,7 +125,8 @@
 					"title":"3.5 小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../../../data/3-6.pdf"
+					"pdf":"../../../data/3-6.pdf",
+					"needFeedback":true
 				},{
 					"title":"3.6 作业：动手操作",
 					"progress":"100%",
@@ -177,7 +179,8 @@
 					"title":"4.6 小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../../../data/4-8.pdf"
+					"pdf":"../../../data/4-8.pdf",
+					"needFeedback":true
 				},{
 					"title":"4.7 作业：动手操作",
 					"progress":"100%",
@@ -224,7 +227,8 @@
 					"title":"5.5 小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../../../data/5-7.pdf"
+					"pdf":"../../../data/5-7.pdf",
+					"needFeedback":true
 				},{
 					"title":"5.6 作业：动手操作 ",
 					"progress":"100%",
@@ -285,7 +289,8 @@
 					"title":"6.7 小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../../../data/6-8.pdf"
+					"pdf":"../../../data/6-8.pdf",
+					"needFeedback":true
 				},{
 					"title":"6.8 作业：动手操作 ",
 					"progress":"100%",
@@ -332,7 +337,8 @@
 					"title":"7.5 小结：学到了什么",
 					"progress":"100%",
 					"type":"pdf",
-					"pdf":"../../../data/7-6.pdf"
+					"pdf":"../../../data/7-6.pdf",
+					"needFeedback":true
 				},{
 					"title":"7.6 作业：动手操作",
 					"progress":"100%",

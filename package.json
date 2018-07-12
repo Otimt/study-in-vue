@@ -47,7 +47,6 @@
     "element-ui": "^2.4.1",
     "loglevel": "^1.4.1",
     "screenfull": "^3.3.2",
-    "video.js": "^7.0.3",
     "videojs-contrib-hls": "^5.14.1",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",

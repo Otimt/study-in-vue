@@ -1,5 +1,5 @@
 <script>
-    import avController from  "../part/av-controller.vue";
+    import avController from  "../part/av-controller-videojs.vue";
 
 
     export default {
@@ -61,6 +61,9 @@
                 document.addEventListener("pageChanged",this.pageChangedHandle)
             },
             //pdf目录点击了，通知本组件切换pdf页数
+            isPdfReady(){
+                return this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication && this.pdfFrameWin.PDFViewerApplication.eventBus;
+            },
             pageChangedHandle(){
                 this.pdfPage = this.getPdfPage();
                 var time2pdf = this.activeSectionObj.time2pdf,
@@ -70,22 +73,27 @@
                 this.$refs.video.vSeek(time);
             },
             getPdfTotal(){
-                let numPagesDom = this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication;
-                if(!numPagesDom){
-                    return 0;
-                }else{
+                if(this.isPdfReady()){
                     return this.pdfFrameWin.PDFViewerApplication.pagesCount;
+                }else{
+                    return 0;
                 }
             },
             getPdfPage(){
-                return this.pdfFrameWin.PDFViewerApplication.page;
+                if(this.isPdfReady()) {
+                    return this.pdfFrameWin.PDFViewerApplication.page;
+                }else{
+                    return 0;
+                }
             },
             pdfGoto(num){
                 this.pdfPage = num;
-                this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch('pagenumberchanged', {
-                    source: self,
-                    value: num
-                });
+                if(this.isPdfReady()) {
+                    this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch('pagenumberchanged', {
+                        source: self,
+                        value: num
+                    });
+                }
             },
             pdfPrev(){
                 if(this.pdfPage > 1) {
@@ -94,7 +102,7 @@
                 }
             },
             pdfNext(){
-                if(this.pdfFrameWin && this.pdfFrameWin.PDFViewerApplication && this.pdfFrameWin.PDFViewerApplication.eventBus) {
+                if(this.isPdfReady()) {
                     this.pdfFrameWin.PDFViewerApplication.eventBus.dispatch("nextpage")
                 }
             },
@@ -142,7 +150,7 @@
 </style>
 <style>
     /*覆盖*/
-    .video-js{height:100%;}
+    .audio-orig .video-js{height:100%;width:100%;background:transparent;}
 </style>
 <template>
     <div class="w h">
@@ -161,6 +169,6 @@
         <div class="course-pdf w h">
             <iframe @load="setPdfFrameDoc" id="pdfFrame" :src="'../iframe/pdf/web/viewer.html?pdf='+activeSectionObj.pdf" class="w h" frameborder="0"></iframe>
         </div>
-        <av-controller ref="video" :activeSectionObj="activeSectionObj" @timeupdate="setCurrentTime" :class="'pos-abs b0 l0 w '+ (autoSync?'h':'h60')"></av-controller>
+        <av-controller ref="video" :activeSectionObj="activeSectionObj" @timeupdate="setCurrentTime" :class="'audio-orig pos-abs b0 l0 w '+ (autoSync?'h':'h60')"></av-controller>
     </div>
 </template>

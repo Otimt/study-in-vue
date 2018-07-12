@@ -5,8 +5,8 @@
 
 
     import { videojs,videoPlayer } from 'vue-video-player'
+    window.videojs = videojs;//给videojs m3u8插件使用
 //    import  'videojs-contrib-hls';
-    window.videojs = videojs;
     require('videojs-contrib-hls/dist/videojs-contrib-hls');
 
     export default {
@@ -18,6 +18,7 @@
             'video-player':videoPlayer
         },
         mounted () {
+//            console.log(this.$route)
             this.startTimeSlider();
 //            this.$refs.video.addEventListener("loadstart", this.vSetSpeed);
 //            this.$refs.video.addEventListener("durationchange",this.setDuration);
@@ -43,15 +44,21 @@
                 volume:100,//音量
                 status:'',//状态
                 canplay:false,
+                isTimeDraging:false,//时间条正在拖动
                 autoSync:this.$store.state.selectedPDFModel!='auto',
             }
         },
         watch:{
-            "autoSync":"setSelectedPDFModel"
+            "$route":"resetSelectedPDFModel",
+            "autoSync":"setSelectedPDFModel",
         },
         methods: {
-
             //设置数据
+            resetSelectedPDFModel(){
+                console.log("重设pdf模式")
+                this.$store.commit("SET_PDF_MODEL","auto");
+                this.autoSync = false;
+            },
             setSelectedPDFModel(){
                 if(!this.autoSync){
                     this.$store.commit("SET_PDF_MODEL","auto");
@@ -60,8 +67,11 @@
                 }
             },
             setTime(){
-                this.vTime = Number(this.$refs.video.player.currentTime());
-                this.$emit('timeupdate',this.vTime);
+                var cTime = Number(this.$refs.video.player.currentTime())
+                if(!this.isTimeDraging){
+                    this.vTime = cTime;
+                }
+                this.$emit('timeupdate',cTime);
             },
             setDuration(){
                 this.duration = Number(this.$refs.video.player.duration());
@@ -70,7 +80,8 @@
             setStatus(type){
                 this.status = type;
             },
-            onPlayerPlay(){
+            onPlayerPlay(e){
+                console.log(e);
                 this.setStatus("play")
             },
             onPlayerPause(){
@@ -93,10 +104,12 @@
                 this.volume = video.volume*100
             },
             startTimeSlider(){
-                this.stopTimeSlider();
+                this.isTimeDraging = false;
+//                this.stopTimeSlider();
 //                this.$refs.video.addEventListener("timeupdate",this.setTime);
             },
             stopTimeSlider(){
+                this.isTimeDraging = true;
 //                this.$refs.video.removeEventListener("timeupdate",this.setTime);
             },
             sliderDragStart(e){
@@ -193,6 +206,9 @@
                     sources: [{
                         type: type,
                         src: src
+                    },{
+                        type: "video/mp4",
+                        src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
                     }],
                 }
             }

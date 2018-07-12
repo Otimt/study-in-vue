@@ -59,6 +59,21 @@ See https://github.com/adobe-type-tools/cmap-resources
         left:0;/*不管页面宽度，pdf始终占满，使pdf不受大纲的影响*/
       }
 
+      /*大纲放到右侧显示*/
+      #outerContainer{
+        overflow:hidden;
+      }
+      html[dir="ltr"] #sidebarContainer{
+        left:initial;
+        right:-200px;
+        right:calc(-1 * var(--sidebar-width));
+        transition-property:right;
+      }
+      html[dir="ltr"] #outerContainer.sidebarOpen #sidebarContainer{
+        left:initial;
+        right:0;
+      }
+
 	</style>
 	<script src="../build/pdf.js"></script>
     <script src="viewer.js?v=6141119"></script>
@@ -418,7 +433,6 @@ See https://github.com/adobe-type-tools/cmap-resources
                   winH =  document.documentElement.clientHeight;
           if(winW/winH > 16/9){
             //pdf竖向排列
-            console.log("竖")
             document.getElementById("scrollVertical").click();
             //设置pdf适合页面
             window.PDFViewerApplication.eventBus.dispatch('scalechanged', {
@@ -428,7 +442,6 @@ See https://github.com/adobe-type-tools/cmap-resources
             document.getElementById("viewerContainer").classList.remove("scrollHorizontal");
           }else{
             //pdf横向排列
-            console.log("横")
             document.getElementById("scrollHorizontal").click()
             //设置pdf适合页面
             window.PDFViewerApplication.eventBus.dispatch('scalechanged', {

@@ -32,11 +32,11 @@
 </script>
 <style>
     /*覆盖*/
-    .video-js{width:100%;height:100%;}
+    .video-orig .video-js{width:100%;height:100%;}
 </style>
 <template>
     <div class="w h hide-overflow pos-rel bg-black">
-        <av-controller class="video-player vjs-custom-skin h"
+        <av-controller class="video-orig h"
                     :activeSectionObj="activeSectionObj"
                       ref="videoPlayer"
                       @timeupdate="setCurrentTime($event)"
