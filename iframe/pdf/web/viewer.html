@@ -462,6 +462,16 @@ See https://github.com/adobe-type-tools/cmap-resources
         window.PDFViewerApplication.eventBus.on('pagesloaded', function (evt) {
           setHV();
         });
+
+        //iframe里的鼠标移动，通知外层，鼠标有移动----------------------------------------------------
+        function sendMousemoveToParentWindow(){
+          var topDoc = window.top.document,
+                  event = topDoc.createEvent('HTMLEvents');
+          // initEvent接受3个参数：// 事件类型，是否冒泡，是否阻止浏览器的默认行为
+          event.initEvent("pdfPageMousemove", true, true);
+          topDoc.dispatchEvent(event);
+        }
+        window.addEventListener('mousemove', sendMousemoveToParentWindow);
       }
 
     })()
