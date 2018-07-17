@@ -2,11 +2,11 @@
     import ComponentLrc from  "./lrc.vue";
     import ComponentSpeed from  "./play-speed.vue";
     import pdfController from  "./pdf-controller.vue";
+    import TestInPlay from  "../test/test-in-play.vue";
 
 
     import { videojs,videoPlayer } from 'vue-video-player'
     window.videojs = videojs;//给videojs m3u8插件使用
-//    import  'videojs-contrib-hls';
     require('videojs-contrib-hls/dist/videojs-contrib-hls');
 
     export default {
@@ -15,26 +15,14 @@
             'lrc': ComponentLrc,
             'speed': ComponentSpeed,
             'pdf-controller':pdfController,
-            'video-player':videoPlayer
+            'video-player':videoPlayer,
+            'test-in-play':TestInPlay,
         },
         mounted () {
-//            console.log(this.$route)
             this.startTimeSlider();
-//            this.$refs.video.addEventListener("loadstart", this.vSetSpeed);
-//            this.$refs.video.addEventListener("durationchange",this.setDuration);
-//            this.$refs.video.addEventListener("volumechange",this.setVolume);
-//            this.$refs.video.addEventListener("pause",this.setStatus);
-//            this.$refs.video.addEventListener("play",this.setStatus);
-//            this.$refs.video.addEventListener("ended",this.setStatus);
         },
         beforeDestroy(){
             this.stopTimeSlider();
-//            this.$refs.video.removeEventListener("loadstart", this.vSetSpeed);
-//            this.$refs.video.removeEventListener("durationchange",this.setDuration);
-//            this.$refs.video.removeEventListener("volumechange",this.setVolume);
-//            this.$refs.video.removeEventListener("pause",this.setStatus);
-//            this.$refs.video.removeEventListener("play",this.setStatus);
-//            this.$refs.video.removeEventListener("ended",this.setStatus);
         },
         data(){
             return {
@@ -153,6 +141,7 @@
                 console.log("跳到"+num)
                 this.$refs.video.player.currentTime(num) ;
             },
+
             /**
              * 时间秒数格式化
              * @param s 时间戳（单位：秒）
@@ -206,9 +195,6 @@
                     sources: [{
                         type: type,
                         src: src
-                    },{
-                        type: "video/mp4",
-                        src: "https://cdn.theguardian.tv/webM/2015/07/20/150716YesMen_synd_768k_vp8.webm"
                     }],
                 }
             }
@@ -332,5 +318,9 @@
                 <div class="vjs-modal-dialog-content" role="document"></div>
             </div>
         </div>
+        <test-in-play @showtestandpause="vPause()" @hidetestandcontinue="vPlay()" v-if="activeSectionObj.time2test" :activeSectionObj="activeSectionObj" :time="parseInt(vTime)"></test-in-play>
     </div>
 </template>
+
+
+

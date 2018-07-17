@@ -3,6 +3,8 @@
     import ComponentAudio from "../components/top-bar-study-custom/audio-orig.vue";
     import ComponentWork from "../components/top-bar-study-custom/homework.vue";
     import ComponentPdf from "../components/top-bar-study-custom/pdf.vue";
+    import ComponentTest from "../components/top-bar-study-custom/test.vue";
+
 
     import Feedback from "../components/part/feedback.vue";
 
@@ -188,6 +190,7 @@
             'component-audio': ComponentAudio,
             'component-work': ComponentWork,
             'component-pdf': ComponentPdf,
+            'component-test':ComponentTest,
             'feedback': Feedback,
         }
     }
@@ -327,7 +330,9 @@
                     <component-audio v-else-if="activeSectionObj && activeSectionObj.type==='audio'"  :activeSectionObj="activeSectionObj"></component-audio>
                     <component-work v-else-if="activeSectionObj && activeSectionObj.type==='work'"  :activeSectionObj="activeSectionObj"></component-work>
                     <component-pdf v-else-if="activeSectionObj && activeSectionObj.type==='pdf'"  :activeSectionObj="activeSectionObj"></component-pdf>
+                    <component-test  v-else-if="activeSectionObj && activeSectionObj.type==='test'"  :activeSectionObj="activeSectionObj"></component-test>
                 </div>
+
             </el-container>
         </el-container>
     </el-container>

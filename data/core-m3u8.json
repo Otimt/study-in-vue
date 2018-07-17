@@ -15,7 +15,7 @@
 	"chapterList":[
 		{
 			"title":"1、课程概述",
-			"progress":"100%",
+			"progress":"50%",
 			"sectionList":[
 				{
 					"title":"课程概述",
@@ -24,6 +24,10 @@
 					"time2pdf":[
 						0,6,19,29,59
 					],
+					"time2test":{
+						"url":"../data/1-3.json",
+						"timeList":[2,20,40]
+					},
 					"lrc":"../data/1-1.lrc",
 					"mp3":"../data/1-1.mp3",
 					"pdf":"../../../data/1-1.pdf"
@@ -33,7 +37,11 @@
 					"type":"video",
 					"m3u8":"http://admin-flv.bdqn.dev.cn/yk-kgc-gx30101/t3/1101/segments.m3u8",
 					"m3u8-local":"../data/1105/segments.m3u8"
-					
+				},{
+					"title":"测试题",
+					"progress":"20%",
+					"type":"test",
+					"testDataUrl":"../data/1-3.json"
 				}
 			]
 		},{

@@ -12,11 +12,6 @@
                 //固定参数===================================================
                 pdfFrameWin:null,
                 pdfFrameDoc:null,
-//                pdfPage:1,//pdf当前页
-//                pdfTotal:0,//pdf总页数，不为0，表示pdf已初始化完毕
-
-
-
             };
         },
         computed: {
