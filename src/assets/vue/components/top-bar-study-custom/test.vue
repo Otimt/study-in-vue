@@ -4,7 +4,7 @@
     import ComponenSingleChoice from "../test/single-choice.vue";
     import axios from 'axios'
     export default {
-        props: ['activeSectionObj'],
+        props: ['activeSectionObj','nextSectionObj'],
         data: function () {
             return {
                 curQuesNum:0,
@@ -41,11 +41,19 @@
     .test-box .el-checkbox{color:#bbb;}
 </style>
 <template>
-<div class="w h" v-loading="!questionList">
-    <div class="w h test-box pt20 pb20 pl50 pr50" v-for="(question,index) in questionList" v-show="curQuesNum===index">
+<div class="w h pos-rel" v-loading="!questionList">
+    <div v-if="curQuesNum>=questionList.length" class="ac white f16 pt100">
+        <div>您已完成全部测试</div>
+        <el-button @click="nextSection()" class="mt50" v-if="nextSectionObj">进入下一节学习</el-button>
+    </div>
+    <div v-else class="pos-abs t0 r0 pt10 pr50 pl50 white f16">
+        第{{curQuesNum+1}}题/共{{questionList.length}}题
+    </div>
+    <div class="w h test-box pt20 pb20 pl50 pr50 bs-b" v-for="(question,index) in questionList" v-show="curQuesNum===index">
         <componen-drag-choice @next="nextQues()" :question="question" :index="index+1" :total="questionList.length" v-if="question.type==='drag-1-1'"></componen-drag-choice>
         <componen-multiple-choice @next="nextQues()" :question="question" :index="index+1" :total="questionList.length" v-else-if="question.type==='multiple'"></componen-multiple-choice>
         <componen-single-choice @next="nextQues()" :question="question" :index="index+1" :total="questionList.length" v-else-if="question.type==='single'"></componen-single-choice>
     </div>
+
 </div>
 </template>

@@ -330,7 +330,7 @@
                     <component-audio v-else-if="activeSectionObj && activeSectionObj.type==='audio'"  :activeSectionObj="activeSectionObj"></component-audio>
                     <component-work v-else-if="activeSectionObj && activeSectionObj.type==='work'"  :activeSectionObj="activeSectionObj"></component-work>
                     <component-pdf v-else-if="activeSectionObj && activeSectionObj.type==='pdf'"  :activeSectionObj="activeSectionObj"></component-pdf>
-                    <component-test  v-else-if="activeSectionObj && activeSectionObj.type==='test'"  :activeSectionObj="activeSectionObj"></component-test>
+                    <component-test @nextSection="goNextSection"  v-else-if="activeSectionObj && activeSectionObj.type==='test'"  :activeSectionObj="activeSectionObj" :nextSectionObj="nextSectionObj"></component-test>
                 </div>
 
             </el-container>
